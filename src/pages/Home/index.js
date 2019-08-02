@@ -1,21 +1,19 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
 
-import Home from './src/pages/Home';
+const instructions = Platform.select({
+  ios: 'ios Home ',
+  android: 'android Home',
+});
 
 
-export default class App extends Component {
-
-  componentDidMount() {
-    setTimeout(() => {
-      SplashScreen.hide();
-    }, 3000);
-  }
+export default class Home extends Component {
 
   render() {
     return (
-      <Home />
+      <View style={styles.container}>
+        <Text style={styles.instructions}>{instructions}</Text>
+      </View>
     );
   }
 }
@@ -26,11 +24,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
   },
   instructions: {
     textAlign: 'center',
