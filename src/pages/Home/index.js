@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-
+import { Button, Icon } from '@ant-design/react-native';
 
 const instructions = Platform.select({
   ios: 'ios Home ',
@@ -9,21 +9,17 @@ const instructions = Platform.select({
 
 
 export default class Home extends Component {
-  // static navigationOptions = {
-  //   tabBarIcon: ({ tintColor, focused }) => <TabBarIcon icon="tabBarHome" color={tintColor} focused={focused} />,
-  //   tabBarOnPress({ navigation, defaultHandler }) {
-  //     if (navigation.isFocused()) {
-  //       resetHandle();
-  //     } else {
-  //       reloadHandle();
-  //       defaultHandler();
-  //     }
-  //   },
-  // };
+  static navigationOptions = {
+    tabBarIcon: ({ tintColor, focused }) => <Icon name="home" size="md" color={tintColor} focused={focused} />,
+    // tabBarOnPress({ navigation, defaultHandler }) {
+    // },
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.instructions}>{instructions}</Text>
+        <Button type="primary">测试</Button>
       </View>
     );
   }
