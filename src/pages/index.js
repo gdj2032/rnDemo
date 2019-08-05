@@ -27,15 +27,6 @@ const Navigator = createBottomTabNavigator({
       borderTopColor: 'transparent',
     },
   },
-  navigationOptions: {
-    headerStyle: {
-      backgroundColor: '#f4511e',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  },
 });
 
 const mainRouteConfigMap = {

@@ -1,9 +1,9 @@
-import { createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import Part1 from './HomeNav/Part1';
 import Part2 from './HomeNav/Part2';
 import { themesColor } from '../../style';
 
-const HomeNavigator = createDrawerNavigator({
+const HomeNavigator = createStackNavigator({
   Part1: { screen: Part1 },
   Part2: { screen: Part2 },
 }, {

@@ -11,7 +11,9 @@ const routeConfigMap = {
   ...mainRouteConfigMap,
 };
 
-const Navigator = createStackNavigator(routeConfigMap);
+const Navigator = createStackNavigator(routeConfigMap, {
+  headerMode: 'none'
+});
 
 export default class App extends Component {
 

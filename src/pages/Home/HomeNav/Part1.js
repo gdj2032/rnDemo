@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 
 export default class Part1 extends Component {
   static navigationOptions = {
-    title: 'Part1',
+    headerTitle: 'Part1',
     // tabBarOnPress({ navigation, defaultHandler }) {
     // },
   };

@@ -12,7 +12,6 @@ const instructions = Platform.select({
 
 export default class Home extends Component {
   static navigationOptions = {
-    HeaderTitle: 'Home',
     tabBarIcon: ({ tintColor, focused }) => <Icon name="home" size="md" color={tintColor} focused={focused} />,
     // tabBarOnPress({ navigation, defaultHandler }) {
     // },
