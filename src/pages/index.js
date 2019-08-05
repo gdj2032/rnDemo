@@ -1,34 +1,46 @@
 import { createBottomTabNavigator } from 'react-navigation';
-import Home from './Home';
-import Part1 from './Part1';
-import Part2 from './Part2';
-import Part3 from './Part3';
+import Home from './Home/Home';
+import Star from './Star';
+import Fire from './Fire';
+import User from './User';
+import { themesColor } from '../style';
+import HomeNavigator from './Home';
 
 const Navigator = createBottomTabNavigator({
   Home: { screen: Home },
-  Part1: { screen: Part1 },
-  Part2: { screen: Part2 },
-  Part3: { screen: Part3 },
+  Star: { screen: Star },
+  Fire: { screen: Fire },
+  User: { screen: User },
 }, {
-  backBehavior: 'none',
-  order: ['Home', 'Part1', 'Part2', 'Part3'],
+  backBehavior: 'history',
+  // order: ['Home', 'Star', 'Fire', 'User'],
   initialRouteName: 'Home',
   lazy: false,
-  // tabBarOptions: {
-  //   showLabel: false,
-  //   activeTintColor: themes.color.normalTextColor,
-  //   activeBackgroundColor: '#FFF',
-  //   inactiveColor: themes.color.gray,
-  //   inactiveBackgroundColor: '#FFF',
-  //   style: {
-  //     backgroundColor: '#FFF',
-  //     borderTopColor: 'transparent',
-  //   },
-  // },
+  tabBarOptions: {
+    showLabel: false,
+    activeTintColor: themesColor.blue,
+    activeBackgroundColor: themesColor.white,
+    inactiveColor: themesColor.gray,
+    inactiveBackgroundColor: themesColor.white,
+    style: {
+      backgroundColor: themesColor.white,
+      borderTopColor: 'transparent',
+    },
+  },
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  },
 });
 
 const mainRouteConfigMap = {
   Main: { screen: Navigator },
+  HomeNav: { screen: HomeNavigator },
 };
 
 export default mainRouteConfigMap;
