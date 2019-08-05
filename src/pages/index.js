@@ -1,7 +1,3 @@
-/**
- * Created by 混沌DM on 2018/3/12.
- */
-
 import { createBottomTabNavigator } from 'react-navigation';
 import Home from './Home';
 import Part1 from './Part1';

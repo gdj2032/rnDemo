@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 
+
 const instructions = Platform.select({
   ios: 'ios Home ',
   android: 'android Home',
@@ -8,7 +9,17 @@ const instructions = Platform.select({
 
 
 export default class Home extends Component {
-
+  // static navigationOptions = {
+  //   tabBarIcon: ({ tintColor, focused }) => <TabBarIcon icon="tabBarHome" color={tintColor} focused={focused} />,
+  //   tabBarOnPress({ navigation, defaultHandler }) {
+  //     if (navigation.isFocused()) {
+  //       resetHandle();
+  //     } else {
+  //       reloadHandle();
+  //       defaultHandler();
+  //     }
+  //   },
+  // };
   render() {
     return (
       <View style={styles.container}>

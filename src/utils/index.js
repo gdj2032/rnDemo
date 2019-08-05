@@ -1,4 +1,8 @@
 export {
   setSpText,
   scaleSize
-} from './scale'
+} from './scale';
+
+export {
+  screenTime
+} from './data';

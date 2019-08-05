@@ -1,21 +1,30 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import { createStackNavigator } from 'react-navigation';
 
-import Home from './src/pages/Home';
+import mainRouteConfigMap from './src/pages';
+import { screenTime } from './src/utils';
 
+const routeConfigMap = {
+  ...mainRouteConfigMap,
+};
+
+const Navigator = createStackNavigator(routeConfigMap, {
+  headerMode: 'none',
+});
 
 export default class App extends Component {
 
   componentDidMount() {
     setTimeout(() => {
       SplashScreen.hide();
-    }, 3000);
+    }, screenTime);
   }
 
   render() {
     return (
-      <Home />
+      <Navigator />
     );
   }
 }
