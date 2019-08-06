@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import { Button, Icon } from '@ant-design/react-native';
+import { themesColor } from '../../style';
 
 export default class User extends Component {
   static navigationOptions = {
@@ -11,7 +12,7 @@ export default class User extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>User</Text>
       </View>
     );
@@ -19,5 +20,8 @@ export default class User extends Component {
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    backgroundColor: themesColor.backgroundColor,
+  },
 });

@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from 'react-navigation';
-import Home from './Home/Home';
+import { Icon } from '@ant-design/react-native';
+import Home from './Home';
 import Star from './Star';
 import Fire from './Fire';
 import User from './User';
 import { themesColor } from '../style';
-import HomeNavigator from './Home';
 
 const Navigator = createBottomTabNavigator({
   Home: { screen: Home },
@@ -13,7 +13,7 @@ const Navigator = createBottomTabNavigator({
   User: { screen: User },
 }, {
   backBehavior: 'history',
-  // order: ['Home', 'Star', 'Fire', 'User'],
+  order: ['Home', 'Star', 'Fire', 'User'],
   initialRouteName: 'Home',
   lazy: false,
   tabBarOptions: {
@@ -29,9 +29,26 @@ const Navigator = createBottomTabNavigator({
   },
 });
 
+// Navigator.navigationOptions = ({ navigation }) => {
+//   const { routeName } = navigation.state.routes[navigation.state.index];
+//   const headerTitle = routeName;
+//   headerStyle = {
+//     backgroundColor: themesColor.white,
+//   };
+//   headerTintColor = themesColor.black;
+//   headerTitleStyle = {
+//     fontWeight: 'bold',
+//   };
+//   return {
+//     headerTitle,
+//     headerStyle,
+//     headerTintColor,
+//     headerTitleStyle,
+//   };
+// };
+
 const mainRouteConfigMap = {
   Main: { screen: Navigator },
-  HomeNav: { screen: HomeNavigator },
 };
 
 export default mainRouteConfigMap;

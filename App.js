@@ -3,17 +3,17 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import { createStackNavigator, SafeAreaView } from 'react-navigation';
 
-import mainRouteConfigMap from './src/pages';
 import { screenTime } from './src/utils';
-// import Header from './src/components/Header';
+import mainRouteConfigMap from './src/pages';
+import { themesColor } from './src/style';
 
-const routeConfigMap = {
-  ...mainRouteConfigMap,
+const routes = {
+  ...mainRouteConfigMap
 };
 
-const Navigator = createStackNavigator(routeConfigMap, {
+const Navigator = createStackNavigator(routes, {
   headerMode: 'none'
-});
+})
 
 export default class App extends Component {
 
@@ -35,6 +35,6 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: themesColor.backgroundColor,
   }
 });
