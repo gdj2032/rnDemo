@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-navigation';
 import { themesColor } from '../../style';
 import Header from '../../components/Header';
 import TextInputButton from '../../components/TextInputButton';
+import SwiperItem from '../../components/SwiperItem';
 
 const instructions = Platform.select({
   ios: 'ios Home ',
@@ -28,23 +29,23 @@ export default class Home extends Component {
   render() {
     console.log(this.props)
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <Header
           LeftItem={() => <Icon name={'audio'} size="md" color={themesColor.black}/>}
           CenterItem={() => <TextInputButton/>}
           defaultItem={true}
         />
         <ScrollView>
+          <SwiperItem />
           <Text style={styles.instructions}>{instructions}</Text>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: themesColor.backgroundColor,
     paddingTop: 5,
     paddingLeft: 10,
