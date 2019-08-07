@@ -64,14 +64,18 @@ export default class Home extends Component {
     console.log('contentHeight-->' + contentHeight);
     if(y + height >= contentHeight-20 ){
       this.setState({
-        loadMore:true
+        loadMore: true
       });
     }
   }
 
   //下拉刷新
   _onRefresh() {
-    console.log(123)
+    console.log(123);
+    this.setState({isRefreshing: true});
+    setTimeout(() => {
+      this.setState({isRefreshing: false});
+    }, 3000);
   }
 
   render() {
@@ -88,8 +92,9 @@ export default class Home extends Component {
             <RefreshControl
               refreshing={isRefreshing}
               onRefresh={this._onRefresh.bind(this)}
+              enabled={true}
               tintColor={themesColor.red}
-              title="加载中..."
+              title={'加载中...'}
               titleColor={themesColor.blue}
               colors={[themesColor.red]}
               progressBackgroundColor={themesColor.white}
