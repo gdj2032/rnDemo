@@ -6,12 +6,31 @@ import { themesColor } from '../../style';
 import Header from '../../components/Header';
 import TextInputButton from '../../components/TextInputButton';
 import SwiperItem from '../../components/SwiperItem';
+import NavBtnItem from '../../components/NavBtnItem';
 
-const instructions = Platform.select({
-  ios: 'ios Home ',
-  android: 'android Home',
-});
-
+const navBtn = [
+  {
+    text: '每日推荐',
+    icon_name: 'calendar',
+    nav: '',
+  },{
+    text: '歌单',
+    icon_name: 'menu',
+    nav: '',
+  },{
+    text: '排行榜',
+    icon_name: 'align-left',
+    nav: '',
+  },{
+    text: '电台',
+    icon_name: 'customer-service',
+    nav: '',
+  },{
+    text: '直播',
+    icon_name: 'play-square',
+    nav: '',
+  },
+];
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -37,7 +56,11 @@ export default class Home extends Component {
         />
         <ScrollView>
           <SwiperItem />
-          <Text style={styles.instructions}>{instructions}</Text>
+          <View style={styles.navBtn}>
+            {
+              navBtn.map(ele => <NavBtnItem key={ele.text} text={ele.text} icon_name={ele.icon_name} />)
+            }
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
@@ -51,9 +74,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
-  instructions: {
-    color: '#333333',
-    marginBottom: 5,
-    fontSize: 24,
-  },
+  navBtn: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 });

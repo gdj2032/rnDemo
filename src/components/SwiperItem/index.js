@@ -1,17 +1,18 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import Swiper from "react-native-swiper";
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import Swiper from 'react-native-swiper';
 import {themesColor} from '../../style';
 
 export default class SwiperItem extends Component {
   render() {
+    const { style, height, autoplayTimeout } = this.props;
     return (
       <Swiper
-        style={styles.wrapper}
+        style={[styles.wrapper, style]}
         // showsButtons
-        height={120}
+        height={height || 120}
         autoplay={true}
-        autoplayTimeout={5}
+        autoplayTimeout={autoplayTimeout || 5}
         paginationStyle={{ bottom: 10 }} //小圆点的位置：距离底部10p
         dot={//未选中的圆点样式
           <View
@@ -43,32 +44,35 @@ export default class SwiperItem extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {},
+  wrapper: {
+    marginTop: 10,
+    marginBottom: 10,
+  },
   slide1: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#9DD6EB",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB',
     borderRadius: 20
   },
   slide2: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#97CAE5",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5',
     borderRadius: 20
   },
   slide3: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#92BBD9",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9',
     borderRadius: 20
   },
   text: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 30,
-    fontWeight: "bold"
+    fontWeight: 'bold'
   },
   dot_style: {
     width: 6,
@@ -76,5 +80,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginLeft: 4,
     marginRight: 4,
+    marginBottom: 5,
   }
 });
