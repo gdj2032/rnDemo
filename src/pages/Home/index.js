@@ -7,30 +7,7 @@ import Header from '../../components/Header';
 import TextInputButton from '../../components/TextInputButton';
 import SwiperItem from '../../components/SwiperItem';
 import NavBtnItem from '../../components/NavBtnItem';
-
-const navBtn = [
-  {
-    text: '每日推荐',
-    icon_name: 'calendar',
-    nav: '',
-  },{
-    text: '歌单',
-    icon_name: 'menu',
-    nav: '',
-  },{
-    text: '排行榜',
-    icon_name: 'align-left',
-    nav: '',
-  },{
-    text: '电台',
-    icon_name: 'customer-service',
-    nav: '',
-  },{
-    text: '直播',
-    icon_name: 'play-square',
-    nav: '',
-  },
-];
+import SpacerItem from '../../components/SpacerItem';
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -41,12 +18,40 @@ export default class Home extends Component {
     // tabBarOnPress({ navigation, defaultHandler }) {
     // },
   };
-  onSetting = () => {
-    console.log(123)
+
+  state = {
+    navBtn: [
+      {
+        text: '每日推荐',
+        icon_name: 'calendar',
+        nav: '',
+      },{
+        text: '歌单',
+        icon_name: 'menu',
+        nav: '',
+      },{
+        text: '排行榜',
+        icon_name: 'align-left',
+        nav: '',
+      },{
+        text: '电台',
+        icon_name: 'customer-service',
+        nav: '',
+      },{
+        text: '直播',
+        icon_name: 'play-square',
+        nav: '',
+      },
+    ],
+    recommendSongList: '推荐歌单',
+    songListSquare: {
+      name: '歌单广场',
+      nav: ''
+    }
   }
 
   render() {
-    console.log(this.props)
+    const { navBtn, recommendSongList, songListSquare } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <Header
@@ -61,6 +66,7 @@ export default class Home extends Component {
               navBtn.map(ele => <NavBtnItem key={ele.text} text={ele.text} icon_name={ele.icon_name} />)
             }
           </View>
+          <SpacerItem />
         </ScrollView>
       </SafeAreaView>
     );
