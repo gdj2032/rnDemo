@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, RefreshControl} from 'react-native';
 import { Button, Icon } from '@ant-design/react-native';
 import { SafeAreaView } from 'react-navigation';
 import { themesColor } from '../../style';
@@ -20,6 +20,8 @@ export default class Home extends Component {
   };
 
   state = {
+    isRefreshing: false,
+    loadMore: false,
     navBtn: [
       {
         text: '每日推荐',
@@ -50,8 +52,30 @@ export default class Home extends Component {
     }
   }
 
+  _onScroll(event) {
+    if(this.state.loadMore){
+      return;
+    }
+    let y = event.nativeEvent.contentOffset.y;
+    let height = event.nativeEvent.layoutMeasurement.height;
+    let contentHeight = event.nativeEvent.contentSize.height;
+    console.log('offsetY-->' + y);
+    console.log('height-->' + height);
+    console.log('contentHeight-->' + contentHeight);
+    if(y + height >= contentHeight-20 ){
+      this.setState({
+        loadMore:true
+      });
+    }
+  }
+
+  //下拉刷新
+  _onRefresh() {
+    console.log(123)
+  }
+
   render() {
-    const { navBtn, recommendSongList, songListSquare } = this.state;
+    const { isRefreshing, navBtn, recommendSongList, songListSquare } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <Header
@@ -59,7 +83,21 @@ export default class Home extends Component {
           CenterItem={() => <TextInputButton/>}
           defaultItem={true}
         />
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={this._onRefresh.bind(this)}
+              tintColor={themesColor.red}
+              title="加载中..."
+              titleColor={themesColor.blue}
+              colors={[themesColor.red]}
+              progressBackgroundColor={themesColor.white}
+            />
+          }
+          onScroll={this._onScroll.bind(this)}
+          scrollEventThrottle={50}
+        >
           <SwiperItem />
           <View style={styles.navBtn}>
             {

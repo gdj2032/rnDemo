@@ -5,10 +5,10 @@ import {themesColor} from '../../style';
 
 export default class SwiperItem extends Component {
   render() {
-    const { style, height, autoplayTimeout } = this.props;
+    const { height, autoplayTimeout } = this.props;
     return (
       <Swiper
-        style={[styles.wrapper, style]}
+        style={styles.wrapper}
         // showsButtons
         height={height || 120}
         autoplay={true}

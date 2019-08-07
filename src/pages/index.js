@@ -18,7 +18,7 @@ const Navigator = createBottomTabNavigator({
   lazy: false,
   tabBarOptions: {
     showLabel: false,
-    activeTintColor: themesColor.blue,
+    activeTintColor: themesColor.red,
     activeBackgroundColor: themesColor.white,
     inactiveColor: themesColor.gray,
     inactiveBackgroundColor: themesColor.white,

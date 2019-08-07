@@ -6,7 +6,7 @@ export default class SpacerItem extends Component {
 
   render() {
     return (
-      <View style={styles.spacer}/>
+      <View style={styles.spacer}></View>
     );
   }
 }
