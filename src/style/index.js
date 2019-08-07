@@ -5,4 +5,5 @@ export const themesColor = {
   backgroundColor: '#FFF',
   white: '#FFFFFF',
   black: '#000',
+  red: '#FF3030',
 }
