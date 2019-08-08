@@ -4,6 +4,7 @@ import Home from './Home';
 import Star from './Star';
 import Fire from './Fire';
 import User from './User';
+import Test from './Test';
 import { themesColor } from '../style';
 
 const Navigator = createBottomTabNavigator({
@@ -11,9 +12,10 @@ const Navigator = createBottomTabNavigator({
   Star: { screen: Star },
   Fire: { screen: Fire },
   User: { screen: User },
+  Test: { screen: Test },
 }, {
   backBehavior: 'history',
-  order: ['Home', 'Star', 'Fire', 'User'],
+  order: ['Home', 'Star', 'Fire', 'User', 'Test'],
   initialRouteName: 'Home',
   lazy: false,
   tabBarOptions: {
