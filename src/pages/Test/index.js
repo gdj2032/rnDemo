@@ -12,41 +12,60 @@ export default class Test extends Component {
   };
 
   state = {
-    data: [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3],
-    data2: [],
+    data: [{key: '1'}, {key: '12'}, {key: '122'}, {key: '11'}, {key: '12s2'}, {key: '1aa1'}, {key: '1aqaa1'}, {key: '1aqaaaa1'}, {key: '1aasqaa1'}],
   }
   onPullRelease(resolve) {
     //刷新完毕，重置下拉刷新，再次更新刷新和加载更多状态
     console.log('onPullRelease')
     setTimeout(() => {
+      let data = this.state.data;
+      data.push({key: 'q'});
+      this.setState({data})
       resolve();
     }, 3000);
   }
   moreLoading() {
     setTimeout(() => {
-      let data2 = this.state.data2;
-      data2.push('q');
-      this.setState({data2})
+      let data = this.state.data;
+      data.push({key: 'q'});
+      this.setState({data})
     }, 1000);
   }
 
+  dataItem = () => {
+    const { data } = this.state;
+    return (
+      data.map((ele, index) => <Text key={index} style={styles.text}>{ele.key}</Text>)
+    )
+  }
+
   render() {
-    const { data, data2 } = this.state;
+    const { data } = this.state;
     return (
       <View style={styles.container}>
-        <PullScrollView
-          style={{flex: 1, backgroundColor: 'white'}}
+        {/* <PullScrollView
+          isScrollView={true}
+          style={{backgroundColor: 'white'}}
           onPullRelease={this.onPullRelease.bind(this)}
           isNeedMoreLoading={true}
           moreLoading={this.moreLoading.bind(this)}
         >
           {
-            data.map((ele, index) => <Text key={index} style={styles.text}>{ele}</Text>)
+            this.dataItem()
           }
-          {
-            data2.length > 0 && data2.map((ele, index) => <Text key={index} style={styles.text}>{ele}</Text>)
-          }
-        </PullScrollView>
+        </PullScrollView> */}
+        <PullScrollView
+          isScrollView={false}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={item => item}
+          numColumns={1}
+          data={data}
+          renderItem={({item}, index) => <Text index={index} style={styles.text}>{item.key}</Text>}
+          style={{ backgroundColor: 'white' }}
+          onPullRelease={this.onPullRelease.bind(this)}
+          isNeedMoreLoading={true}
+          moreLoading={this.moreLoading.bind(this)}
+        />
       </View>
     );
   }
@@ -58,7 +77,7 @@ const styles = StyleSheet.create({
     backgroundColor: themesColor.backgroundColor,
   },
   text: {
-    height: 50,
+    height: 100,
     textAlign: 'center',
     borderWidth: 1,
     borderBottomColor: 'black',

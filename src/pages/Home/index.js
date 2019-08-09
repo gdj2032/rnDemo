@@ -8,6 +8,7 @@ import TextInputButton from '../../components/TextInputButton';
 import SwiperItem from '../../components/SwiperItem';
 import NavBtnItem from '../../components/NavBtnItem';
 import SpacerItem from '../../components/SpacerItem';
+import PullScrollView from '../../components/PullScrollView';
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -20,8 +21,6 @@ export default class Home extends Component {
   };
 
   state = {
-    isRefreshing: false,
-    loadMore: false,
     navBtn: [
       {
         text: '每日推荐',
@@ -52,34 +51,16 @@ export default class Home extends Component {
     }
   }
 
-  _onScroll(event) {
-    if(this.state.loadMore){
-      return;
-    }
-    let y = event.nativeEvent.contentOffset.y;
-    let height = event.nativeEvent.layoutMeasurement.height;
-    let contentHeight = event.nativeEvent.contentSize.height;
-    console.log('offsetY-->' + y);
-    console.log('height-->' + height);
-    console.log('contentHeight-->' + contentHeight);
-    if(y + height >= contentHeight-20 ){
-      this.setState({
-        loadMore: true
-      });
-    }
-  }
-
-  //下拉刷新
-  _onRefresh() {
-    console.log(123);
-    this.setState({isRefreshing: true});
+  onPullRelease(resolve) {
+    //刷新完毕，重置下拉刷新，再次更新刷新和加载更多状态
+    console.log('onPullRelease')
     setTimeout(() => {
-      this.setState({isRefreshing: false});
+      resolve();
     }, 3000);
   }
 
   render() {
-    const { isRefreshing, navBtn, recommendSongList, songListSquare } = this.state;
+    const { navBtn, recommendSongList, songListSquare } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <Header
@@ -87,21 +68,8 @@ export default class Home extends Component {
           CenterItem={() => <TextInputButton/>}
           defaultItem={true}
         />
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={this._onRefresh.bind(this)}
-              enabled={true}
-              tintColor={themesColor.red}
-              title={'加载中...'}
-              titleColor={themesColor.blue}
-              colors={[themesColor.red]}
-              progressBackgroundColor={themesColor.white}
-            />
-          }
-          onScroll={this._onScroll.bind(this)}
-          scrollEventThrottle={50}
+        <PullScrollView
+          onPullRelease={this.onPullRelease.bind(this)}
         >
           <SwiperItem />
           <View style={styles.navBtn}>
@@ -110,7 +78,7 @@ export default class Home extends Component {
             }
           </View>
           <SpacerItem />
-        </ScrollView>
+        </PullScrollView>
       </SafeAreaView>
     );
   }
@@ -118,6 +86,7 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: themesColor.backgroundColor,
     paddingTop: 5,
     paddingLeft: 10,

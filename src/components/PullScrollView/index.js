@@ -7,7 +7,8 @@ import {
   Animated,
   PanResponder,
   Easing,
-  ActivityIndicator
+  ActivityIndicator,
+  FlatList
 } from 'react-native';
 import PropTypes from 'prop-types';
 import LoadingMore from './LoadingMore';
@@ -49,6 +50,7 @@ export default class PullScrollView extends Component {
     pullOkMargin: 100, //下拉到位状态时距离顶部的高度
     isNeedMoreLoading: false, //是否需要上拉加载
     moreLoading: () => {}, // 上拉加载时执行的方法
+    isScrollView: true, // true； Scroll false： FlatList
   };
   static propTypes = {
     topRefreshHeight: PropTypes.number,
@@ -121,7 +123,11 @@ export default class PullScrollView extends Component {
         this.resetDefaultXYHandler();
       } else {
         // 恢复到默认位置
-        this.scroll.scrollTo({ x: 0, y: gesture.dy * -1 });
+        if(this.props.isScrollView) {
+          this.scroll.scrollTo({ x: 0, y: gesture.dy * -1 });
+        } else {
+          this.list.scrollToIndex({animated: true, index: 0, viewOffset: 0, viewPosition: 0});
+        }
       }
       return;
     } else if (isDownGesture(gesture.dx, gesture.dy)) {
@@ -351,6 +357,7 @@ export default class PullScrollView extends Component {
       this.setState({loadMore: false});
     }
   }
+
   render() {
     return (
       <View style={[styles.wrap, this.props.style]} onLayout={this.onLayout}>
@@ -365,7 +372,9 @@ export default class PullScrollView extends Component {
             {...this.panResponder.panHandlers}
             style={{ width: this.state.width, height: this.state.height }}
           >
-            <ScrollView
+            {
+              this.props.isScrollView ?
+              <ScrollView
               {...this.props}
               ref={c => {
                 this.scroll = c;
@@ -382,6 +391,32 @@ export default class PullScrollView extends Component {
                 />
               }
             </ScrollView>
+            :
+            <ScrollView
+              style={{ flex: 1 }}
+              onMomentumScrollEnd = {this._contentViewScroll}
+            >
+              <FlatList
+                ref={(c) => {
+                    this.list = c
+                }}
+                extraData={this.state}
+                {...this.props}
+                onScroll={this.onScroll}
+                scrollEnabled={this.state.scrollEnabled}
+                ListFooterComponent={() => {
+                  return(
+                    this.props.isNeedMoreLoading ?
+                    <LoadingMore
+                      isLoading={this.state.loadMore}
+                    />
+                    :
+                    <View/>
+                  )
+                }}
+              />
+            </ScrollView>
+            }
           </View>
         </Animated.View>
       </View>
