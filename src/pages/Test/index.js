@@ -37,7 +37,7 @@ export default class Test extends Component {
         <PullScrollView
           style={{flex: 1, backgroundColor: 'white'}}
           onPullRelease={this.onPullRelease.bind(this)}
-          isNeedLoadingMore={true}
+          isNeedMoreLoading={true}
           moreLoading={this.moreLoading.bind(this)}
         >
           {

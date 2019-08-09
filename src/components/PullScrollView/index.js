@@ -47,7 +47,7 @@ export default class PullScrollView extends Component {
   static defaultProps = {
     topRefreshHeight: 50, //顶部刷新视图的高度
     pullOkMargin: 100, //下拉到位状态时距离顶部的高度
-    isNeedLoadingMore: false, //是否需要上拉加载
+    isNeedMoreLoading: false, //是否需要上拉加载
     moreLoading: () => {}, // 上拉加载时执行的方法
   };
   static propTypes = {
@@ -336,7 +336,7 @@ export default class PullScrollView extends Component {
   }
   //监听滚到底部事件
   _contentViewScroll = (e) => {
-    if(!this.props.isNeedLoadingMore) {
+    if(!this.props.isNeedMoreLoading) {
       return;
     }
     const offsetY = e.nativeEvent.contentOffset.y; //滑动距离
@@ -376,7 +376,7 @@ export default class PullScrollView extends Component {
             >
               {this.props.children}
               {
-                this.props.isNeedLoadingMore &&
+                this.props.isNeedMoreLoading &&
                 <LoadingMore
                   isLoading={this.state.loadMore}
                 />
