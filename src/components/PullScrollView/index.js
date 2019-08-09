@@ -6,10 +6,11 @@ import {
   ScrollView,
   Animated,
   PanResponder,
-  Easing
+  Easing,
+  ActivityIndicator
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Icon } from "@ant-design/react-native";
+import LoadingMore from './LoadingMore';
 
 const defaultDuration = 300; //默认时长
 
@@ -46,6 +47,8 @@ export default class PullScrollView extends Component {
   static defaultProps = {
     topRefreshHeight: 50, //顶部刷新视图的高度
     pullOkMargin: 100, //下拉到位状态时距离顶部的高度
+    isNeedLoadingMore: false, //是否需要上拉加载
+    moreLoading: () => {}, // 上拉加载时执行的方法
   };
   static propTypes = {
     topRefreshHeight: PropTypes.number,
@@ -71,7 +74,7 @@ export default class PullScrollView extends Component {
       scrollEnabled: this.defaultScrollEnabled, //滚动启动
       height: 0,
       spinValue: new Animated.Value(0),
-      rotate: 0,
+      loadMore: false,
     });
     // 滚动监听
     this.onScroll = this.onScroll.bind(this);
@@ -175,8 +178,6 @@ export default class PullScrollView extends Component {
         easing: Easing.linear,
         duration: defaultDuration
       }).start();
-      // 刷新视图中的转圈动画开启
-      this.iconTrans();//icon旋转
     }
   }
 
@@ -247,14 +248,6 @@ export default class PullScrollView extends Component {
     return this.defaultTopRefreshRender(pulling, pullok, pullrelease);
   }
 
-  iconTrans = () => {
-    this.transTimer = setInterval(() => {
-      this.setState({
-        rotate: this.state.rotate + 10
-      })
-    }, 10);
-  }
-
   /**
     使用setNativeProps解决卡顿问题
     绘制默认的下拉刷新
@@ -292,7 +285,12 @@ export default class PullScrollView extends Component {
           height: this.props.topRefreshHeight
         }}
       >
-        <Icon name="loading-3-quarters" size="md" style={{transform: [{rotate: `${this.state.rotate}deg`}]}} />
+        <ActivityIndicator
+            size={'small'}
+            color={'#FF3030'}
+            animating={true}
+            style={{width: 15 ,height: 15}}
+        />
         <Text
           ref={c => {
             this.txtPulling = c;
@@ -338,12 +336,19 @@ export default class PullScrollView extends Component {
   }
   //监听滚到底部事件
   _contentViewScroll = (e) => {
+    if(!this.props.isNeedLoadingMore) {
+      return;
+    }
     const offsetY = e.nativeEvent.contentOffset.y; //滑动距离
     const contentSizeHeight = e.nativeEvent.contentSize.height; //scrollView contentSize高度
     const oriageScrollHeight = e.nativeEvent.layoutMeasurement.height; //scrollView高度
     console.log(offsetY, contentSizeHeight, oriageScrollHeight)
     if (Math.ceil(offsetY + oriageScrollHeight) >= Math.ceil(contentSizeHeight)){
-        console.log('上传滑动到底部事件');
+      console.log('上传滑动到底部事件');
+      this.setState({loadMore: true});
+      this.props.moreLoading();
+    } else {
+      this.setState({loadMore: false});
     }
   }
   render() {
@@ -370,6 +375,12 @@ export default class PullScrollView extends Component {
               onMomentumScrollEnd = {this._contentViewScroll}
             >
               {this.props.children}
+              {
+                this.props.isNeedLoadingMore &&
+                <LoadingMore
+                  isLoading={this.state.loadMore}
+                />
+              }
             </ScrollView>
           </View>
         </Animated.View>
