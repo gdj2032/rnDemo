@@ -9,6 +9,7 @@ import SwiperItem from '../../components/SwiperItem';
 import NavBtnItem from '../../components/NavBtnItem';
 import SpacerItem from '../../components/SpacerItem';
 import PullScrollView from '../../components/PullScrollView';
+import RecommendItem from '../../components/RecommendItem';
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -78,15 +79,16 @@ export default class Home extends Component {
             }
           </View>
           <SpacerItem />
-          <View style={styles.song}>
+          <View style={styles.recommend}>
             <View style={styles.songHeader}>
-              <View style={styles.recommend}>
+              <View style={styles.rec}>
                 <Text style={styles.rec_text}>{recommendSongList}</Text>
               </View>
               <TouchableOpacity style={styles.square}>
                 <Text style={styles.square_text}>{songListSquare.name}</Text>
               </TouchableOpacity>
             </View>
+            <RecommendItem />
           </View>
         </PullScrollView>
       </SafeAreaView>
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  song: {
+  recommend: {
     marginTop: 10,
   },
   songHeader: {
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  recommend: {
+  rec: {
   },
   rec_text: {
     fontSize: 18,
