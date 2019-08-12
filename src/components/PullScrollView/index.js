@@ -123,11 +123,7 @@ export default class PullScrollView extends Component {
         this.resetDefaultXYHandler();
       } else {
         // 恢复到默认位置
-        if(this.props.isScrollView) {
-          this.scroll.scrollTo({ x: 0, y: gesture.dy * -1 });
-        } else {
-          this.list.scrollToIndex({animated: true, index: 0, viewOffset: 0, viewPosition: 0});
-        }
+        this.scroll.scrollTo({ x: 0, y: gesture.dy * -1 });
       }
       return;
     } else if (isDownGesture(gesture.dx, gesture.dy)) {
@@ -395,6 +391,11 @@ export default class PullScrollView extends Component {
             <ScrollView
               style={{ flex: 1 }}
               onMomentumScrollEnd = {this._contentViewScroll}
+              onScroll={this.onScroll}
+              scrollEnabled={this.state.scrollEnabled}
+              ref={c => {
+                this.scroll = c;
+              }}
             >
               <FlatList
                 ref={(c) => {
@@ -402,8 +403,6 @@ export default class PullScrollView extends Component {
                 }}
                 extraData={this.state}
                 {...this.props}
-                onScroll={this.onScroll}
-                scrollEnabled={this.state.scrollEnabled}
                 ListFooterComponent={() => {
                   return(
                     this.props.isNeedMoreLoading ?
