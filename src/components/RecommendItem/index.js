@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { themesColor } from '../../style';
 import { CheckText, CheckNum } from '../../utils';
+import PlayNumber from '../PlayNumber';
 
 export default class RecommendItem extends Component {
 
@@ -28,10 +29,7 @@ export default class RecommendItem extends Component {
           }
           {
             number &&
-            <View style={styles.rightTop}>
-              <Icon name="play-circle" size="xxs" color={themesColor.white} />
-              <Text style={styles.rt_num}>{CheckNum(number)}</Text>
-            </View>
+            <PlayNumber style={styles.rightTop} num={CheckNum(number)}/>
           }
           {
             imageText &&
