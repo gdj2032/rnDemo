@@ -6,3 +6,8 @@ export {
 export {
   screenTime
 } from './data';
+
+export {
+  CheckText,
+  CheckNum
+} from './utils';

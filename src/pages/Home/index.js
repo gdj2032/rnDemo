@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
-import { Button, Icon } from '@ant-design/react-native';
+import { Flex, Icon } from '@ant-design/react-native';
 import { SafeAreaView } from 'react-navigation';
 import { themesColor } from '../../style';
 import Header from '../../components/Header';
@@ -9,7 +9,53 @@ import SwiperItem from '../../components/SwiperItem';
 import NavBtnItem from '../../components/NavBtnItem';
 import SpacerItem from '../../components/SpacerItem';
 import PullScrollView from '../../components/PullScrollView';
-import RecommendItem from '../../components/RecommendItem';
+import RecommendSongList from './RecommendSongList';
+
+const RecommendData = [
+  {
+    id: 1,
+    title: '2019云音乐热歌榜（持续更新）',
+    number: 1230450,
+    imageText: '热歌榜',
+    leftTop: 'global',
+    url: '',
+  },{
+    id: 2,
+    title: '一周影视热歌。。。发生的的风格',
+    number: 223022,
+    imageText: '一周影视热歌',
+    leftTop: 'smile',
+    url: '',
+  },{
+    id: 3,
+    title: '氛围乐 | 缠绵悱恻 恢弘壮阔',
+    number: 564213,
+    imageText: null,
+    leftTop: null,
+    url: '',
+  },{
+    id: 4,
+    title: '700首经典流行老哥【80/90/00后KTV金曲】',
+    number: 123056214,
+    imageText: null,
+    leftTop: null,
+    url: '',
+  },,{
+    id: 5,
+    title: '精选 | 网络热歌分享',
+    number: 65842510,
+    imageText: null,
+    leftTop: null,
+    url: '',
+  },,{
+    id: 6,
+    title: '怀旧 | 先下细数90后的回忆杀',
+    number: 321056,
+    imageText: null,
+    leftTop: null,
+    url: '',
+  },
+]
 
 export default class Home extends Component {
   static navigationOptions = {
@@ -45,7 +91,7 @@ export default class Home extends Component {
         nav: '',
       },
     ],
-    recommendSongList: '推荐歌单',
+    songList: '推荐歌单',
     songListSquare: {
       name: '歌单广场',
       nav: ''
@@ -61,7 +107,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { navBtn, recommendSongList, songListSquare } = this.state;
+    const { navBtn, songList, songListSquare } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <Header
@@ -79,17 +125,11 @@ export default class Home extends Component {
             }
           </View>
           <SpacerItem />
-          <View style={styles.recommend}>
-            <View style={styles.songHeader}>
-              <View style={styles.rec}>
-                <Text style={styles.rec_text}>{recommendSongList}</Text>
-              </View>
-              <TouchableOpacity style={styles.square}>
-                <Text style={styles.square_text}>{songListSquare.name}</Text>
-              </TouchableOpacity>
-            </View>
-            <RecommendItem />
-          </View>
+          <RecommendSongList
+            songList={songList}
+            songListSquare={songListSquare}
+            RecommendData={RecommendData}
+          />
         </PullScrollView>
       </SafeAreaView>
     );
@@ -108,33 +148,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  recommend: {
-    marginTop: 10,
-  },
-  songHeader: {
-    height: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  rec: {
-  },
-  rec_text: {
-    fontSize: 18,
-    fontWeight: '400',
-    color: themesColor.black
-  },
-  square: {
-    padding: 4,
-    paddingLeft: 8,
-    paddingRight: 8,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: themesColor.gray1,
-  },
-  square_text: {
-    fontSize: 12,
-    color: themesColor.black
   },
 });
