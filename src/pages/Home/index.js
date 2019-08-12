@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, ScrollView, RefreshControl} from 'react-native';
+import {Platform, StyleSheet, Text, View, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
 import { Button, Icon } from '@ant-design/react-native';
 import { SafeAreaView } from 'react-navigation';
 import { themesColor } from '../../style';
@@ -78,6 +78,16 @@ export default class Home extends Component {
             }
           </View>
           <SpacerItem />
+          <View style={styles.song}>
+            <View style={styles.songHeader}>
+              <View style={styles.recommend}>
+                <Text style={styles.rec_text}>{recommendSongList}</Text>
+              </View>
+              <TouchableOpacity style={styles.square}>
+                <Text style={styles.square_text}>{songListSquare.name}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </PullScrollView>
       </SafeAreaView>
     );
@@ -96,5 +106,33 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  }
+  },
+  song: {
+    marginTop: 10,
+  },
+  songHeader: {
+    height: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  recommend: {
+  },
+  rec_text: {
+    fontSize: 18,
+    fontWeight: '400',
+    color: themesColor.black
+  },
+  square: {
+    padding: 4,
+    paddingLeft: 8,
+    paddingRight: 8,
+    borderWidth: 1,
+    borderRadius: 20,
+    borderColor: themesColor.gray1,
+  },
+  square_text: {
+    fontSize: 12,
+    color: themesColor.black
+  },
 });
