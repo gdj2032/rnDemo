@@ -10,6 +10,7 @@ import NavBtnItem from '../../components/NavBtnItem';
 import SpacerItem from '../../components/SpacerItem';
 import PullScrollView from '../../components/PullScrollView';
 import RecommendSongList from './RecommendSongList';
+import NewSongDish from './NewSongDish';
 
 const RecommendData = [
   {
@@ -19,6 +20,7 @@ const RecommendData = [
     imageText: '热歌榜',
     leftTop: 'global',
     url: '',
+    req: require('../../image/bg1.png'),
   },{
     id: 2,
     title: '一周影视热歌。。。发生的的风格',
@@ -26,6 +28,7 @@ const RecommendData = [
     imageText: '一周影视热歌',
     leftTop: 'smile',
     url: '',
+    req: require('../../image/bg2.png'),
   },{
     id: 3,
     title: '氛围乐 | 缠绵悱恻 恢弘壮阔',
@@ -33,6 +36,7 @@ const RecommendData = [
     imageText: null,
     leftTop: null,
     url: '',
+    req: require('../../image/bg3.png'),
   },{
     id: 4,
     title: '700首经典流行老哥【80/90/00后KTV金曲】',
@@ -40,20 +44,23 @@ const RecommendData = [
     imageText: null,
     leftTop: null,
     url: '',
-  },,{
+    req: require('../../image/bg4.png'),
+  },{
     id: 5,
     title: '精选 | 网络热歌分享',
     number: 65842510,
     imageText: null,
     leftTop: null,
     url: '',
-  },,{
+    req: require('../../image/bg5.png'),
+  },{
     id: 6,
     title: '怀旧 | 先下细数90后的回忆杀',
     number: 321056,
     imageText: null,
     leftTop: null,
     url: '',
+    req: require('../../image/bg6.png'),
   },
 ]
 
@@ -130,6 +137,7 @@ export default class Home extends Component {
             songListSquare={songListSquare}
             RecommendData={RecommendData}
           />
+          <NewSongDish />
         </PullScrollView>
       </SafeAreaView>
     );

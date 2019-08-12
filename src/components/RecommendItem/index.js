@@ -14,7 +14,7 @@ export default class RecommendItem extends Component {
         <View style={styles.container}>
           <View style={{flex: 1}}>
             {
-              BackgroundImage() || <Image source={require('../../image/song.png')} style={styles.image_bg} />
+              (BackgroundImage && BackgroundImage()) || <Image source={require('../../image/song.png')} style={styles.image_bg} />
             }
           </View>
           {

@@ -32,7 +32,7 @@ export default class RecommendSongList extends Component {
               imageText={ele.imageText}
               BackgroundImage={() =>
                 <Image
-                  source={require('../../image/song.png')}
+                  source={ele.req}
                   style={styles.image_bg}
                 />
               }
