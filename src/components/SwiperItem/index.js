@@ -45,8 +45,7 @@ export default class SwiperItem extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 10,
-    marginBottom: 10,
+    margin: 10,
   },
   slide1: {
     flex: 1,

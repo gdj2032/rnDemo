@@ -7,14 +7,10 @@ import PlayNumber from '../PlayNumber';
 
 export default class RecommendItem extends Component {
 
-  static defaultProps = {
-    onPress: () => {},
-  }
-
   render() {
-    const { title, number, imageText, BackgroundImage, leftTopIcon } = this.props;
+    const { title, number, imageText, BackgroundImage, leftTopIcon, onPress } = this.props;
     return (
-      <TouchableOpacity style={styles.containers} onPress={this.props.onPress}>
+      <TouchableOpacity style={styles.containers} onPress={onPress}>
         <View style={styles.container}>
           <View style={{flex: 1}}>
             {

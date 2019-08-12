@@ -141,12 +141,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themesColor.backgroundColor,
     paddingTop: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
   },
   navBtn: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });

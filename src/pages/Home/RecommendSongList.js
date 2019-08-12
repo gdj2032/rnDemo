@@ -3,19 +3,25 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Flex, Icon } from '@ant-design/react-native';
 import RecommendItem from '../../components/RecommendItem';
 import { themesColor } from '../../style';
+import TextItem1 from "../../components/TextItem1";
+import TextItem2 from "../../components/TextItem2";
 
 export default class RecommendSongList extends Component {
+
+  _onPress(list) {
+    alert(list.name);
+  }
+
+  _onRecommend(ele) {
+    alert(ele.title);
+  }
   render() {
     const {songList, songListSquare, RecommendData} = this.props;
     return (
       <View style={styles.recommend}>
         <View style={styles.songHeader}>
-          <View style={styles.rec}>
-            <Text style={styles.rec_text}>{songList}</Text>
-          </View>
-          <TouchableOpacity style={styles.square}>
-            <Text style={styles.square_text}>{songListSquare.name}</Text>
-          </TouchableOpacity>
+          <TextItem1 text={songList} />
+          <TextItem2 text={songListSquare.name} onPress={this._onPress.bind(this, songListSquare)} />
         </View>
         <Flex wrap="wrap" style={styles.wrap}>
           {RecommendData.map((ele, index) => (
@@ -31,6 +37,7 @@ export default class RecommendSongList extends Component {
                 />
               }
               leftTopIcon={ele.leftTop}
+              onPress={this._onRecommend.bind(this, ele)}
             />
           ))}
         </Flex>
@@ -42,31 +49,14 @@ export default class RecommendSongList extends Component {
 const styles = StyleSheet.create({
   recommend: {
     marginTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   songHeader: {
     height: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  rec: {
-  },
-  rec_text: {
-    fontSize: 18,
-    fontWeight: '400',
-    color: themesColor.black
-  },
-  square: {
-    padding: 4,
-    paddingLeft: 8,
-    paddingRight: 8,
-    borderWidth: 1,
-    borderRadius: 20,
-    borderColor: themesColor.gray1,
-  },
-  square_text: {
-    fontSize: 12,
-    color: themesColor.black
   },
   wrap: {
     flexDirection: 'row',
