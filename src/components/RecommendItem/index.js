@@ -42,13 +42,10 @@ export default class RecommendItem extends Component {
         </View>
         <View style={styles.title}>
           <Text numberOfLines={10} style={styles.title_text}>{CheckText(title)}</Text>
+          {
+            author && <Text style={styles.author_text}>{author}</Text>
+          }
         </View>
-        {
-          author &&
-          <View style={styles.title}>
-            <Text style={styles.author_text}>{author}</Text>
-          </View>
-        }
       </TouchableOpacity>
     );
   }
