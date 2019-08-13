@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Flex, Icon } from '@ant-design/react-native';
 import RecommendItem from '../../components/RecommendItem';
-import { themesColor } from '../../style';
+import { containers } from '../../style';
 import TextItem1 from "../../components/TextItem1";
 import TextItem2 from "../../components/TextItem2";
 
@@ -18,7 +18,7 @@ export default class RecommendSongList extends Component {
   render() {
     const {songList, songListSquare, RecommendData} = this.props;
     return (
-      <View style={styles.recommend}>
+      <View style={containers}>
         <View style={styles.songHeader}>
           <TextItem1 text={songList} />
           <TextItem2 text={songListSquare.name} onPress={this._onPress.bind(this, songListSquare)} />
@@ -47,11 +47,6 @@ export default class RecommendSongList extends Component {
 }
 
 const styles = StyleSheet.create({
-  recommend: {
-    marginTop: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
   songHeader: {
     height: 30,
     flexDirection: 'row',

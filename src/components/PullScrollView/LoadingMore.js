@@ -6,6 +6,7 @@ import {
   TouchableOpacity
 }from 'react-native';
 import PropTypes from 'prop-types';
+import { setSpText } from '../../utils';
 
 export default class LoadingMore extends Component {
   static propTypes = {
@@ -34,7 +35,7 @@ export default class LoadingMore extends Component {
           />
           <Text style={{
             color: 'black',
-            fontSize: 16,
+            fontSize: setSpText(16),
             marginLeft: 15
           }}>
             正在加载...

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import Swiper from 'react-native-swiper';
 import {themesColor} from '../../style';
+import { setSpText, scaleSize } from '../../utils';
 
 const Imgs = [
   require('../../image/swiper1.png'),
@@ -100,12 +101,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: setSpText(30),
     fontWeight: 'bold'
   },
   dot_style: {
-    width: 6,
-    height: 6,
+    width: scaleSize(6),
+    height: scaleSize(6),
     borderRadius: 6,
     marginLeft: 4,
     marginRight: 4,

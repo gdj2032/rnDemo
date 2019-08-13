@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { themesColor } from '../../style';
+import { setSpText } from '../../utils';
 
 export default class TextItem2 extends Component {
 
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     borderColor: themesColor.gray1,
   },
   text: {
-    fontSize: 12,
+    fontSize: setSpText(12),
     color: themesColor.black
   },
 });

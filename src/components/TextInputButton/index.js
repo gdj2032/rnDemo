@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { themesColor } from '../../style';
+import { scaleSize } from '../../utils';
 
 export default class TextInputButton extends Component {
 
@@ -17,7 +18,7 @@ export default class TextInputButton extends Component {
 
 const styles = StyleSheet.create({
   touch: {
-    width: 240,
+    width: scaleSize(280),
     height: 30,
     flexDirection: 'row',
     justifyContent: 'center',

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { themesColor } from '../../style';
+import { setSpText } from '../../utils';
 
 export default class PlayNumber extends Component {
 
@@ -29,6 +30,6 @@ const styles = StyleSheet.create({
   },
   rt_num: {
     color: themesColor.white,
-    fontSize: 12,
+    fontSize: setSpText(12),
   },
 });

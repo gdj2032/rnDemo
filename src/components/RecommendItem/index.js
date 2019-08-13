@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { themesColor } from '../../style';
-import { CheckText, CheckNum } from '../../utils';
+import { CheckText, CheckNum, setSpText, scaleSize } from '../../utils';
 import PlayNumber from '../PlayNumber';
 
 export default class RecommendItem extends Component {
@@ -44,21 +44,21 @@ export default class RecommendItem extends Component {
 
 const styles = StyleSheet.create({
   containers: {
-    width: 120,
-    height: 160,
+    width: scaleSize(120),
+    height: scaleSize(160),
     marginTop: 10,
   },
   container: {
-    width: 120,
-    height: 120,
+    width: scaleSize(120),
+    height: scaleSize(120),
     borderRadius: 5,
   },
   leftTop: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: 20,
-    height: 20,
+    width: scaleSize(20),
+    height: scaleSize(20),
     backgroundColor: themesColor.red,
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 20,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   rt_num: {
     color: themesColor.white,
-    fontSize: 12,
+    fontSize: setSpText(12),
   },
   imageText: {
     position: 'absolute',
@@ -87,13 +87,13 @@ const styles = StyleSheet.create({
   },
   image_text: {
     color: themesColor.white,
-    fontSize: 18,
+    fontSize: setSpText(18),
     fontWeight: '500',
   },
   image_bg: {
     flex: 1,
-    width: 120,
-    height: 120,
+    width: scaleSize(120),
+    height: scaleSize(120),
     borderRadius: 5,
   },
   title: {
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title_text: {
-    fontSize: 12,
+    fontSize: setSpText(12),
     color: themesColor.black,
     fontWeight: '500',
   }

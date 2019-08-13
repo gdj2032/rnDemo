@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableNativeFeedback} from 'react-native';
 import { themesColor } from '../../style';
+import { setSpText } from '../../utils';
 
 export default class TextItem1 extends Component {
 
@@ -20,14 +21,15 @@ export default class TextItem1 extends Component {
 
 const styles = StyleSheet.create({
   touch: {
+    textAlign: 'center'
   },
   text1: {
-    fontSize: 18,
+    fontSize: setSpText(18),
     fontWeight: '400',
     color: themesColor.black
   },
   text2: {
-    fontSize: 14,
+    fontSize: setSpText(14),
     fontWeight: '400',
     color: themesColor.gray
   },

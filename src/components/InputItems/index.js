@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import { themesColor } from '../../style';
+import { scaleSize } from '../../utils';
 
 export default class InputItems extends Component {
 
@@ -22,7 +23,7 @@ export default class InputItems extends Component {
 
 const styles = StyleSheet.create({
   input: {
-    width: 240,
+    width: scaleSize(240),
     height: 30,
     backgroundColor: themesColor.gray1,
     borderRadius: 15,
