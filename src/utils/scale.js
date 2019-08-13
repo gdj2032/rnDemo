@@ -40,5 +40,5 @@ export function setSpText(size: number) {
 
 export function scaleSize(size: number) {
   size = Math.round(size * scale + 0.5);
-  return size / defaultPixel;
+  return size;
 }

@@ -10,7 +10,7 @@ export default class PlayNumber extends Component {
     const { num, style } = this.props;
     return (
       <View style={[styles.play, style]}>
-        <Icon name="play-circle" size="xxs" color={themesColor.white} />
+        <Icon name="caret-right" size="xxs" color={themesColor.white} />
         <Text style={styles.rt_num}>{num}</Text>
       </View>
     );

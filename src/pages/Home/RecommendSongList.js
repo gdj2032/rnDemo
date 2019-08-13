@@ -5,6 +5,7 @@ import RecommendItem from '../../components/RecommendItem';
 import { containers } from '../../style';
 import TextItem1 from "../../components/TextItem1";
 import TextItem2 from "../../components/TextItem2";
+import { scaleSize } from "../../utils";
 
 export default class RecommendSongList extends Component {
 
@@ -59,8 +60,8 @@ const styles = StyleSheet.create({
   },
   image_bg: {
     flex: 1,
-    width: 120,
-    height: 120,
+    width: scaleSize(120),
+    height: scaleSize(120),
     borderRadius: 5,
   },
 });

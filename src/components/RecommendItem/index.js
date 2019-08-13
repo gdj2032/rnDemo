@@ -8,7 +8,7 @@ import PlayNumber from '../PlayNumber';
 export default class RecommendItem extends Component {
 
   render() {
-    const { title, number, imageText, BackgroundImage, leftTopIcon, onPress } = this.props;
+    const { title, number, imageText, BackgroundImage, leftTopIcon, onPress, author, showPlay } = this.props;
     return (
       <TouchableOpacity style={styles.containers} onPress={onPress}>
         <View style={styles.container}>
@@ -33,10 +33,22 @@ export default class RecommendItem extends Component {
               <Text style={styles.image_text}>{imageText}</Text>
             </View>
           }
+          {
+            showPlay &&
+            <View style={styles.showPlay}>
+              <Icon name="play-circle" size="md" color={themesColor.red} />
+            </View>
+          }
         </View>
         <View style={styles.title}>
           <Text numberOfLines={10} style={styles.title_text}>{CheckText(title)}</Text>
         </View>
+        {
+          author &&
+          <View style={styles.title}>
+            <Text style={styles.author_text}>{author}</Text>
+          </View>
+        }
       </TouchableOpacity>
     );
   }
@@ -85,6 +97,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  showPlay: {
+    position: 'absolute',
+    right: 5,
+    bottom: 5,
+    backgroundColor: themesColor.gray1,
+    borderRadius: 20,
+    opacity: 0.5
+  },
   image_text: {
     color: themesColor.white,
     fontSize: setSpText(18),
@@ -97,14 +117,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   title: {
-    flex: 1,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: 2,
   },
   title_text: {
     fontSize: setSpText(12),
     color: themesColor.black,
     fontWeight: '500',
-  }
+  },
+  author_text: {
+    fontSize: setSpText(12),
+    color: themesColor.gray,
+  },
 });
