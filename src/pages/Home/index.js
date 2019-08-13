@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: themesColor.backgroundColor,
-    paddingTop: 5,
   },
   navBtn: {
     flexDirection: 'row',

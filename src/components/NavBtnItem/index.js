@@ -6,10 +6,10 @@ import { setSpText, scaleSize } from '../../utils';
 export default class NavBtnItem extends Component {
 
   render() {
-    const { text, icon_name } = this.props;
+    const { text, icon_name, style, iconStyle, onPress } = this.props;
     return (
-      <TouchableOpacity style={styles.nav}>
-        <View style={styles.calendar}>
+      <TouchableOpacity style={[styles.nav, style]} onPress={onPress}>
+        <View style={[styles.calendar, iconStyle]}>
           <Icon name={icon_name} size="md" style={{color: themesColor.white}}/>
         </View>
         <View>
