@@ -6,9 +6,9 @@ import Header from '../../components/Header';
 import TextItem1 from '../../components/TextItem1';
 import MyMusicScroll from './MyMusicScroll';
 import SpacerItem from '../../components/SpacerItem';
-import TextItem3 from '../../components/TextItem3';
+import MySelect from './MySelect';
 
-const sc_data = [
+const sc_data1 = [
   {
     id: 1,
     title: '因乐交友',
@@ -33,6 +33,30 @@ const sc_data = [
   },
 ]
 
+const sc_data2 = [
+  {
+    id: 1,
+    title: '本地音乐',
+    number: 220,
+    icon: null,
+  },{
+    id: 2,
+    title: '最近播放',
+    number: 102,
+    icon: null,
+  },{
+    id: 3,
+    title: '我的电台',
+    number: 0,
+    icon: null,
+  },{
+    id: 4,
+    title: '我的收藏',
+    number: 6,
+    icon: null,
+  },
+]
+
 export default class Fire extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor, focused }) => <Icon name="fire" size="md" color={tintColor} focused={focused} />,
@@ -48,9 +72,10 @@ export default class Fire extends Component {
           defaultItem={true}
         />
         <ScrollView>
-          <MyMusicScroll data={sc_data} />
+          <MyMusicScroll data={sc_data1} />
           <SpacerItem />
-          <TextItem3 text={'本地音乐'} number={220} />
+          <MySelect data={sc_data2} />
+          <SpacerItem style={styles.spacer} />
         </ScrollView>
       </View>
     );
@@ -62,4 +87,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themesColor.backgroundColor,
   },
+  spacer: {
+    marginTop: 10,
+    marginBottom: 10,
+    borderBottomWidth: 0,
+    backgroundColor: themesColor.gray2,
+  }
 });

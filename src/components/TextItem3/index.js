@@ -10,7 +10,7 @@ export default class TextItem3 extends Component {
   render() {
     const { text, number, onPress } = this.props;
     return (
-      <TouchableOpacity style={[styles.container, containers]} onPress={onPress}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={styles.icons}>
           <Icons name='music' type='font-awesome' color={themesColor.black} size={30} />
         </View>
@@ -47,10 +47,11 @@ const styles = StyleSheet.create({
   },
   cont: {
     flexDirection: 'row',
+    marginRight: 10,
   },
   text1: {
-    fontSize: setSpText(18),
-    fontWeight: '500',
+    fontSize: setSpText(20),
+    fontWeight: '400',
     color: themesColor.black,
   }
 });

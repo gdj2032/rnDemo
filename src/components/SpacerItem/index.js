@@ -5,8 +5,9 @@ import { themesColor } from '../../style';
 export default class SpacerItem extends Component {
 
   render() {
+    const { style } = this.props;
     return (
-      <View style={styles.spacer}></View>
+      <View style={[styles.spacer, style]}></View>
     );
   }
 }
