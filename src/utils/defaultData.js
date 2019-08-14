@@ -95,4 +95,20 @@ const defFireNav = [
   },
 ]
 
-export { defSongList, defFireScroll, defFireNav };
+const defVideoList = [
+  {
+    id: 1565740102107,
+    type: 0,
+    number: 53151,
+    time: 310000,
+    title: 'xxxxxxxxxxxxxxxxxxx',
+    author: 'gdj',
+    like: 481,
+    messageNumber: 59,
+    au_Img: null,
+    title_img: null,
+    video: null,
+  }
+]
+
+export { defSongList, defFireScroll, defFireNav, defVideoList };

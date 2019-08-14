@@ -28,7 +28,7 @@ export default class Video extends Component {
           )}
           defaultItem={true}
         />
-        <View style={{ flex: 1 }}>
+        <View style={ styles.tabs}>
           <Tabs
             tabs={tabListTitle}
             initialPage={0}
@@ -50,14 +50,20 @@ export default class Video extends Component {
 const renderTabs = (tab, index) => {
   const Content = navTitle[tab.title];
   return (
-    <ScrollView style={{ backgroundColor: themesColor.white }} key={index}>
+    <ScrollView style={styles.scroll} key={index}>
       <Content />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  tabs: {
+    flex: 1,
+  },
   underline: {
     backgroundColor: themesColor.red,
+  },
+  scroll:{
+    backgroundColor: themesColor.white
   }
 });

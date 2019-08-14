@@ -27,6 +27,11 @@ export const container = {
   paddingRight: 10
 };
 
+export const contain = {
+  flex: 1,
+};
+
+
 export const fonts = {
   xxx: setSpText(12),
   xx: setSpText(14),
