@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, PanResponder, Animated} from 'react-native';
 import { Button, Icon } from '@ant-design/react-native';
+import { connect } from 'react-redux';
 import { themesColor } from '../../style';
 import PullScrollView from '../../components/PullScrollView';
 import Icons from '../../components/Icons';
+import types from '../../actions/types';
+import { reduxStore } from '../../utils/utils';
+import { localProfile } from '../../actions/setting';
 
+@connect(state => ({
+  local: state.local,
+}))
 export default class Test extends Component {
   static navigationOptions = {
     tabBarIcon: ({ tintColor, focused }) => <Icon name="eye" size="md" color={tintColor} focused={focused} />,
@@ -39,6 +46,13 @@ export default class Test extends Component {
   //   )
   // }
 
+  onPress() {
+    console.log(this.props);
+    // this.props.dispatch(types.localProfile({age: 10}))
+    const {dispatch} = reduxStore;
+    // dispatch(types.localProfile({age: 25}))
+    dispatch(localProfile({age: 15}))
+  }
   render() {
     const { data } = this.state;
     return (
@@ -68,6 +82,7 @@ export default class Test extends Component {
         /> */}
         <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
         <Icons name='music' type='font-awesome' color="#517fa4" size={40} />
+        <Button onPress={this.onPress.bind(this)}>Button</Button>
       </View>
     );
   }

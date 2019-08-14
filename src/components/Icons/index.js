@@ -10,7 +10,6 @@ export default class Icons extends Component {
         name={name}
         type={type}
         {...this.props}
-        Component={this.props.onPress ? Touchable : View}
       />
     );
   }

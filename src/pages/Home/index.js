@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, ScrollView, RefreshControl, TouchableOpacity} from 'react-native';
 import { Flex, Icon } from '@ant-design/react-native';
 import { SafeAreaView } from 'react-navigation';
+import { connect } from 'react-redux';
 import { themesColor } from '../../style';
 import Header from '../../components/Header';
 import TextInputButton from '../../components/TextInputButton';
@@ -11,6 +12,7 @@ import SpacerItem from '../../components/SpacerItem';
 import PullScrollView from '../../components/PullScrollView';
 import RecommendSongList from './RecommendSongList';
 import NewSongDish from './NewSongDish';
+import { reduxStore } from '../../utils/utils';
 
 const RecommendData = [
   {
@@ -64,6 +66,9 @@ const RecommendData = [
   },
 ]
 
+@connect(state => ({
+  local: state.local,
+}))
 export default class Home extends Component {
   static navigationOptions = {
     headerRight: (
@@ -103,6 +108,10 @@ export default class Home extends Component {
       name: '歌单广场',
       nav: ''
     }
+  }
+
+  componentDidMount() {
+    reduxStore.dispatch = this.props.dispatch;
   }
 
   onPullRelease(resolve) {

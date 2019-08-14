@@ -1,5 +1,13 @@
 
 /**
+ * redux缓存
+ */
+export const reduxStore = {
+  dispatch: () => {},
+  getState: () => {},
+};
+
+/**
  * 文本超出显示...
  * @param {*} text
  */

@@ -12,7 +12,7 @@ export default class MySelect extends Component {
     return (
       <View>
         {
-          data.map(ele => <TextItem3 text={ele.title} number={ele.number} onPress={this._onPress.bind(this, ele)} /> )
+          data.map(ele => <TextItem3 key={ele.title} text={ele.title} number={ele.number} onPress={this._onPress.bind(this, ele)} /> )
         }
       </View>
     );
