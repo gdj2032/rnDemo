@@ -117,13 +117,17 @@ export default class Home extends Component {
     }, 3000);
   }
 
+  _onSearch() {
+    alert('wait')
+  }
+
   render() {
     const { navBtn, songList, songListSquare } = this.state;
     return (
       <SafeAreaView style={containers}>
         <Header
           LeftItem={() => <Icon name={'audio'} size="md" color={themesColor.black}/>}
-          CenterItem={() => <TextInputButton/>}
+          CenterItem={() => <TextInputButton onPress={this._onSearch.bind(this)} />}
           defaultItem={true}
         />
         <PullScrollView

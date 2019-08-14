@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-export default class demo extends Component {
+export default class OnSite extends Component {
 
   render() {
     return (
       <View>
-        <Text>demo</Text>
+        <Text>OnSite</Text>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+
+});

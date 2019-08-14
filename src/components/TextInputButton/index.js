@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableWithoutFeedback} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { themesColor } from '../../style';
 import { scaleSize } from '../../utils';
@@ -7,11 +7,14 @@ import { scaleSize } from '../../utils';
 export default class TextInputButton extends Component {
 
   render() {
+    const { onPress } = this.props;
     return (
-      <TouchableOpacity style={styles.touch}>
-        <Icon name="search" size="md" color={themesColor.gray}/>
-        <Text style={styles.text}>请输入歌曲名称</Text>
-      </TouchableOpacity>
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={styles.touch}>
+          <Icon name="search" size="md" color={themesColor.gray}/>
+          <Text style={styles.text}>请输入歌曲名称</Text>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

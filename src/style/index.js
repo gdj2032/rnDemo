@@ -42,6 +42,11 @@ export const text_f16_fw5_black = {
   color: themesColor.black
 };
 
+export const text_f16_fw5 = {
+  fontSize: fonts.x,
+  fontWeight: "500",
+};
+
 export const text_f12_gray = {
   fontSize: fonts.xxx,
   color: themesColor.gray
