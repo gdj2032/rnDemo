@@ -23,7 +23,7 @@ export default class MyMusicScroll extends Component {
         >
           {data.map((ele, index) => (
             <NavBtnItem
-              style={{ marginRight: data.length - 1 !== index ? 30 : 10 }}
+              style={{ marginRight: data.length - 1 !== index ? 40 : 10 }}
               key={ele.title}
               text={ele.title}
               icon_name={"alert"}

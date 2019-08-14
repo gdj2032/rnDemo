@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   text1: {
-    fontSize: setSpText(20),
+    fontSize: setSpText(16),
     fontWeight: '400',
     color: themesColor.black,
   }

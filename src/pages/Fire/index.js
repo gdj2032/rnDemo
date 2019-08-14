@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import { Button, Icon } from '@ant-design/react-native';
+import { Icon } from '@ant-design/react-native';
 import { themesColor } from '../../style';
 import Header from '../../components/Header';
 import TextItem1 from '../../components/TextItem1';
 import MyMusicScroll from './MyMusicScroll';
 import SpacerItem from '../../components/SpacerItem';
 import MySelect from './MySelect';
+import MyCreatePanel from './MyCreatePanel';
 
 const sc_data1 = [
   {
@@ -76,6 +77,7 @@ export default class Fire extends Component {
           <SpacerItem />
           <MySelect data={sc_data2} />
           <SpacerItem style={styles.spacer} />
+          <MyCreatePanel />
         </ScrollView>
       </View>
     );
@@ -89,7 +91,6 @@ const styles = StyleSheet.create({
   },
   spacer: {
     marginTop: 10,
-    marginBottom: 10,
     borderBottomWidth: 0,
     backgroundColor: themesColor.gray2,
   }
