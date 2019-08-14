@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import TextItem3 from '../../components/TextItem3';
 
-export default class MySelect extends Component {
+export default class FireNavItem extends Component {
 
   _onPress(val) {
     alert(val.title)

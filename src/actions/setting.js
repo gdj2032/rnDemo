@@ -4,8 +4,10 @@ const UPDATE = (type, value) => (dispatch) => {
   dispatch(types[type]({...value}));
 };
 
-export const account = value => dispatch => dispatch(UPDATE('account', value));
+export const UpdateAccount = value => dispatch => dispatch(UPDATE('account', value));
 
-export const logout = value => dispatch => dispatch(UPDATE('logout', value));
+export const UpdateLogout = value => dispatch => dispatch(UPDATE('logout', value));
 
-export const localProfile = value => dispatch => dispatch(UPDATE('localProfile', value));
+export const UpdateLocalProfile = value => dispatch => dispatch(UPDATE('localProfile', value));
+
+export const UpdateSongList = value => dispatch => dispatch(UPDATE('songList', value));

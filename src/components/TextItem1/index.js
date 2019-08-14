@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableNativeFeedback} from 'react-native';
+import {StyleSheet, Text, TouchableWithoutFeedback} from 'react-native';
 import { themesColor } from '../../style';
 import { setSpText } from '../../utils';
 
@@ -12,9 +12,9 @@ export default class TextItem1 extends Component {
   render() {
     const { text, onPress, style, textStyle, active } = this.props;
     return (
-      <TouchableNativeFeedback style={[styles.touch, style]} onPress={onPress}>
+      <TouchableWithoutFeedback style={[styles.touch, style]} onPress={onPress}>
         <Text style={[active ? styles.text1 : styles.text2, textStyle]}>{text}</Text>
-      </TouchableNativeFeedback>
+      </TouchableWithoutFeedback>
     );
   }
 }

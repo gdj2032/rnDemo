@@ -7,7 +7,7 @@ import PullScrollView from '../../components/PullScrollView';
 import Icons from '../../components/Icons';
 import types from '../../actions/types';
 import { reduxStore } from '../../utils/utils';
-import { localProfile } from '../../actions/setting';
+import { UpdateLocalProfile } from '../../actions/setting';
 
 @connect(state => ({
   local: state.local,
@@ -51,7 +51,7 @@ export default class Test extends Component {
     // this.props.dispatch(types.localProfile({age: 10}))
     const {dispatch} = reduxStore;
     // dispatch(types.localProfile({age: 25}))
-    dispatch(localProfile({age: 15}))
+    dispatch(UpdateLocalProfile({age: 15}))
   }
   render() {
     const { data } = this.state;

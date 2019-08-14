@@ -6,6 +6,7 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'redux-act';
 import types from '../actions/types';
+import { defSongList } from '../utils/defaultData';
 
 
 const local = combineReducers({
@@ -14,6 +15,13 @@ const local = combineReducers({
   }, {
     name: '',
     age: 20,
+  }),
+  songList: createReducer({
+    [types.songList]: (state, payload) => ({ ...state, ...payload }),
+  }, {
+    title: defSongList.title,
+    list: defSongList.list,
+    isShowList: false,
   }),
 });
 

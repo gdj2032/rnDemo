@@ -1,17 +1,69 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { Icon } from '@ant-design/react-native';
+import { scaleSize } from '../../utils';
+import { themesColor, text1, text2 } from '../../style';
+import CoverView from '../CoverView';
+import TextItem2 from '../TextItem2';
 
 export default class SongListItem extends Component {
-
   render() {
+    const { data } = this.props;
     return (
-      <View>
-        <Text>SongListItem</Text>
+      <View style={styles.container}>
+        <View style={[styles.image, styles.imgs]}>
+          <Image
+            style={styles.image}
+            source={require('../../image/song.png')}
+          />
+          {data.isLove && <CoverView />}
+        </View>
+        <View style={styles.contain}>
+          <View>
+            <View>
+              <Text style={text1}>{data.title}</Text>
+            </View>
+            {!data.download ? (
+              <View>
+                <Text style={text2}>{`${data.all}首`}</Text>
+              </View>
+            ) : (
+              <View>
+                <Text style={text2}>{`${data.all}首，已下载${data.download}首`}</Text>
+              </View>
+            )}
+          </View>
+          {
+            data.isLove && <TextItem2 text={data.love} />
+          }
+          {
+            data.isSing && <Icon name="sound" size="md" color={themesColor.red} />
+          }
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    height: 60,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  image: {
+    width: scaleSize(50),
+    height: scaleSize(50),
+    borderRadius: 5
+  },
+  imgs: {
+    marginRight: 10,
+  },
+  contain: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  }
 });

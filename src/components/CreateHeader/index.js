@@ -13,8 +13,8 @@ export default class CreateHeader extends Component {
         <TouchableWithoutFeedback onPress={onShowPanel}>
           <View style={styles.left}>
             <Icon name={visible ? 'down' : 'right'} size="sm" color={themesColor.black} />
-            <Text style={styles.left_t1}>{data.text}</Text>
-            <Text style={styles.left_t2}>{`(${data.list.length})`}</Text>
+            <Text style={styles.left_t1}>{data && data.title}</Text>
+            <Text style={styles.left_t2}>{`(${ data && data.list.length})`}</Text>
           </View>
         </TouchableWithoutFeedback>
         <View style={styles.right}>
