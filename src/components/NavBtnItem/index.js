@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { Icon } from '@ant-design/react-native';
-import { themesColor } from '../../style';
+import { themesColor, text_f12_black } from '../../style';
 import { setSpText, scaleSize } from '../../utils';
 export default class NavBtnItem extends Component {
 
@@ -13,7 +13,7 @@ export default class NavBtnItem extends Component {
           <Icon name={icon_name} size="md" style={{color: themesColor.white}}/>
         </View>
         <View>
-          <Text style={styles.text}>{text}</Text>
+          <Text style={text_f12_black}>{text}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -37,8 +37,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text: {
-    fontSize: setSpText(12),
-    color: themesColor.black,
-  }
 });

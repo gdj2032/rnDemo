@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from 'react-navigation';
 import { Icon } from '@ant-design/react-native';
 import Home from './Home';
-import Star from './Star';
+import Video from './Video';
 import Fire from './Fire';
 import User from './User';
 import Test from './Test';
@@ -9,13 +9,13 @@ import { themesColor } from '../style';
 
 const Navigator = createBottomTabNavigator({
   Home: { screen: Home },
-  Star: { screen: Star },
+  Video: { screen: Video },
   Fire: { screen: Fire },
   User: { screen: User },
   Test: { screen: Test },
 }, {
   backBehavior: 'history',
-  order: ['Home', 'Star', 'Fire', 'User', 'Test'],
+  order: ['Home', 'Video', 'Fire', 'User', 'Test'],
   initialRouteName: 'Home',
   lazy: false,
   tabBarOptions: {

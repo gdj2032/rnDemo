@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SongListItem from "../../components/SongListItem";
-import { containers } from "../../style";
+import { container } from "../../style";
 import CreateHeader from "../../components/CreateHeader";
 import { reduxStore } from "../../utils/utils";
 import { UpdateSongList } from '../../actions/setting';
@@ -28,7 +28,7 @@ export default class MyCreatePanel extends Component {
   render() {
     const { isShowList, data } = this.state;
     return (
-      <View style={[containers, styles.container]}>
+      <View style={[container, styles.container]}>
         <CreateHeader
           data={data}
           onPress={this._isShowHeader.bind(this)}

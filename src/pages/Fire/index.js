@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import { connect } from 'react-redux';
 import { Icon } from '@ant-design/react-native';
-import { themesColor } from '../../style';
+import { themesColor, containers } from '../../style';
 import Header from '../../components/Header';
 import TextItem1 from '../../components/TextItem1';
 import MyMusicScroll from './MyMusicScroll';
@@ -27,7 +27,7 @@ export default class Fire extends Component {
   render() {
     const { songList } = this.state;
     return (
-      <View style={styles.container}>
+      <View style={containers}>
         <Header
           LeftItem={() => <Icon name="cloud" size="md" color={themesColor.black} />}
           CenterItem={() => <TextItem1 text={'我的音乐'} />}
@@ -46,10 +46,6 @@ export default class Fire extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: themesColor.backgroundColor,
-  },
   spacer: {
     marginTop: 10,
     borderBottomWidth: 0,

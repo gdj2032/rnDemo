@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Image, View} from 'react-native';
 import { Flex, Icon } from '@ant-design/react-native';
-import { containers } from '../../style';
+import { container } from '../../style';
 import RecommendItem from '../../components/RecommendItem';
 import { scaleSize } from '../../utils';
 export default class SongDishItem extends Component {
@@ -12,7 +12,7 @@ export default class SongDishItem extends Component {
   render() {
     const { data, showPlay } = this.props;
     return (
-      <View style={containers}>
+      <View style={container}>
         <Flex wrap="wrap" style={styles.wrap}>
           {
             data.map(ele =>

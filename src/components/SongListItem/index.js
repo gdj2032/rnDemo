@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { scaleSize } from '../../utils';
-import { themesColor, text1, text2 } from '../../style';
+import { themesColor, text_f16_fw5_black, text_f12_gray } from '../../style';
 import CoverView from '../CoverView';
 import TextItem2 from '../TextItem2';
 
@@ -21,15 +21,15 @@ export default class SongListItem extends Component {
         <View style={styles.contain}>
           <View>
             <View>
-              <Text style={text1}>{data.title}</Text>
+              <Text style={text_f16_fw5_black}>{data.title}</Text>
             </View>
             {!data.download ? (
               <View>
-                <Text style={text2}>{`${data.all}首`}</Text>
+                <Text style={text_f12_gray}>{`${data.all}首`}</Text>
               </View>
             ) : (
               <View>
-                <Text style={text2}>{`${data.all}首，已下载${data.download}首`}</Text>
+                <Text style={text_f12_gray}>{`${data.all}首，已下载${data.download}首`}</Text>
               </View>
             )}
           </View>

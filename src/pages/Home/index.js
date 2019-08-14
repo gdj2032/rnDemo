@@ -3,7 +3,7 @@ import {Platform, StyleSheet, Text, View, ScrollView, RefreshControl, TouchableO
 import { Flex, Icon } from '@ant-design/react-native';
 import { SafeAreaView } from 'react-navigation';
 import { connect } from 'react-redux';
-import { themesColor } from '../../style';
+import { themesColor, containers } from '../../style';
 import Header from '../../components/Header';
 import TextInputButton from '../../components/TextInputButton';
 import SwiperItem from '../../components/SwiperItem';
@@ -71,12 +71,7 @@ const RecommendData = [
 }))
 export default class Home extends Component {
   static navigationOptions = {
-    headerRight: (
-      <Icon name="align-right" size="lg" color={themesColor.black}/>
-    ),
     tabBarIcon: ({ tintColor, focused }) => <Icon name="home" size="md" color={tintColor} focused={focused} />,
-    // tabBarOnPress({ navigation, defaultHandler }) {
-    // },
   };
 
   state = {
@@ -125,7 +120,7 @@ export default class Home extends Component {
   render() {
     const { navBtn, songList, songListSquare } = this.state;
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={containers}>
         <Header
           LeftItem={() => <Icon name={'audio'} size="md" color={themesColor.black}/>}
           CenterItem={() => <TextInputButton/>}
@@ -154,10 +149,6 @@ export default class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: themesColor.backgroundColor,
-  },
   navBtn: {
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -10,8 +10,8 @@ export default class RecommendItem extends Component {
   render() {
     const { title, number, imageText, BackgroundImage, leftTopIcon, onPress, author, showPlay } = this.props;
     return (
-      <TouchableOpacity style={styles.containers} onPress={onPress}>
-        <View style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
+        <View style={styles.contain}>
           <View style={{flex: 1}}>
             {
               (BackgroundImage && BackgroundImage()) || <Image source={require('../../image/song.png')} style={styles.image_bg} />
@@ -52,12 +52,12 @@ export default class RecommendItem extends Component {
 }
 
 const styles = StyleSheet.create({
-  containers: {
+  container: {
     width: scaleSize(120),
     height: scaleSize(160),
     marginTop: 10,
   },
-  container: {
+  contain: {
     width: scaleSize(120),
     height: scaleSize(120),
     borderRadius: 5,

@@ -3,17 +3,14 @@ import {StyleSheet, Text, View} from 'react-native';
 import { Button, Icon } from '@ant-design/react-native';
 import { themesColor, containers } from '../../style';
 
-export default class User extends Component {
+export default class Video extends Component {
   static navigationOptions = {
-    tabBarIcon: ({ tintColor, focused }) => <Icon name="user" size="md" color={tintColor} focused={focused} />,
-    // tabBarOnPress({ navigation, defaultHandler }) {
-    // },
+    tabBarIcon: ({ tintColor, focused }) => <Icon name="play-square" size="md" color={tintColor} focused={focused} />,
   };
-
   render() {
     return (
       <View style={containers}>
-        <Text>User</Text>
+        <Text>Video</Text>
       </View>
     );
   }

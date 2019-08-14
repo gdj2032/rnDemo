@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, PanResponder, Animated} from 'react-native';
 import { Button, Icon } from '@ant-design/react-native';
 import { connect } from 'react-redux';
-import { themesColor } from '../../style';
+import { themesColor, containers } from '../../style';
 import PullScrollView from '../../components/PullScrollView';
 import Icons from '../../components/Icons';
 import types from '../../actions/types';
@@ -56,7 +56,7 @@ export default class Test extends Component {
   render() {
     const { data } = this.state;
     return (
-      <View style={styles.container}>
+      <View style={containers}>
         {/* <PullScrollView
           isScrollView={true}
           style={{backgroundColor: 'white'}}
@@ -89,10 +89,6 @@ export default class Test extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: themesColor.backgroundColor,
-  },
   text: {
     height: 100,
     textAlign: 'center',

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { Flex, Icon } from '@ant-design/react-native';
 import RecommendItem from '../../components/RecommendItem';
-import { containers } from '../../style';
+import { container } from '../../style';
 import TextItem1 from "../../components/TextItem1";
 import TextItem2 from "../../components/TextItem2";
 import { scaleSize } from "../../utils";
@@ -19,7 +19,7 @@ export default class RecommendSongList extends Component {
   render() {
     const {songList, songListSquare, RecommendData} = this.props;
     return (
-      <View style={containers}>
+      <View style={container}>
         <View style={styles.songHeader}>
           <TextItem1 text={songList} />
           <TextItem2 text={songListSquare.name} onPress={this._onPress.bind(this, songListSquare)} />

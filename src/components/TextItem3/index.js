@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import Icons from '../../components/Icons';
-import { themesColor, containers } from '../../style';
+import { themesColor } from '../../style';
 import { setSpText, scaleSize } from '../../utils';
 
 export default class TextItem3 extends Component {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import TextItem1 from '../../components/TextItem1';
 import TextItem2 from '../../components/TextItem2';
-import { themesColor, containers } from '../../style';
+import { themesColor, container } from '../../style';
 import SongDishItem from './SongDishItem';
 
 const DishData = [
@@ -70,7 +70,7 @@ export default class NewSongDish extends Component {
   render() {
     const { visible, songDish, songDishSquare } = this.state;
     return (
-      <View style={[containers, styles.container]}>
+      <View style={[container, styles.container]}>
         <View style={styles.contains}>
           <View style={styles.con_title}>
             <View style={styles.v_title}>
