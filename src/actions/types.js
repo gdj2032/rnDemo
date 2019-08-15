@@ -5,6 +5,7 @@ const types = {
   logout: createAction('LOGOUT'),
   localProfile: createAction('LOCAL_PROFILE'),
   songList: createAction('SONG_LIST'),
+  videoList: createAction('VIDEO_List'),
 }
 
 export default types;

@@ -6,7 +6,7 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'redux-act';
 import types from '../actions/types';
-import { defSongList } from '../utils/defaultData';
+import { defSongList, defVideoList } from '../utils/defaultData';
 
 
 const local = combineReducers({
@@ -22,6 +22,11 @@ const local = combineReducers({
     title: defSongList.title,
     list: defSongList.list,
     isShowList: false,
+  }),
+  videoList: createReducer({
+    [types.videoList]: (state, payload) => ({ ...state, ...payload }),
+  }, {
+    list: defVideoList,
   }),
 });
 

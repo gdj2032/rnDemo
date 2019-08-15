@@ -49,7 +49,7 @@ export default class MyCreatePanel extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 0,
+    marginTop: 10,
     marginBottom: 10,
   }
 });

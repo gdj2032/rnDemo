@@ -15,9 +15,7 @@ export default class SpacerItem extends Component {
 const styles = StyleSheet.create({
   spacer: {
     width: '100%',
-    height: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: themesColor.gray1,
-    marginBottom: 10,
+    height: 1,
+    backgroundColor: themesColor.gray1,
   }
 });

@@ -7,11 +7,11 @@ import { setSpText } from '../../utils';
 export default class PlayNumber extends Component {
 
   render() {
-    const { num, style } = this.props;
+    const { num, style, numStyle } = this.props;
     return (
       <View style={[styles.play, style]}>
         <Icon name="caret-right" size="xxs" color={themesColor.white} />
-        <Text style={styles.rt_num}>{num}</Text>
+        <Text style={[styles.rt_num, numStyle]}>{num}</Text>
       </View>
     );
   }

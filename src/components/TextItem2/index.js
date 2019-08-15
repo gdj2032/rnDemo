@@ -6,10 +6,10 @@ import { setSpText } from '../../utils';
 export default class TextItem2 extends Component {
 
   render() {
-    const { text, onPress } = this.props;
+    const { text, onPress, style, textStyle } = this.props;
     return (
-      <TouchableOpacity style={styles.item} onPress={onPress}>
-        <Text style={styles.text}>{text}</Text>
+      <TouchableOpacity style={[styles.item, style]} onPress={onPress}>
+        <Text style={[styles.text, textStyle]}>{text}</Text>
       </TouchableOpacity>
     );
   }

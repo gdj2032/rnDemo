@@ -33,6 +33,10 @@ export const contain = {
 
 
 export const fonts = {
+  vxii: setSpText(4),
+  vxi: setSpText(6),
+  vx: setSpText(8),
+  xxxx: setSpText(10),
   xxx: setSpText(12),
   xx: setSpText(14),
   x: setSpText(16),
@@ -60,4 +64,19 @@ export const text_f12_gray = {
 export const text_f12_black = {
   fontSize: fonts.xxx,
   color: themesColor.black
+};
+
+export const text_f12_white = {
+  fontSize: fonts.xxx,
+  color: themesColor.white
+};
+
+export const text_f10_white = {
+  fontSize: fonts.xxxx,
+  color: themesColor.white
+};
+
+export const spacer_line = {
+  marginTop: 10,
+  backgroundColor: themesColor.gray2,
 };

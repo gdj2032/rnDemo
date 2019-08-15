@@ -48,7 +48,6 @@ export default class Fire extends Component {
 const styles = StyleSheet.create({
   spacer: {
     marginTop: 10,
-    borderBottomWidth: 0,
     backgroundColor: themesColor.gray2,
   }
 });
