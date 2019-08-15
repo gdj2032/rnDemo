@@ -14,6 +14,10 @@ export default class Recommend extends Component {
     data: this.props.local.videoList.list,
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ data: nextProps.local.videoList.list, })
+  }
+
   render() {
     const { data } = this.state;
     return (

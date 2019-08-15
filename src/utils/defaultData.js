@@ -1,3 +1,9 @@
+const def_poster = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565865793087&di=94fbe3bc7b713c40288c12a6c44b3904&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171001%2Fe3a0f4f4c49649718e8773467cc2cb37.jpeg';
+
+const def_videoUrl1 = 'https://gslb.miaopai.com/stream/HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__.mp4?ssig=bbabfd7684cae53660dc2d4c2103984e&time_stamp=1533631567740&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__';
+
+const def_videoUrl2 = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4';
+
 const defSongList = {
   title: "我创建的歌单",
   list: [
@@ -114,7 +120,7 @@ const defVideoList = [
     id: 1565740002107,
     type: 2,
     number: 2105,
-    time: 10000,
+    time: 60000,
     title: '啊的说法是的发生发的发的发的顺丰萨芬',
     author: '音乐秀',
     like: 211,
@@ -139,12 +145,6 @@ const defVideoList = [
     poster: def_poster,
   },
 ]
-
-const def_poster = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565865793087&di=94fbe3bc7b713c40288c12a6c44b3904&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171001%2Fe3a0f4f4c49649718e8773467cc2cb37.jpeg';
-
-const def_videoUrl1 = 'https://gslb.miaopai.com/stream/HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__.mp4?ssig=bbabfd7684cae53660dc2d4c2103984e&time_stamp=1533631567740&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__';
-
-const def_videoUrl2 = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4';
 
 export {
   defSongList,
