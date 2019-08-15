@@ -100,14 +100,15 @@ const defVideoList = [
     id: 1565740102107,
     type: 0,
     number: 53151,
-    time: 310000,
+    time: 97000,
     title: '大师傅务器而发生的选择不持续成长',
     author: 'gdj',
     like: 481,
     messageNumber: 59,
     au_Img: null,
     title_img: null,
-    video: null,
+    video: def_videoUrl1,
+    poster: def_poster,
   },
   {
     id: 1565740002107,
@@ -120,21 +121,37 @@ const defVideoList = [
     messageNumber: 22,
     au_Img: null,
     title_img: null,
-    video: null,
+    video: def_videoUrl2,
+    poster: def_poster,
   },
   {
     id: 1565730002107,
     type: 1,
     number: 105,
-    time: 50000,
+    time: 97000,
     title: '对方是否合适的非官方的身高多少',
     author: '流行音乐',
     like: 33,
     messageNumber: 12,
     au_Img: null,
     title_img: null,
-    video: null,
+    video: def_videoUrl1,
+    poster: def_poster,
   },
 ]
 
-export { defSongList, defFireScroll, defFireNav, defVideoList };
+const def_poster = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1565865793087&di=94fbe3bc7b713c40288c12a6c44b3904&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20171001%2Fe3a0f4f4c49649718e8773467cc2cb37.jpeg';
+
+const def_videoUrl1 = 'https://gslb.miaopai.com/stream/HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__.mp4?ssig=bbabfd7684cae53660dc2d4c2103984e&time_stamp=1533631567740&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__';
+
+const def_videoUrl2 = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4';
+
+export {
+  defSongList,
+  defFireScroll,
+  defFireNav,
+  defVideoList,
+  def_poster,
+  def_videoUrl1,
+  def_videoUrl2,
+};

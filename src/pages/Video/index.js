@@ -13,6 +13,22 @@ export default class Video extends Component {
     )
   };
 
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps)
+  }
+  componentDidUpdate() {
+    console.log('componentDidUpdate')
+  }
+  componentDidMount() {
+    console.log('componentDidMount')
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount')
+  }
+  componentWillMount() {
+    console.log('componentWillMount')
+  }
+
   _onSearch() {
     alert('wait');
   }

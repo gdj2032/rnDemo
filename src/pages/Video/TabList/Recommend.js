@@ -22,7 +22,7 @@ export default class Recommend extends Component {
           data={data}
           renderItem={({item}) => <VideoItem data={item} />}
           ItemSeparatorComponent={() => <SpacerItem style={spacer_line} />}
-          keyExtractor={item => item}
+          keyExtractor={item => item.title}
         />
       </View>
     );

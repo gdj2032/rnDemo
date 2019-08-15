@@ -5,9 +5,11 @@ import Video from "react-native-video";
 import { connect } from "react-redux";
 import { themesColor, containers } from "../../style";
 import Icons from "../../components/Icons";
-import VideoScreen from "./VideoScreen";
+import VideoScreen from "../../components/VideoScreen";
+import { UpdateVideoList } from "../../actions/setting";
+import { defVideoList } from "../../utils/defaultData";
+import { reduxStore } from "../../utils/utils";
 
-const url = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4';
 @connect(state => ({
   local: state.local
 }))
@@ -28,7 +30,7 @@ export default class Test extends Component {
     // this.props.dispatch(types.localProfile({age: 10}))
     const { dispatch } = reduxStore;
     // dispatch(types.localProfile({age: 25}))
-    dispatch(UpdateLocalProfile({ age: 15 }));
+    dispatch(UpdateVideoList({ list: defVideoList }));
   }
 
   render() {
@@ -39,16 +41,7 @@ export default class Test extends Component {
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
         <Button onPress={this.onPress.bind(this)}>Button</Button>
         <View style={styles.container}>
-          {/* <VideoScreen /> */}
-          　　　　
-          <Video
-            autoPlay={true}
-            loop={true}
-            style={styles.videocontent}
-            fullScreenOnly={false}
-            inlineOnly={true}
-            url={url}
-          />
+          <VideoScreen paused={true} />
         </View>
       </View>
     );
@@ -63,12 +56,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "black"
   },
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    width: '100%',
+    height: 200
   },
-  videocontent: {
-    width: 1000,
-    height: 660
-  }
 });

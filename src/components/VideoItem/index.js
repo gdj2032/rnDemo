@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableWithoutFeedback} from 'react-native';
 import Video from 'react-native-video';
 import { Icon } from '@ant-design/react-native';
 import { text_f10_white, themesColor, text_f16_fw5_black, fonts } from '../../style';
@@ -11,25 +11,51 @@ import VideoTime from '../VideoTime';
 import { dateFormat, CheckText } from '../../utils/utils';
 import SpacerItem from '../SpacerItem';
 import BadgeItem from '../BadgeItem';
+import VideoScreen from '../VideoScreen';
 
 export default class VideoItem extends Component {
 
+  state = {
+    paused: true,
+    isShowImg: true,
+  }
+
   Images = <Image style={styles.image} source={require('../../image/song.png')} />
 
+  onPlay() {
+    this.setState({
+      paused: !this.state.paused,
+      isShowImg: false
+    });
+  }
   render() {
     const { data } = this.props;
+    const { paused, isShowImg } = this.state;
     if(!data) {
       return null;
     }
     return (
       <View style={styles.container}>
         <View style={styles.video}>
-          <Text>video</Text>
+          <VideoScreen
+            paused={paused}
+            setPaused={(bool) => this.setState({paused: bool})}
+            url={data.video}
+            />
+          {
+            isShowImg &&
+            <Image style={styles.videoImg} source={require('../../image/video_df_bg.png')}/>
+          }
           <PlayNumber num={CheckNum(data.number)} style={styles.number} numStyle={styles.numText} />
           <VideoTime time={dateFormat(data.time)} />
-          <View style={styles.paly}>
-            <Icon name="caret-right" size="lg" color={themesColor.white} />
-          </View>
+          {
+            paused &&
+            <TouchableWithoutFeedback onPress={this.onPlay.bind(this)}>
+              <View style={styles.paly}>
+                <Icon name="caret-right" size="lg" color={themesColor.white} />
+              </View>
+            </TouchableWithoutFeedback>
+          }
         </View>
         <View style={styles.type}>
           <TextItem2 text={VideoType[data.type]} style={styles.typeItem} textStyle={text_f10_white} />
@@ -71,7 +97,12 @@ const styles = StyleSheet.create({
   video: {
     width: '100%',
     height: scaleSize(200),
-    backgroundColor: 'black',
+    borderRadius: 5,
+  },
+  videoImg: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
     borderRadius: 5,
   },
   type: {

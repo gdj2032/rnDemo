@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import {
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
   Button,
   BackHandler
@@ -24,8 +24,11 @@ function formatTime(second) {
     return v >> 0 < 10 ? "0" + v : v;
   };
   console.log([zero(h), zero(i), zero(s)].join(":"));
-  // return [zero(h), zero(i), zero(s)].join(":");
-  return zero(s);
+  if(second <= 3600) {
+    return [zero(i), zero(s)].join(":");
+  }
+  h = parseInt(s % 60 % 60);
+  return [zero(h), zero(i), zero(s)].join(":");
 }
 
 export default class VideoScreen extends Component {
@@ -40,7 +43,7 @@ export default class VideoScreen extends Component {
     resizeMode: "contain",
     duration: 0.0,
     currentTime: 0.0,
-    paused: true
+    paused: this.props.paused
   };
 
   componentWillMount() {
@@ -51,14 +54,18 @@ export default class VideoScreen extends Component {
     BackHandler.removeEventListener("hardwareBackPress", this.onBackAndroid);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ paused: nextProps.paused });
+  }
+
   onBackAndroid = () => {
     this.props.navigation.goBack();
     return true;
   };
 
   onLoad = data => {
+    console.log('onLoad', data);
     this.setState({ duration: data.duration });
-    console.log(data.duration + "xxx");
   };
 
   onProgress = data => {
@@ -151,22 +158,27 @@ export default class VideoScreen extends Component {
     );
   }
 
+  onChangePause() {
+    this.setState({ paused: !this.state.paused });
+    this.props.setPaused(!this.state.paused);
+  }
+
   render() {
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
     return (
       <View style={styles.container}>
-        <TouchableOpacity
+        <TouchableWithoutFeedback
           style={styles.fullScreen}
-          onPress={() => this.setState({ paused: !this.state.paused })}
+          onPress={() => this.onChangePause()}
         >
           <Video
             ref={(ref) => {
               this.video = ref;
             }}
             /* For ExoPlayer */
-            source={{uri: 'https://gslb.miaopai.com/stream/HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__.mp4?ssig=bbabfd7684cae53660dc2d4c2103984e&time_stamp=1533631567740&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__', type: 'mpd'}}
+            source={{uri: this.props.url || 'https://gslb.miaopai.com/stream/HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__.mp4?ssig=bbabfd7684cae53660dc2d4c2103984e&time_stamp=1533631567740&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=HNkFfNMuhjRzDd-q6j9qycf54OaKqInVMu0YhQ__', type: 'mpd'}}
             style={styles.fullScreen}
             rate={this.state.rate}
             paused={this.state.paused}
@@ -180,33 +192,24 @@ export default class VideoScreen extends Component {
             onAudioFocusChanged={this.onAudioFocusChanged}
             repeat={false}
           />
-        </TouchableOpacity>
-        <View style={styles.textStyle}>
-          <Text style={styles.volumeControl}>
-            {formatTime(this.state.duration - this.state.currentTime)}
-          </Text>
-
-          <Button
-            style={styles.btnStyle}
-            title={"关闭广告"}
-            color={"#73808080"}
-            onPress={() => {
-              this.setState({ paused: true })
-            }}
-          />
-        </View>
-
+        </TouchableWithoutFeedback>
         <View style={styles.controls}>
           <View style={styles.generalControls} />
 
           <View style={styles.trackingControls}>
             <View style={styles.progress}>
+              <Text style={styles.progressCTime}>
+                {formatTime(this.state.currentTime)}
+              </Text>
               <View
                 style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
               />
               <View
                 style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
               />
+              <Text style={styles.progressCTime}>
+                {formatTime(this.state.duration)}
+              </Text>
             </View>
           </View>
         </View>
@@ -228,12 +231,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     flexDirection: "row"
   },
-  btnStyle: {
-    paddingRight: 10,
-    paddingTop: 25,
-    justifyContent: "flex-end",
-    flexDirection: "row"
-  },
   fullScreen: {
     position: "absolute",
     top: 0,
@@ -253,14 +250,18 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     borderRadius: 3,
-    overflow: "hidden"
+    alignItems: 'center'
+  },
+  progressCTime: {
+    fontSize: 14,
+    color: "#fff",
   },
   innerProgressCompleted: {
-    height: 5,
+    height: 2,
     backgroundColor: "#cccccc"
   },
   innerProgressRemaining: {
-    height: 5,
+    height: 2,
     backgroundColor: "#2C2C2C"
   },
   generalControls: {
