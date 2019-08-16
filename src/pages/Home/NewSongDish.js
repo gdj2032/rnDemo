@@ -4,6 +4,7 @@ import TextItem1 from '../../components/TextItem1';
 import TextItem2 from '../../components/TextItem2';
 import { themesColor, container } from '../../style';
 import SongDishItem from './SongDishItem';
+import { scaleSize } from '../../utils';
 
 const DishData = [
   {
@@ -96,7 +97,9 @@ export default class NewSongDish extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: '100%',
+    marginBottom: 20,
   },
   contains: {
     flexDirection: 'row',
@@ -104,14 +107,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   con_title: {
-    width: 100,
+    width: scaleSize(280),
     height: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   v_title: {
-    width: 40,
+    width: scaleSize(140),
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   line: {
     color: themesColor.gray1

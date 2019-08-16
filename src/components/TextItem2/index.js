@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import { themesColor } from '../../style';
-import { setSpText } from '../../utils';
+import { themesColor, text_f12_black } from '../../style';
 
 export default class TextItem2 extends Component {
 
@@ -9,7 +8,7 @@ export default class TextItem2 extends Component {
     const { text, onPress, style, textStyle } = this.props;
     return (
       <TouchableOpacity style={[styles.item, style]} onPress={onPress}>
-        <Text style={[styles.text, textStyle]}>{text}</Text>
+        <Text style={[text_f12_black, textStyle]}>{text}</Text>
       </TouchableOpacity>
     );
   }
@@ -23,9 +22,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     borderColor: themesColor.gray1,
-  },
-  text: {
-    fontSize: setSpText(12),
-    color: themesColor.black
   },
 });

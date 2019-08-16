@@ -33,8 +33,6 @@ export const contain = {
 
 
 export const fonts = {
-  vxii: setSpText(4),
-  vxi: setSpText(6),
   vx: setSpText(8),
   xxxx: setSpText(10),
   xxx: setSpText(12),
@@ -45,10 +43,40 @@ export const fonts = {
   lg: setSpText(30)
 };
 
+export const text_f16_fw4_black = {
+  fontSize: fonts.x,
+  fontWeight: "400",
+  color: themesColor.black
+};
+
+export const text_f14_fw4_black = {
+  fontSize: fonts.xx,
+  fontWeight: "400",
+  color: themesColor.black
+};
+
+export const text_f12_fw4_gray = {
+  fontSize: fonts.xxx,
+  fontWeight: "400",
+  color: themesColor.gray
+};
+
 export const text_f16_fw5_black = {
   fontSize: fonts.x,
   fontWeight: "500",
   color: themesColor.black
+};
+
+export const text_f16_fw5_white = {
+  fontSize: fonts.x,
+  fontWeight: "500",
+  color: themesColor.white
+};
+
+export const text_f14_fw5_white = {
+  fontSize: fonts.xx,
+  fontWeight: "500",
+  color: themesColor.white
 };
 
 export const text_f16_fw5 = {

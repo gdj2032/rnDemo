@@ -1,4 +1,5 @@
 
+import { Platform } from 'react-native';
 import moment from 'moment';
 
 /**
@@ -15,7 +16,7 @@ export const reduxStore = {
  */
 export const CheckText = (text) => {
   const len = text.length;
-  if(len < 20) {
+  if(len < 15) {
     return text;
   }
   return `${text.substring(0, 20)}...`;
@@ -45,3 +46,8 @@ export const dateFormat = date => {
   }
   return moment(date).locale('zh-cn').format('HH:mm:ss');
 };
+
+
+export const isAndroid = () => Platform.OS === 'android';
+
+export const isIOS = () => Platform.OS === 'ios';

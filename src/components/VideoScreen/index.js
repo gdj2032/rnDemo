@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
   StyleSheet,
   Text,
@@ -8,28 +7,16 @@ import {
   Button,
   BackHandler
 } from "react-native";
-
+import moment from 'moment';
 import Video from "react-native-video";
 
-function formatTime(second) {
-  let h = 0,
-    i = 0,
-    s = parseInt(second);
-  if (s > 60) {
-    i = parseInt(s / 60);
-    s = parseInt(s % 60);
+const formatTime = date => {
+  date= date * 1000;
+  if(date < 360000) {
+    return moment(date).format('mm:ss');
   }
-  // 补零
-  let zero = function(v) {
-    return v >> 0 < 10 ? "0" + v : v;
-  };
-  console.log([zero(h), zero(i), zero(s)].join(":"));
-  if(second <= 3600) {
-    return [zero(i), zero(s)].join(":");
-  }
-  h = parseInt(s % 60 % 60);
-  return [zero(h), zero(i), zero(s)].join(":");
-}
+  return moment(date).locale('zh-cn').format('HH:mm:ss');
+};
 
 export default class VideoScreen extends Component {
   static navigationOptions = {

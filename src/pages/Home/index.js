@@ -159,5 +159,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 10,
     paddingRight: 10,
+    marginTop: 10,
   },
 });

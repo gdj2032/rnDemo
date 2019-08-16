@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import { Icon } from '@ant-design/react-native';
-import { themesColor } from '../../style';
-import { CheckText, CheckNum, setSpText, scaleSize } from '../../utils';
+import { themesColor, text_f14_fw5_white } from '../../style';
+import { CheckNum, setSpText, scaleSize } from '../../utils';
 import PlayNumber from '../PlayNumber';
 
 export default class RecommendItem extends Component {
@@ -25,12 +25,12 @@ export default class RecommendItem extends Component {
           }
           {
             number &&
-            <PlayNumber style={styles.rightTop} num={CheckNum(number)}/>
+            <PlayNumber num={CheckNum(number)}/>
           }
           {
             imageText &&
             <View style={styles.imageText}>
-              <Text style={styles.image_text}>{imageText}</Text>
+              <Text style={text_f14_fw5_white}>{imageText}</Text>
             </View>
           }
           {
@@ -41,7 +41,7 @@ export default class RecommendItem extends Component {
           }
         </View>
         <View style={styles.title}>
-          <Text numberOfLines={10} style={styles.title_text}>{CheckText(title)}</Text>
+          <Text numberOfLines={2} style={styles.title_text}>{title}</Text>
           {
             author && <Text style={styles.author_text}>{author}</Text>
           }
@@ -53,34 +53,24 @@ export default class RecommendItem extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: scaleSize(120),
-    height: scaleSize(160),
+    width: scaleSize(320),
+    height: scaleSize(420),
     marginTop: 10,
   },
   contain: {
-    width: scaleSize(120),
-    height: scaleSize(120),
+    width: scaleSize(320),
+    height: scaleSize(320),
     borderRadius: 5,
   },
   leftTop: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: scaleSize(20),
-    height: scaleSize(20),
+    width: scaleSize(50),
+    height: scaleSize(50),
     backgroundColor: themesColor.red,
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 20,
-  },
-  rightTop: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    height: 20,
-    marginRight: 10,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
   },
   rt_num: {
     color: themesColor.white,
@@ -91,6 +81,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     width: '100%',
+    marginBottom: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -102,18 +93,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     opacity: 0.5
   },
-  image_text: {
-    color: themesColor.white,
-    fontSize: setSpText(18),
-    fontWeight: '500',
-  },
   image_bg: {
-    flex: 1,
-    width: scaleSize(120),
-    height: scaleSize(120),
+    width: '100%',
+    height: '100%',
     borderRadius: 5,
   },
   title: {
+    height: scaleSize(100),
     marginTop: 2,
   },
   title_text: {

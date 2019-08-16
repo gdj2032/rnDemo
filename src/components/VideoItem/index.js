@@ -8,7 +8,7 @@ import TextItem2 from '../TextItem2';
 import { VideoType } from '../../utils/DataType';
 import PlayNumber from '../PlayNumber';
 import VideoTime from '../VideoTime';
-import { dateFormat, CheckText } from '../../utils/utils';
+import { dateFormat } from '../../utils/utils';
 import SpacerItem from '../SpacerItem';
 import BadgeItem from '../BadgeItem';
 import VideoScreen from '../VideoScreen';
@@ -62,7 +62,7 @@ export default class VideoItem extends Component {
         </View>
         <View>
           <View style={styles.row}>
-            <Text style={text_f16_fw5_black}>{CheckText(data.title)}</Text>
+            <Text style={text_f16_fw5_black} numberOfLines={1}>{data.title}</Text>
             {this.Images}
           </View>
           <SpacerItem />
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
   container: {
     marginLeft: 10,
     marginRight: 10,
-    height: scaleSize(300),
+    height: scaleSize(800),
     borderRadius: 5,
   },
   video: {
     width: '100%',
-    height: scaleSize(200),
+    height: scaleSize(600),
     borderRadius: 5,
   },
   videoImg: {

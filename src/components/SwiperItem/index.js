@@ -48,36 +48,6 @@ export default class SwiperItem extends Component {
             </View>
           )
         }
-        {/* <View style={styles.slide}>
-          <Image
-            source={require('../../image/swiper1.png')}
-            style={styles.image}
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../image/swiper2.png')}
-            style={styles.image}
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../image/swiper3.png')}
-            style={styles.image}
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../image/swiper4.png')}
-            style={styles.image}
-          />
-        </View>
-        <View style={styles.slide}>
-          <Image
-            source={require('../../image/swiper5.png')}
-            style={styles.image}
-          />
-        </View> */}
       </Swiper>
     );
   }
@@ -85,11 +55,13 @@ export default class SwiperItem extends Component {
 
 const styles = StyleSheet.create({
   wrapper: {
-    margin: 10,
     borderRadius: 20
   },
   slide: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
+    paddingLeft: 10,
+    paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20
@@ -105,9 +77,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   dot_style: {
-    width: scaleSize(6),
-    height: scaleSize(6),
-    borderRadius: 6,
+    width: scaleSize(12),
+    height: scaleSize(12),
+    borderRadius: scaleSize(6),
     marginLeft: 4,
     marginRight: 4,
     marginBottom: 5,

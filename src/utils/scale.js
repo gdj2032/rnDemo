@@ -1,10 +1,14 @@
 /**
  * 屏幕工具类
- * ui设计基准,iphone 6
- * width:750
- * height:1334
+//  * ui设计基准,iphone 6
+//  * width:750
+//  * height:1334
  *
- * 2560x1440 Nexus 6P
+//  * 2560x1440 Nexus 6P
+ *
+ * ui设计基准,iphone 6 plus
+ * width:1080
+ * height:1920
  */
 
 /*
@@ -23,10 +27,10 @@ export const deviceHeight = Dimensions.get("window").height; //设备的高度
 let fontScale = PixelRatio.getFontScale(); //返回字体大小缩放比例
 
 let pixelRatio = PixelRatio.get(); //当前设备的像素密度
-const defaultPixel = 3.5; //像素密度
+const defaultPixel = 3; //像素密度
 //px转换成dp
-const w2 = 1440 / defaultPixel;
-const h2 = 2560 / defaultPixel;
+const w2 = 1080 / defaultPixel;
+const h2 = 1920 / defaultPixel;
 const scale = Math.min(deviceHeight / h2, deviceWidth / w2); //获取缩放比例
 /**
  * 设置text为sp
@@ -40,5 +44,5 @@ export function setSpText(size: number) {
 
 export function scaleSize(size: number) {
   size = Math.round(size * scale + 0.5);
-  return size;
+  return size / defaultPixel;
 }

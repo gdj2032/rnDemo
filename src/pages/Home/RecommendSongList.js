@@ -6,6 +6,7 @@ import { container } from '../../style';
 import TextItem1 from "../../components/TextItem1";
 import TextItem2 from "../../components/TextItem2";
 import { scaleSize } from "../../utils";
+import { deviceWidth } from "../../utils/scale";
 
 export default class RecommendSongList extends Component {
 
@@ -59,9 +60,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   image_bg: {
-    flex: 1,
-    width: scaleSize(120),
-    height: scaleSize(120),
+    width: scaleSize(320),
+    height: scaleSize(320),
     borderRadius: 5,
   },
 });

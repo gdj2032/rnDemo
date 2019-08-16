@@ -22,18 +22,17 @@ export default class NavBtnItem extends Component {
 
 const styles = StyleSheet.create({
   nav: {
-    width: scaleSize(56),
-    height: scaleSize(72),
+    width: scaleSize(180),
+    height: scaleSize(200),
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
     marginBottom: 10,
   },
   calendar: {
-    width: scaleSize(48),
-    height: scaleSize(48),
+    width: scaleSize(120),
+    height: scaleSize(120),
     backgroundColor: themesColor.red,
-    borderRadius: scaleSize(24),
+    borderRadius: scaleSize(60),
     justifyContent: 'center',
     alignItems: 'center',
   },
