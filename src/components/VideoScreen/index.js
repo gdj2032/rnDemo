@@ -23,6 +23,12 @@ export default class VideoScreen extends Component {
     header: null
   };
 
+  static defaultProps = {
+    paused: true,
+    setPaused: () => {},
+    url: null
+  }
+
   state = {
     rate: 1,
     volume: 1,
@@ -151,11 +157,12 @@ export default class VideoScreen extends Component {
   }
 
   render() {
+    const { style } = this.props;
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, style]}>
         <TouchableWithoutFeedback
           style={styles.fullScreen}
           onPress={() => this.onChangePause()}
@@ -210,7 +217,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "black"
+    backgroundColor: "black",
   },
   textStyle: {
     paddingLeft: 10,

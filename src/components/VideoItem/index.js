@@ -8,7 +8,7 @@ import TextItem2 from '../TextItem2';
 import { VideoType } from '../../utils/DataType';
 import PlayNumber from '../PlayNumber';
 import VideoTime from '../VideoTime';
-import { dateFormat } from '../../utils/utils';
+import { dateFormat, isAndroid } from '../../utils/utils';
 import SpacerItem from '../SpacerItem';
 import BadgeItem from '../BadgeItem';
 import VideoScreen from '../VideoScreen';
@@ -41,9 +41,10 @@ export default class VideoItem extends Component {
             paused={paused}
             setPaused={(bool) => this.setState({paused: bool})}
             url={data.video}
+            style={{ borderRadius: 5 }}
             />
           {
-            isShowImg &&
+            isAndroid() &&  isShowImg &&
             <Image style={styles.videoImg} source={require('../../image/video_df_bg.png')}/>
           }
           <PlayNumber num={CheckNum(data.number)} style={styles.number} numStyle={styles.numText} />
@@ -60,9 +61,9 @@ export default class VideoItem extends Component {
         <View style={styles.type}>
           <TextItem2 text={VideoType[data.type]} style={styles.typeItem} textStyle={text_f10_white} />
         </View>
-        <View>
+        <View style={styles.bottom}>
           <View style={styles.row}>
-            <Text style={text_f16_fw5_black} numberOfLines={1}>{data.title}</Text>
+            <Text style={[text_f16_fw5_black, {width: '90%'}]} numberOfLines={1}>{data.title}</Text>
             {this.Images}
           </View>
           <SpacerItem />
@@ -131,13 +132,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: scaleSize(30),
-    height: scaleSize(30),
+    width: scaleSize(60),
+    height: scaleSize(60),
     borderRadius: scaleSize(30),
   },
-  row: {
+  bottom:{
     width: '100%',
-    height: 50,
+    height: scaleSize(200),
+  },
+  row: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
