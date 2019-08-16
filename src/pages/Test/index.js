@@ -5,10 +5,12 @@ import Video from "react-native-video";
 import { connect } from "react-redux";
 import { themesColor, containers } from "../../style";
 import Icons from "../../components/Icons";
-import VideoScreen from "../../components/VideoScreen";
 import { UpdateVideoList } from "../../actions/setting";
 import { defVideoList } from "../../utils/defaultData";
 import { reduxStore } from "../../utils/utils";
+import ScreenPage from "./ScreenPage";
+import { scaleSize } from "../../utils";
+import { deviceWidth } from "../../utils/scale";
 
 @connect(state => ({
   local: state.local
@@ -37,11 +39,15 @@ export default class Test extends Component {
     const { paused } = this.state;
     return (
       <View style={containers}>
-        <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
+        {/* <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
-        <Button onPress={this.onPress.bind(this)}>Button</Button>
+        <Button onPress={this.onPress.bind(this)}>Button</Button> */}
         <View style={styles.container}>
-          <VideoScreen paused={true} />
+          <ScreenPage
+            paused={true}
+            width={deviceWidth}
+            height={scaleSize(400)}
+          />
         </View>
       </View>
     );
@@ -57,6 +63,6 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    height: 200
+    height: scaleSize(600)
   },
 });
