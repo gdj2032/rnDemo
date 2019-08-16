@@ -15,7 +15,8 @@ const routes = {
 };
 
 const Navigator = createStackNavigator(routes, {
-  headerMode: "none"
+  headerMode: "none",
+  cardStyle: { shadowColor: 'transparent' }
 });
 
 export default class App extends Component {
