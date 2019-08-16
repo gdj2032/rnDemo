@@ -45,8 +45,6 @@ export default class Test extends Component {
         <View style={styles.container}>
           <ScreenPage
             paused={true}
-            width={deviceWidth}
-            height={scaleSize(400)}
           />
         </View>
       </View>

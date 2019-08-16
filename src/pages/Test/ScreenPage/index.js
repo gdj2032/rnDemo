@@ -52,6 +52,7 @@ export default class ScreenPage extends Component {
     paused: true,
     setPaused: () => {},
     url: null,
+    disableBack: false,
   }
 
   state = {
@@ -195,7 +196,7 @@ export default class ScreenPage extends Component {
   };
 
   render() {
-    const { style } = this.props;
+    const { style, disableBack } = this.props;
     const { isFullScreen } = this.state;
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
@@ -239,9 +240,12 @@ export default class ScreenPage extends Component {
             </View>
           </View>
         </View>
-        <View style={styles.backImg}>
-          <Icon name="left" size="md" color={'white'} />
-        </View>
+        {
+          !disableBack &&
+          <View style={styles.backImg}>
+            <Icon name="left" size="md" color={'white'} />
+          </View>
+        }
         <View style={styles.moreImg}>
           <Icon name="ellipsis" size="md" color={'white'} />
         </View>
@@ -287,9 +291,9 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 5,
     position: "absolute",
-    bottom: 12,
-    left: 100,
-    right: 100
+    bottom: 2,
+    left: 0,
+    right: 0
   },
   progress: {
     flex: 1,
@@ -304,7 +308,7 @@ const styles = StyleSheet.create({
   innerProgressCompleted: {
     flex: 1,
     height: 2,
-    backgroundColor: "#CCCCCC"
+    backgroundColor: "#FF3030"
   },
   innerProgressRemaining: {
     flex: 1,
