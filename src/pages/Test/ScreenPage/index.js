@@ -9,7 +9,6 @@ import {
   Image,
   Dimensions
 } from "react-native";
-import moment from 'moment';
 import Video from "react-native-video";
 import { Icon } from "@ant-design/react-native";
 
