@@ -24,7 +24,8 @@ export default class Test extends Component {
 
   state = {
     list: this.props.local.videoList.list,
-    paused: true
+    paused: true,
+    isFullScreen: false
   };
 
   onPress() {
@@ -36,15 +37,16 @@ export default class Test extends Component {
   }
 
   render() {
-    const { paused } = this.state;
+    const { paused, isFullScreen } = this.state;
     return (
       <View style={containers}>
         {/* <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
         <Button onPress={this.onPress.bind(this)}>Button</Button> */}
-        <View style={styles.container}>
+        <View style={isFullScreen ? styles.container2 : styles.container1}>
           <ScreenPage
-            paused={true}
+            paused={paused}
+            setFullScreen={(bool) => this.setState({ isFullScreen: bool })}
           />
         </View>
       </View>
@@ -59,8 +61,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderBottomColor: "black"
   },
-  container: {
+  container1: {
     width: '100%',
     height: scaleSize(600)
+  },
+  container2: {
+    flex: 1,
   },
 });

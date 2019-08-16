@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Video from "react-native-video";
 import { Icon } from "@ant-design/react-native";
+import Orientation from 'react-native-orientation';
 
 function formatTime(second) {
   let h = 0,
@@ -64,6 +65,8 @@ export default class ScreenPage extends Component {
     currentTime: 0.0,
     paused: this.props.paused,
     isFullScreen: false,
+    videoWidth: deviceHeight,
+    videoHeight: deviceWidth,
   };
 
   componentWillMount() {
@@ -183,13 +186,24 @@ export default class ScreenPage extends Component {
     this.props.setPaused(!this.state.paused);
   }
 
+  _onBack = () => {
+    if(!this.state.isFullScreen) return;
+    Orientation.lockToPortrait();
+    this.setState({
+      isFullScreen: false,
+    })
+    this.props.setFullScreen(false);
+  }
+
   // 屏幕旋转时宽高会发生变化，可以在onLayout的方法中做处理，比监听屏幕旋转更加及时获取宽高变化
   _onFullScreen = () => {
+    console.log('this.props', this.props);
     if(this.state.isFullScreen) {
-      this.video.dismissFullscreenPlayer();
+      Orientation.lockToPortrait();
     } else {
-      this.video.presentFullscreenPlayer();
+      Orientation.lockToLandscape();
     }
+    this.props.setFullScreen(!this.state.isFullScreen);
     this.setState({
       isFullScreen: !this.state.isFullScreen,
     })
@@ -197,12 +211,12 @@ export default class ScreenPage extends Component {
 
   render() {
     const { style, disableBack } = this.props;
-    const { isFullScreen } = this.state;
+    const { isFullScreen, videoWidth, videoHeight } = this.state;
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
     return (
-      <View style={[styles.container, style]} >
+      <View style={[styles.container, style, isFullScreen && {width: videoWidth, height: videoHeight}]} >
         <TouchableWithoutFeedback
           style={styles.fullScreen}
           onPress={() => this.onChangePause()}
@@ -243,7 +257,9 @@ export default class ScreenPage extends Component {
         {
           !disableBack &&
           <View style={styles.backImg}>
-            <Icon name="left" size="md" color={'white'} />
+            <TouchableWithoutFeedback onPress={() => this._onBack()}>
+              <Icon name="left" size="md" color={'white'} />
+            </TouchableWithoutFeedback>
           </View>
         }
         <View style={styles.moreImg}>
@@ -265,7 +281,7 @@ export default class ScreenPage extends Component {
             {formatTime(this.state.duration)}
           </Text>
           <TouchableWithoutFeedback onPress={this._onFullScreen.bind(this)}>
-            <Icon name="fullscreen" size="md" color={'white'} />
+            <Icon name={isFullScreen ? 'fullscreen-exit' : 'fullscreen' } size="md" color={'white'} />
           </TouchableWithoutFeedback>
         </View>
       </View>
