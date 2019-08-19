@@ -18,7 +18,8 @@ const Navigator = createBottomTabNavigator({
   backBehavior: 'history',
   order: ['Home', 'Video', 'Fire', 'User', 'Test'],
   initialRouteName: 'Home',
-  lazy: false,
+  lazy: true,
+  tabBarPosition: 'bottom',
   tabBarOptions: {
     showLabel: false,
     activeTintColor: themesColor.red,

@@ -107,6 +107,7 @@ export default class Home extends Component {
 
   componentDidMount() {
     reduxStore.dispatch = this.props.dispatch;
+    reduxStore.navigation = this.props.navigation;
   }
 
   onPullRelease(resolve) {

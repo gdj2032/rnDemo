@@ -8,6 +8,7 @@ import moment from 'moment';
 export const reduxStore = {
   dispatch: () => {},
   getState: () => {},
+  navigation: () => {},
 };
 
 /**

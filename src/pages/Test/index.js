@@ -8,7 +8,6 @@ import Icons from "../../components/Icons";
 import { UpdateVideoList } from "../../actions/setting";
 import { defVideoList } from "../../utils/defaultData";
 import { reduxStore } from "../../utils/utils";
-import ScreenPage from "./ScreenPage";
 import { scaleSize } from "../../utils";
 import { deviceWidth } from "../../utils/scale";
 
@@ -20,13 +19,10 @@ export default class Test extends Component {
     tabBarIcon: ({ tintColor, focused }) => (
       <Icon name="eye" size="md" color={tintColor} focused={focused} />
     ),
-    // tabBarVisible: navigation.state.params || true,
   });
 
   state = {
     list: this.props.local.videoList.list,
-    paused: true,
-    isFullScreen: false
   };
 
   componentDidMount() {
@@ -41,23 +37,12 @@ export default class Test extends Component {
     // dispatch(UpdateVideoList({ list: defVideoList }));
   }
 
-  _setFullScreen(bool) {
-    this.setState({ isFullScreen: bool });
-  }
-
   render() {
-    const { paused, isFullScreen } = this.state;
     return (
       <View style={containers}>
-        {/* <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
+        <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
-        <Button onPress={this.onPress.bind(this)}>Button</Button> */}
-        <View style={isFullScreen ? styles.container2 : styles.container1}>
-          <ScreenPage
-            paused={paused}
-            setFullScreen={(bool) => this._setFullScreen(bool)}
-          />
-        </View>
+        <Button onPress={this.onPress.bind(this)}>Button</Button>
       </View>
     );
   }

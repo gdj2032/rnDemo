@@ -1,8 +1,14 @@
-import { createNavigationContainer } from 'react-navigation';
+import { createTabNavigator } from 'react-navigation';
 import FullScreen from './FullScreen';
 
-const SettingsPage = createNavigationContainer({
+const SettingsPage = createTabNavigator({
   FullScreen: { screen: FullScreen },
+}, {
+  backBehavior: 'none',
+  lazy: false,
+  tabBarOptions: {
+    tabBarVisible: false,
+  }
 });
 
 const settingsRouteConfigMap = {
