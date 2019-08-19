@@ -8,7 +8,7 @@ import TextItem2 from '../TextItem2';
 import { VideoType } from '../../utils/DataType';
 import PlayNumber from '../PlayNumber';
 import VideoTime from '../VideoTime';
-import { dateFormat, isAndroid } from '../../utils/utils';
+import { isAndroid, formatTime } from '../../utils/utils';
 import SpacerItem from '../SpacerItem';
 import BadgeItem from '../BadgeItem';
 import VideoScreen from '../VideoScreen';
@@ -18,6 +18,7 @@ export default class VideoItem extends Component {
   state = {
     paused: true,
     isShowImg: true,
+    isFullScreen: false,
   }
 
   Images = <Image style={styles.image} source={require('../../image/song.png')} />
@@ -28,9 +29,14 @@ export default class VideoItem extends Component {
       isShowImg: false
     });
   }
+
+  _setFullScreen(bool) {
+    this.props.navigation.navigate('FullScreen');
+    // this.setState({ isFullScreen: bool});
+  }
   render() {
     const { data } = this.props;
-    const { paused, isShowImg } = this.state;
+    const { paused, isShowImg, isFullScreen } = this.state;
     if(!data) {
       return null;
     }
@@ -39,24 +45,16 @@ export default class VideoItem extends Component {
         <View style={styles.video}>
           <VideoScreen
             paused={paused}
-            setPaused={(bool) => this.setState({paused: bool})}
             url={data.video}
             style={{ borderRadius: 5 }}
+            setFullScreen={(bool) => this._setFullScreen.bind(this, bool)}
             />
           {
             isAndroid() &&  isShowImg &&
             <Image style={styles.videoImg} source={require('../../image/video_df_bg.png')}/>
           }
-          <PlayNumber num={CheckNum(data.number)} style={styles.number} numStyle={styles.numText} />
-          <VideoTime time={dateFormat(data.time)} />
-          {
-            paused &&
-            <TouchableWithoutFeedback onPress={this.onPlay.bind(this)}>
-              <View style={styles.paly}>
-                <Icon name="caret-right" size="lg" color={themesColor.white} />
-              </View>
-            </TouchableWithoutFeedback>
-          }
+          {/* <PlayNumber num={CheckNum(data.number)} style={styles.number} numStyle={styles.numText} />
+          <VideoTime time={formatTime(data.time)} /> */}
         </View>
         <View style={styles.type}>
           <TextItem2 text={VideoType[data.type]} style={styles.typeItem} textStyle={text_f10_white} />

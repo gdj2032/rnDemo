@@ -14,6 +14,7 @@ export default class User extends Component {
     return (
       <View style={containers}>
         <Text>User</Text>
+        <Button onPress={() => this.props.navigation.navigate('FullScreen')} >123</Button>
       </View>
     );
   }

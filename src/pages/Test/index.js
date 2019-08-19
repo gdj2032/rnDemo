@@ -16,11 +16,12 @@ import { deviceWidth } from "../../utils/scale";
   local: state.local
 }))
 export default class Test extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation, screenProps }) => ({
     tabBarIcon: ({ tintColor, focused }) => (
       <Icon name="eye" size="md" color={tintColor} focused={focused} />
-    )
-  };
+    ),
+    // tabBarVisible: navigation.state.params || true,
+  });
 
   state = {
     list: this.props.local.videoList.list,
@@ -28,12 +29,20 @@ export default class Test extends Component {
     isFullScreen: false
   };
 
+  componentDidMount() {
+    console.log(this.props.navigation);
+  }
+
   onPress() {
-    console.log(this.props);
+    // console.log(this.props);
     // this.props.dispatch(types.localProfile({age: 10}))
-    const { dispatch } = reduxStore;
+    // const { dispatch } = reduxStore;
     // dispatch(types.localProfile({age: 25}))
-    dispatch(UpdateVideoList({ list: defVideoList }));
+    // dispatch(UpdateVideoList({ list: defVideoList }));
+  }
+
+  _setFullScreen(bool) {
+    this.setState({ isFullScreen: bool });
   }
 
   render() {
@@ -46,7 +55,7 @@ export default class Test extends Component {
         <View style={isFullScreen ? styles.container2 : styles.container1}>
           <ScreenPage
             paused={paused}
-            setFullScreen={(bool) => this.setState({ isFullScreen: bool })}
+            setFullScreen={(bool) => this._setFullScreen(bool)}
           />
         </View>
       </View>

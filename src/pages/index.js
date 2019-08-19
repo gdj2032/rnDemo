@@ -6,6 +6,7 @@ import Fire from './Fire';
 import User from './User';
 import Test from './Test';
 import { themesColor } from '../style';
+import settingsRouteConfigMap from './Setting'
 
 const Navigator = createBottomTabNavigator({
   Home: { screen: Home },
@@ -51,6 +52,7 @@ const Navigator = createBottomTabNavigator({
 
 const mainRouteConfigMap = {
   Main: { screen: Navigator },
+  ...settingsRouteConfigMap
 };
 
 export default mainRouteConfigMap;

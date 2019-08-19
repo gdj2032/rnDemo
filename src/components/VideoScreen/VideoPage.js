@@ -44,7 +44,7 @@ function formatTime(second) {
 const deviceWidth = Dimensions.get("window").width; //设备的宽度
 const deviceHeight = Dimensions.get("window").height; //设备的高度
 
-export default class ScreenPage extends Component {
+export default class VideoPage extends Component {
   static navigationOptions = {
     header: null
   };
@@ -53,6 +53,9 @@ export default class ScreenPage extends Component {
     paused: true,
     url: null,
     disableBack: false,
+    disableEllipsis: false,
+    disablePaused: false,
+    disableFullScreen: false,
     setFullScreen: () => {},
   }
 
@@ -209,7 +212,7 @@ export default class ScreenPage extends Component {
   };
 
   render() {
-    const { style, disableBack } = this.props;
+    const { style, disableBack, disableEllipsis, disablePaused, disableFullScreen } = this.props;
     const { isFullScreen, videoWidth, videoHeight } = this.state;
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
@@ -261,15 +264,16 @@ export default class ScreenPage extends Component {
             </TouchableWithoutFeedback>
           </View>
         }
-        <View style={styles.moreImg}>
-          <Icon name="ellipsis" size="md" color={'white'} />
-        </View>
+        {
+          !disableEllipsis &&
+          <View style={styles.moreImg}>
+            <Icon name="ellipsis" size="md" color={'white'} />
+          </View>
+        }
         <View style={styles.stopImg}>
           {
-            this.state.paused ?
-            <Icon name="caret-right" size="md" color={'white'} />
-            :
-            <Icon name="pause" size="md" color={'white'} />
+            !disablePaused &&
+            <Icon name={this.state.paused ? 'caret-right' : 'pause'} size="md" color={'white'} />
           }
           <Text style={styles.progressCTime}>
             {formatTime(this.state.currentTime)}
@@ -279,9 +283,12 @@ export default class ScreenPage extends Component {
           <Text style={styles.progressCTime}>
             {formatTime(this.state.duration)}
           </Text>
-          <TouchableWithoutFeedback onPress={this._onFullScreen.bind(this)}>
-            <Icon name={isFullScreen ? 'fullscreen-exit' : 'fullscreen' } size="md" color={'white'} />
-          </TouchableWithoutFeedback>
+          {
+            !disableFullScreen &&
+            <TouchableWithoutFeedback onPress={this._onFullScreen.bind(this)}>
+              <Icon name={isFullScreen ? 'fullscreen-exit' : 'fullscreen' } size="md" color={'white'} />
+            </TouchableWithoutFeedback>
+          }
         </View>
       </View>
     );

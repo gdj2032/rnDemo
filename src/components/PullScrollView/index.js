@@ -401,7 +401,6 @@ export default class PullScrollView extends Component {
                 ref={(c) => {
                     this.list = c
                 }}
-                extraData={this.state}
                 {...this.props}
                 ListFooterComponent={() => {
                   return(

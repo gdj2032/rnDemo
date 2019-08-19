@@ -11,7 +11,7 @@ import mainRouteConfigMap from "./src/pages";
 import { themesColor } from "./src/style";
 
 const routes = {
-  ...mainRouteConfigMap
+  ...mainRouteConfigMap,
 };
 
 const Navigator = createStackNavigator(routes, {

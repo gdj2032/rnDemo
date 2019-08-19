@@ -37,16 +37,37 @@ export const CheckNum = (num) => {
 }
 
 /**
- * 获取时间
- * @param {*} time
+ * 时间转hh:mm:ss
+ * @param {毫秒} second
  */
-export const dateFormat = date => {
-  if(date < 360000) {
-    return moment(date).format('mm:ss');
+export const formatTime = (second) => {
+  second = second / 1000;
+  let h = 0,
+    i = 0,
+    s = parseInt(second);
+  if (s > 60) {
+    i = parseInt(s / 60);
+    s = parseInt(s % 60);
   }
-  return moment(date).locale('zh-cn').format('HH:mm:ss');
-};
-
+  // 补零
+  let zero = function(v) {
+    return v >> 0 < 10 ? "0" + v : v;
+  };
+  console.log([zero(h), zero(i), zero(s)].join(":"));
+  if(s === 60) {
+    s = 0;
+    i = i + 1;
+  }
+  if(second <= 3600) {
+    return [zero(i), zero(s)].join(":");
+  }
+  if(i === 60) {
+    i = 0;
+    h = h + 1;
+  }
+  h = parseInt(s % 60 % 60);
+  return [zero(h), zero(i), zero(s)].join(":");
+}
 
 export const isAndroid = () => Platform.OS === 'android';
 
