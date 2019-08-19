@@ -12,6 +12,7 @@ import {
 import Video from "react-native-video";
 import { Icon } from "@ant-design/react-native";
 import Orientation from 'react-native-orientation';
+import MoreSettingView from "./MoreSettingView";
 
 function formatTime(second) {
   let h = 0,
@@ -73,6 +74,7 @@ export default class PlayVideo extends Component {
     isFullScreen: false,
     videoWidth: deviceHeight,
     videoHeight: deviceWidth,
+    isShowMore: false,
   };
 
   componentWillMount() {
@@ -209,6 +211,13 @@ export default class PlayVideo extends Component {
     this.props.setFullScreen(false);
   }
 
+  _onMore = () => {
+    this.setState({
+      isShowMore: true,
+      paused: true,
+    });
+  }
+
   _onPause = () => {
     this.setState({ paused: !this.state.paused });
   }
@@ -226,9 +235,16 @@ export default class PlayVideo extends Component {
     }
   };
 
+  _onCloseMore = (bool) => {
+    this.setState({
+      isShowMore: bool,
+      paused: false,
+    });
+  }
+
   render() {
     const { style, disableTime, disableProgress, disableBack, disableEllipsis, disablePaused, disableFullScreen } = this.props;
-    const { isFullScreen, videoWidth, videoHeight } = this.state;
+    const { isFullScreen, videoWidth, videoHeight, isShowMore } = this.state;
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
@@ -285,7 +301,9 @@ export default class PlayVideo extends Component {
         {
           disableEllipsis &&
           <View style={styles.moreImg}>
-            <Icon name="ellipsis" size="md" color={'white'} />
+            <TouchableWithoutFeedback onPress={() => this._onMore()}>
+              <Icon name="ellipsis" size="md" color={'white'} />
+            </TouchableWithoutFeedback>
           </View>
         }
         <View style={styles.stopImg}>
@@ -316,6 +334,13 @@ export default class PlayVideo extends Component {
             </TouchableWithoutFeedback>
           }
         </View>
+        {
+          this.state.isShowMore &&
+          <MoreSettingView
+            isShowMore={isShowMore}
+            onClose={(bool) => this._onCloseMore(bool)}
+          />
+        }
       </View>
     );
   }
@@ -375,6 +400,8 @@ const styles = StyleSheet.create({
     left: 5,
     paddingRight: 5,
     paddingBottom: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   moreImg: {
     backgroundColor: "transparent",
