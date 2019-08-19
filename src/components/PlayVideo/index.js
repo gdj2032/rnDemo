@@ -173,6 +173,7 @@ export default class PlayVideo extends Component {
   renderVolumeControl() {
     return (
       <View style={styles.volume}>
+        <Icon name="sound" type="md" color={'#FF3030'} />
         <Slider
           min={0}
           max={1}

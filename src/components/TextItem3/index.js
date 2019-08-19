@@ -28,13 +28,13 @@ export default class TextItem3 extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
+    height: 60,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
   icons: {
-    width: scaleSize(80),
+    flex: 0.2,
     justifyContent: 'center',
   },
   contain: {
