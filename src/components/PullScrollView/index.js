@@ -195,7 +195,7 @@ export default class PullScrollView extends Component {
     this.curState = defaultState;
     this.state.pullPan.setValue(this.defaultXY);
     this.state.spinValue.stopAnimation(value => {
-      console.log('剩余时间' + (1 - value) * 3000);
+      // console.log('剩余时间' + (1 - value) * 3000);
       //计算角度比例
       this.animation = Animated.timing(this.state.spinValue, {
         toValue: 1,

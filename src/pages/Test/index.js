@@ -26,7 +26,7 @@ export default class Test extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.navigation);
+    // console.log(this.props.navigation);
   }
 
   onPress() {

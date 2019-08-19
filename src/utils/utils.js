@@ -54,7 +54,6 @@ export const formatTime = (second) => {
   let zero = function(v) {
     return v >> 0 < 10 ? "0" + v : v;
   };
-  console.log([zero(h), zero(i), zero(s)].join(":"));
   if(s === 60) {
     s = 0;
     i = i + 1;

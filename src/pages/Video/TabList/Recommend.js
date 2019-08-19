@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList} from 'react-native';
 import { connect } from 'react-redux';
 import { contain, spacer_line } from '../../../style';
-import VideoItem from '../../../components/VideoItem';
+import TabsVideoList from '../../../components/TabsVideoList';
 import SpacerItem from '../../../components/SpacerItem';
 
 @connect(state => ({
@@ -24,7 +24,7 @@ export default class Recommend extends Component {
       <View style={[contain, styles.contain]}>
         <FlatList
           data={data}
-          renderItem={({item}) => <VideoItem data={item} />}
+          renderItem={({item}) => <TabsVideoList data={item} />}
           ItemSeparatorComponent={() => <SpacerItem style={spacer_line} />}
           keyExtractor={item => item.title}
         />

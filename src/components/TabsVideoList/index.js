@@ -11,9 +11,9 @@ import VideoTime from '../VideoTime';
 import { isAndroid, formatTime, reduxStore } from '../../utils/utils';
 import SpacerItem from '../SpacerItem';
 import BadgeItem from '../BadgeItem';
-import VideoScreen from '../VideoScreen';
+import PlayVideo from '../PlayVideo';
 
-export default class VideoItem extends Component {
+export default class TabsVideoList extends Component {
 
   state = {
     paused: true,
@@ -23,20 +23,21 @@ export default class VideoItem extends Component {
 
   _onNavigate() {
     const { data } = this.props;
-    reduxStore.navigation.navigate('FullScreen', { data })
+    reduxStore.navigation.navigate('VideoScreen', { data: data })
   }
 
   render() {
     const { data } = this.props;
+    console.log(this.props)
     const { paused } = this.state;
     if(!data) {
       return null;
     }
     return (
       <View style={styles.container}>
-        <TouchableWithoutFeedback onPress={this._onNavigate}>
+        <TouchableWithoutFeedback onPress={this._onNavigate.bind(this)}>
           <View style={styles.video}>
-            <VideoScreen
+            <PlayVideo
               noNeedPaused={true}
               paused={paused}
               url={data.video}

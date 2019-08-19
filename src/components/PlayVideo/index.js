@@ -25,7 +25,7 @@ function formatTime(second) {
   let zero = function(v) {
     return v >> 0 < 10 ? "0" + v : v;
   };
-  console.log([zero(h), zero(i), zero(s)].join(":"));
+  // console.log([zero(h), zero(i), zero(s)].join(":"));
   if(s === 60) {
     s = 0;
     i = i + 1;
@@ -44,7 +44,7 @@ function formatTime(second) {
 const deviceWidth = Dimensions.get("window").width; //设备的宽度
 const deviceHeight = Dimensions.get("window").height; //设备的高度
 
-export default class VideoScreen extends Component {
+export default class PlayVideo extends Component {
   static navigationOptions = {
     header: null
   };
@@ -84,7 +84,9 @@ export default class VideoScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ paused: nextProps.paused });
+    this.setState({
+      paused: nextProps.paused,
+    });
   }
 
   onBackAndroid = () => {
@@ -93,13 +95,13 @@ export default class VideoScreen extends Component {
   };
 
   onLoad = data => {
-    console.log('onLoad', data);
+    // console.log('onLoad', data);
     this.setState({ duration: data.duration });
   };
 
   onProgress = data => {
     this.setState({ currentTime: data.currentTime });
-    console.log(data.currentTime + "hhh");
+    // console.log(data.currentTime + "hhh");
   };
 
   onEnd = () => {
@@ -195,7 +197,11 @@ export default class VideoScreen extends Component {
   }
 
   _onBack = () => {
-    if(!this.state.isFullScreen) return;
+    if(!this.state.isFullScreen) {
+      console.log(this.props.navigation)
+      this.props.navigation.goBack(null);
+      return;
+    };
     Orientation.lockToPortrait();
     this.setState({
       isFullScreen: false,
@@ -203,18 +209,21 @@ export default class VideoScreen extends Component {
     this.props.setFullScreen(false);
   }
 
-  // 屏幕旋转时宽高会发生变化，可以在onLayout的方法中做处理，比监听屏幕旋转更加及时获取宽高变化
+  _onPause = () => {
+    this.setState({ paused: !this.state.paused });
+  }
+
   _onFullScreen = () => {
-    console.log('this.props', this.props);
-    if(this.state.isFullScreen) {
+    const { isFullScreen } = this.state;
+    this.props.setFullScreen(!isFullScreen);
+    this.setState({
+      isFullScreen: !isFullScreen,
+    })
+    if(isFullScreen) {
       Orientation.lockToPortrait();
     } else {
       Orientation.lockToLandscape();
     }
-    this.props.setFullScreen(!this.state.isFullScreen);
-    this.setState({
-      isFullScreen: !this.state.isFullScreen,
-    })
   };
 
   render() {
@@ -224,7 +233,7 @@ export default class VideoScreen extends Component {
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
     return (
-      <View style={[styles.container, style, isFullScreen && {width: videoWidth, height: videoHeight}]} >
+      <View style={[styles.container, style, this.state.isFullScreen && {width: videoWidth, height: videoHeight}]} >
         <TouchableWithoutFeedback
           style={styles.fullScreen}
           onPress={() => this.onChangePause()}
@@ -282,7 +291,9 @@ export default class VideoScreen extends Component {
         <View style={styles.stopImg}>
           {
             disablePaused &&
-            <Icon name={this.state.paused ? 'caret-right' : 'pause'} size="md" color={'white'} />
+            <TouchableWithoutFeedback onPress={() => this._onPause()}>
+              <Icon name={this.state.paused ? 'caret-right' : 'pause'} size="md" color={'white'} />
+            </TouchableWithoutFeedback>
           }
           {
             disableTime &&
@@ -300,7 +311,7 @@ export default class VideoScreen extends Component {
           }
           {
             disableFullScreen &&
-            <TouchableWithoutFeedback onPress={this._onFullScreen}>
+            <TouchableWithoutFeedback onPress={this._onFullScreen.bind(this)}>
               <Icon name={isFullScreen ? 'fullscreen-exit' : 'fullscreen' } size="md" color={'white'} />
             </TouchableWithoutFeedback>
           }
@@ -362,18 +373,24 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     left: 5,
+    paddingRight: 5,
+    paddingBottom: 5,
   },
   moreImg: {
     backgroundColor: "transparent",
     position: 'absolute',
     top: 5,
     right: 5,
+    paddingLeft: 5,
+    paddingBottom: 5,
   },
   stopImg: {
     backgroundColor: "transparent",
     position: 'absolute',
     left: 5,
     bottom: 5,
+    paddingRight: 5,
+    paddingTop: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -382,6 +399,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 5,
     bottom: 5,
+    paddingLeft: 5,
+    paddingTop: 5,
     flexDirection: 'row',
     alignItems: 'center',
   },

@@ -1,11 +1,11 @@
 import { createTabNavigator } from 'react-navigation';
-import FullScreen from './FullScreen';
+import VideoScreen from './VideoScreen';
 
 const SettingsPage = createTabNavigator({
-  FullScreen: { screen: FullScreen },
+  VideoScreen: { screen: VideoScreen },
 }, {
   backBehavior: 'none',
-  lazy: false,
+  lazy: true,
   tabBarOptions: {
     tabBarVisible: false,
   }
