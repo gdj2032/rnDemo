@@ -10,6 +10,7 @@ import { defVideoList } from "../../utils/defaultData";
 import { reduxStore } from "../../utils/utils";
 import { scaleSize } from "../../utils";
 import { deviceWidth } from "../../utils/scale";
+import BasicSliderExample from "./BasicSliderExample";
 
 @connect(state => ({
   local: state.local
@@ -43,6 +44,7 @@ export default class Test extends Component {
         <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
         <Button onPress={this.onPress.bind(this)}>Button</Button>
+        <BasicSliderExample/>
       </View>
     );
   }

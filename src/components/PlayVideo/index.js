@@ -6,11 +6,11 @@ import {
   View,
   Button,
   BackHandler,
-  Image,
+  TouchableOpacity,
   Dimensions
 } from "react-native";
 import Video from "react-native-video";
-import { Icon } from "@ant-design/react-native";
+import { Icon, Slider } from "@ant-design/react-native";
 import Orientation from 'react-native-orientation';
 import MoreSettingView from "./MoreSettingView";
 
@@ -170,27 +170,21 @@ export default class PlayVideo extends Component {
     );
   }
 
-  renderVolumeControl(volume) {
-    const isSelected = this.state.volume === volume;
-
+  renderVolumeControl() {
     return (
-      <TouchableOpacity
-        onPress={() => {
-          this.setState({ volume });
-        }}
-      >
-        <Text
-          style={[
-            styles.controlOption,
-            { fontWeight: isSelected ? "bold" : "normal" }
-          ]}
-        >
-          {volume * 100}%
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.volume}>
+        <Slider
+          min={0}
+          max={1}
+          onAfterChange={value => this._onAfterChange(value)}
+        />
+        </View>
     );
   }
 
+  _onAfterChange(value) {
+    this.setState({ volume: value })
+  }
   onChangePause() {
     if(this.props.noNeedPaused) {
       return;
@@ -319,6 +313,9 @@ export default class PlayVideo extends Component {
               {formatTime(this.state.currentTime)}
             </Text>
           }
+          {
+            // this.renderVolumeControl()
+          }
         </View>
         <View style={styles.fullImg}>
           {
@@ -375,6 +372,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   progressCTime: {
+    width: 60,
+    textAlign: 'center',
     fontSize: 14,
     color: "#FFFFFF",
   },
@@ -429,6 +428,15 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingTop: 5,
     flexDirection: 'row',
+    justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  volume: {
+    position: 'absolute',
+    bottom: 0,
+    left: 80,
+    width: 100,
+    justifyContent: 'center',
+    marginTop: 20,
+  }
 });
