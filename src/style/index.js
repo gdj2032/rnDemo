@@ -8,6 +8,8 @@ export const themesColor = {
   backgroundColor: "#FFF",
   white: "#FFFFFF",
   black: "#000",
+  black2: "#121121",
+  black3: "#222",
   red: "#FF3030"
 };
 
@@ -107,4 +109,8 @@ export const text_f10_white = {
 export const spacer_line = {
   marginTop: 10,
   backgroundColor: themesColor.gray2,
+};
+
+export const transform90 = {
+  transform: [{rotate: '90deg'}]
 };

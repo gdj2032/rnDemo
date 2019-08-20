@@ -25,6 +25,10 @@ export default class MyCreatePanel extends Component {
   _onMore() {
     alert('more')
   }
+
+  _onSongList() {
+    this.props.navigation.navigate('SongListScreen', { data: this.state.data })
+  }
   render() {
     const { isShowList, data } = this.state;
     return (
@@ -40,7 +44,7 @@ export default class MyCreatePanel extends Component {
         {
           isShowList &&
           data.list.length > 0 &&
-          data.list.map(ele => <SongListItem data={ele} key={ele.id} />)
+          data.list.map(ele => <SongListItem data={ele} key={ele.id} onPress={this._onSongList.bind(this)} />)
         }
       </View>
     );

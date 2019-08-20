@@ -7,10 +7,10 @@ import { scaleSize } from '../../utils';
 export default class TextInputButton extends Component {
 
   render() {
-    const { onPress } = this.props;
+    const { onPress, style } = this.props;
     return (
       <TouchableWithoutFeedback onPress={onPress}>
-        <View style={styles.touch}>
+        <View style={[styles.touch, style]}>
           <Icon name="search" size="md" color={themesColor.gray}/>
           <Text style={styles.text}>请输入歌曲名称</Text>
         </View>

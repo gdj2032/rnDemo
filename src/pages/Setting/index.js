@@ -1,8 +1,11 @@
 import { createTabNavigator } from 'react-navigation';
 import VideoScreen from './VideoScreen';
+import SongListScreen from './SongListScreen';
+
 
 const SettingsPage = createTabNavigator({
   VideoScreen: { screen: VideoScreen },
+  SongListScreen: { screen: SongListScreen },
 }, {
   backBehavior: 'none',
   lazy: true,

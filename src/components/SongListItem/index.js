@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Icon } from '@ant-design/react-native';
 import { scaleSize } from '../../utils';
 import { themesColor, text_f16_fw5_black, text_f12_gray } from '../../style';
@@ -8,9 +8,9 @@ import TextItem2 from '../TextItem2';
 
 export default class SongListItem extends Component {
   render() {
-    const { data } = this.props;
+    const { data, onPress } = this.props;
     return (
-      <View style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={onPress}>
         <View style={[styles.image, styles.imgs]}>
           <Image
             style={styles.image}
@@ -40,7 +40,7 @@ export default class SongListItem extends Component {
             data.isSing && <Icon name="sound" size="md" color={themesColor.red} />
           }
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import { containers, contain } from '../../style';
-import PlayVideo from '../../components/PlayVideo';
-import { scaleSize } from '../../utils';
-import { deviceWidth, deviceHeight } from '../../utils/scale';
+import { containers } from '../../../style';
+import PlayVideo from '../../../components/PlayVideo';
+import { deviceWidth } from '../../../utils/scale';
 
 export default class VideoScreen extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({

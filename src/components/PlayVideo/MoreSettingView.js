@@ -6,8 +6,7 @@ import {
   PixelRatio,
   TouchableOpacity
 } from "react-native";
-import { Modal, Provider } from "@ant-design/react-native";
-import { Icon } from "@ant-design/react-native";
+import { Modal, Provider, Icon } from "@ant-design/react-native";
 import PropTypes from "prop-types";
 
 export default class MoreSettingView extends Component {

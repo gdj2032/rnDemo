@@ -38,7 +38,7 @@ export default class Fire extends Component {
           <SpacerItem />
           <FireNavItem data={defFireNav} />
           <SpacerItem style={styles.spacer} />
-          <MyCreatePanel data={songList}/>
+          <MyCreatePanel data={songList} navigation={this.props.navigation} />
         </ScrollView>
       </View>
     );
