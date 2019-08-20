@@ -36,14 +36,17 @@ export default class SearchButton extends Component {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 36,
+    height: 48,
     paddingLeft: 30,
     paddingRight: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   contain: {
-    flex: 1,
+    width: '100%',
+    height: 36,
     borderRadius: 18,
-    backgroundColor: themesColor.gray,
+    backgroundColor: themesColor.gray3,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

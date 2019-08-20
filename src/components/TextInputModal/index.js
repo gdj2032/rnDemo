@@ -27,7 +27,7 @@ export default class TextInputModal extends Component {
   }
 
   _onChangeText = (value) => {
-    this.setState({ searchText: value });
+    this.setState({ searchText: value || null });
   }
 
   render() {
@@ -58,9 +58,12 @@ export default class TextInputModal extends Component {
               <Text style={text_f14_fw5_white}>取消</Text>
             </TouchableWithoutFeedback>
           </View>
-          <ScrollView style={styles.result}>
-            <Text>123{searchText}123</Text>
-          </ScrollView>
+          {
+            !!searchText &&
+            <ScrollView style={styles.result}>
+              <Text>{searchText}</Text>
+            </ScrollView>
+          }
         </Modal>
       </Provider>
     );
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
     color: themesColor.white
   },
   result: {
-    // width: '100%',
-    // height: '100%',
+    width: '100%',
+    height: '100%',
   }
 });

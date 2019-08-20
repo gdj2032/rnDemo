@@ -5,6 +5,7 @@ export const themesColor = {
   gray: "#A5A5A5",
   gray1: "#EEEEEE",
   gray2: "#FAFAFA",
+  gray3: "#515151",
   backgroundColor: "#FFF",
   white: "#FFFFFF",
   black: "#000",

@@ -19,7 +19,7 @@ export default class SongListScreen extends Component {
     this.state = {
       title: defTitle,
       isShowSearch: false,
-      searchText: null,
+      data: this.props.navigation.state.params.data
     };
   }
 
@@ -32,11 +32,12 @@ export default class SongListScreen extends Component {
 
   goBack = () => this.props.navigation.goBack(null);
 
-  _onShowSearch(bool) {
-    this.setState({ isShowSearch: bool });
+
+  _onShowSearch = (bool) => {
+    this.setState({isShowSearch: bool});
   }
   render() {
-    const { title, searchText, isShowSearch } = this.state;
+    const { title, isShowSearch, data } = this.state;
     return (
       <SafeAreaView style={styles.containers}>
         <Header
@@ -54,7 +55,7 @@ export default class SongListScreen extends Component {
         />
         <ScrollView>
           <SearchButton onShowSearch={() => this._onShowSearch(true)} />
-          {/* <Text style={text_f14_fw5_white}>{searchText}</Text> */}
+
         </ScrollView>
         <TextInputModal
           visible={isShowSearch}
