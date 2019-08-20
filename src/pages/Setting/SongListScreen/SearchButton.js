@@ -37,10 +37,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 48,
-    paddingLeft: 30,
-    paddingRight: 30,
+    paddingLeft: 10,
+    paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    opacity: 0.4,
   },
   contain: {
     width: '100%',

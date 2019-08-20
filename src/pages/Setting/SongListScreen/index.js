@@ -6,12 +6,13 @@ import Header from '../../../components/Header';
 import { themesColor, text_f14_fw5_white, text_f12_white } from '../../../style';
 import SearchButton from './SearchButton';
 import TextInputModal from '../../../components/TextInputModal';
+import SLMessage from './SLMessage';
 
 const defTitle = '歌单';
 
 export default class SongListScreen extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
-    tabBarVisible: false
+    tabBarVisible: false,
   });
 
   constructor(props) {
@@ -36,6 +37,20 @@ export default class SongListScreen extends Component {
   _onShowSearch = (bool) => {
     this.setState({isShowSearch: bool});
   }
+
+  _onMessage = () => {
+    alert('_onMessage')
+  }
+  _onShare = () => {
+    alert('_onShare')
+  }
+  _onDownload = () => {
+    alert('_onDownload')
+  }
+  _onSelect = () => {
+    alert('_onSelect')
+  }
+
   render() {
     const { title, isShowSearch, data } = this.state;
     return (
@@ -54,8 +69,16 @@ export default class SongListScreen extends Component {
           onEllipsisPress={this._onEllipsisPress.bind(this)}
         />
         <ScrollView>
-          <SearchButton onShowSearch={() => this._onShowSearch(true)} />
-
+          <SLMessage
+            data={data || null}
+            navigation={this.props.navigation}
+            onMessage={this._onMessage}
+            onShare={this._onShare}
+            onDownload={this._onDownload}
+            onSelect={this._onSelect}
+          >
+            <SearchButton onShowSearch={() => this._onShowSearch(true)} />
+          </SLMessage>
         </ScrollView>
         <TextInputModal
           visible={isShowSearch}

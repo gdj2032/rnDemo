@@ -11,7 +11,7 @@ const SettingsPage = createTabNavigator({
   lazy: true,
   tabBarOptions: {
     tabBarVisible: false,
-  }
+  },
 });
 
 const settingsRouteConfigMap = {
