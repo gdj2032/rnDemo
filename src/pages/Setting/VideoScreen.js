@@ -35,6 +35,7 @@ export default class VideoScreen extends Component {
             url={data.video}
             paused={paused}
             navigation={this.props.navigation}
+            disableVolume={true}
             disableProgress={true}
             disableTime={true}
             disableBack={true}

@@ -4,13 +4,13 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
-  Button,
+  Slider,
   BackHandler,
   TouchableOpacity,
   Dimensions
 } from "react-native";
 import Video from "react-native-video";
-import { Icon, Slider } from "@ant-design/react-native";
+import { Icon } from "@ant-design/react-native";
 import Orientation from 'react-native-orientation';
 import MoreSettingView from "./MoreSettingView";
 
@@ -55,6 +55,7 @@ export default class PlayVideo extends Component {
     url: null,
     disableProgress: false,
     disableTime: false,
+    disableVolume: false,
     disableBack: false,
     disableEllipsis: false,
     disablePaused: false,
@@ -66,6 +67,7 @@ export default class PlayVideo extends Component {
   state = {
     rate: 1,
     volume: 1,
+    isMute: false,
     muted: false,
     resizeMode: "contain",
     duration: 0.0,
@@ -172,19 +174,28 @@ export default class PlayVideo extends Component {
 
   renderVolumeControl() {
     return (
-      <View style={styles.volume}>
-        <Icon name="sound" type="md" color={'#FF3030'} />
+      <View style={[styles.volume, { width: this.state.isFullScreen ? 300 : 120 }]}>
+        <Icon name="sound" type="md" color={'#FFF'} />
         <Slider
-          min={0}
-          max={1}
-          onAfterChange={value => this._onAfterChange(value)}
+          style={{flex: 1}}
+          value={this.state.volume * 100}
+          minimumValue={0}
+          maximumValue={100}
+          thumbImage={require('./icon_control_slider.png')}
+          maximumTrackTintColor={'#FFF'}//滑块右侧轨道的颜色
+          minimumTrackTintColor={'#FF3030'}//滑块左侧轨道的颜色
+          onValueChange={this._onSliderValueChange.bind(this)}
         />
         </View>
     );
   }
 
-  _onAfterChange(value) {
-    this.setState({ volume: value })
+  _onSliderValueChange(value) {
+    let isMute = (value === 0);
+    this.setState({
+      volume: value / 100,
+      isMute: isMute,
+    });
   }
   onChangePause() {
     if(this.props.noNeedPaused) {
@@ -209,7 +220,7 @@ export default class PlayVideo extends Component {
   _onMore = () => {
     this.setState({
       isShowMore: true,
-      paused: true,
+      // paused: true,
     });
   }
 
@@ -233,13 +244,41 @@ export default class PlayVideo extends Component {
   _onCloseMore = (bool) => {
     this.setState({
       isShowMore: bool,
-      paused: false,
+      // paused: false,
     });
   }
 
+  onPlayRateChange = (rate) => {
+    this.setState({
+      rate,
+      isShowMore: false,
+    });
+  }
+  onEndTimeChange = (index) => {
+    this.setState({
+      isShowMore: false,
+    });
+  }
+
+  onMuteVolume = (isMute) => {
+    if(isMute) {
+      volume = 0;
+    } else {
+      volume = 1.0;
+    }
+    // let volume = this.state.volume;
+    // if (!isMute && volume === 0) {
+    //   volume = 1.0;
+    // }
+    this.setState({
+      isMute: isMute,
+      volume: volume,
+      isShowMore: false,
+    })
+  }
   render() {
-    const { style, disableTime, disableProgress, disableBack, disableEllipsis, disablePaused, disableFullScreen } = this.props;
-    const { isFullScreen, videoWidth, videoHeight, isShowMore } = this.state;
+    const { style, disableTime, disableVolume, disableProgress, disableBack, disableEllipsis, disablePaused, disableFullScreen } = this.props;
+    const { isFullScreen, videoWidth, videoHeight, isShowMore, isMute } = this.state;
     const flexCompleted = this.getCurrentTimePercentage() * 100;
     const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
@@ -315,7 +354,7 @@ export default class PlayVideo extends Component {
             </Text>
           }
           {
-            // this.renderVolumeControl()
+            disableVolume && this.renderVolumeControl()
           }
         </View>
         <View style={styles.fullImg}>
@@ -335,8 +374,17 @@ export default class PlayVideo extends Component {
         {
           this.state.isShowMore &&
           <MoreSettingView
+            isMute={isMute}
             isShowMore={isShowMore}
+            isFullScreen={isFullScreen}
+            selectedRate={this.state.rate}
+            selectedEndTimeIndex={0}
             onClose={(bool) => this._onCloseMore(bool)}
+            onPlayRateChanged={(rate) => { this.onPlayRateChange(rate); }}
+            onEndTimeSelected={(index) => { this.onEndTimeChange(index); }}
+            onFavoriteTapped={() => { this.setState({isShowMore: false}) }}
+            onDownloadTapped={() => { this.setState({isShowMore: false}) }}
+            onMuteVolumeTapped={(isMute) => { this.onMuteVolume(isMute); }}
           />
         }
       </View>
@@ -436,8 +484,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     left: 80,
-    width: 100,
-    justifyContent: 'center',
-    marginTop: 20,
+    height: 20,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   }
 });
