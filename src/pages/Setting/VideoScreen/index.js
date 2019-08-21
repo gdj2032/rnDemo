@@ -24,16 +24,17 @@ export default class VideoScreen extends Component {
     });
   }
   render() {
-    const { data } = this.props.navigation.state.params;
+    const { navigation } = this.props;
+    const data = navigation.state.params.data;
     const { paused } = this.state;
     console.log(this.state.isFullScreen);
     return (
       <View style={containers}>
         <View style={this.state.isFullScreen ? styles.full : styles.video}>
           <PlayVideo
-            url={data.video}
+            url={data && data.video}
             paused={paused}
-            navigation={this.props.navigation}
+            navigation={navigation}
             disableVolume={true}
             disableProgress={true}
             disableTime={true}

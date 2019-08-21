@@ -1,15 +1,16 @@
-import { createTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 import VideoScreen from './VideoScreen';
 import SongListScreen from './SongListScreen';
 
 
-const SettingsPage = createTabNavigator({
+const SettingsPage = createBottomTabNavigator({
   VideoScreen: { screen: VideoScreen },
   SongListScreen: { screen: SongListScreen },
 }, {
   backBehavior: 'none',
   lazy: true,
   tabBarOptions: {
+    showLabel: false,
     tabBarVisible: false,
   },
 });

@@ -20,7 +20,8 @@ export default class SongListScreen extends Component {
     this.state = {
       title: defTitle,
       isShowSearch: false,
-      data: this.props.navigation.state.params.data
+      data: this.props.navigation.state.params.data,
+      slData: this.props.navigation.state.params.slData
     };
   }
 
@@ -52,7 +53,7 @@ export default class SongListScreen extends Component {
   }
 
   render() {
-    const { title, isShowSearch, data } = this.state;
+    const { title, isShowSearch, data, slData } = this.state;
     return (
       <SafeAreaView style={styles.containers}>
         <Header

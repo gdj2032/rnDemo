@@ -9,7 +9,8 @@ import { UpdateSongList } from '../../actions/setting';
 export default class MyCreatePanel extends Component {
   state = {
     isShowList: this.props.data.isShowList,
-    data: this.props.data
+    data: this.props.data,
+    slData: this.props.slData
   };
   _isShowHeader() {}
 
@@ -26,11 +27,11 @@ export default class MyCreatePanel extends Component {
     alert('more')
   }
 
-  _onSongList(data) {
-    this.props.navigation.navigate('SongListScreen', { data: data })
+  _onSongList(data, slData) {
+    this.props.navigation.navigate('SongListScreen', { data: data, slData: slData })
   }
   render() {
-    const { isShowList, data } = this.state;
+    const { isShowList, data, slData } = this.state;
     return (
       <View style={[container, styles.container]}>
         <CreateHeader
@@ -44,7 +45,7 @@ export default class MyCreatePanel extends Component {
         {
           isShowList &&
           data.list.length > 0 &&
-          data.list.map(ele => <SongListItem data={ele} key={ele.id} onPress={() => this._onSongList(ele)} />)
+          data.list.map(ele => <SongListItem data={ele} key={ele.id} onPress={() => this._onSongList(ele, slData)} />)
         }
       </View>
     );

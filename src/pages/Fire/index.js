@@ -22,10 +22,11 @@ export default class Fire extends Component {
 
   state = {
     songList: this.props.local.songList,
+    slData: this.props.local.songList.slData,
   }
 
   render() {
-    const { songList } = this.state;
+    const { songList, slData } = this.state;
     return (
       <View style={containers}>
         <Header
@@ -38,7 +39,11 @@ export default class Fire extends Component {
           <SpacerItem />
           <FireNavItem data={defFireNav} />
           <SpacerItem style={styles.spacer} />
-          <MyCreatePanel data={songList} navigation={this.props.navigation} />
+          <MyCreatePanel
+            data={songList}
+            navigation={this.props.navigation}
+            slData={slData}
+            />
         </ScrollView>
       </View>
     );

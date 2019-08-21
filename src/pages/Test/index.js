@@ -5,8 +5,8 @@ import Video from "react-native-video";
 import { connect } from "react-redux";
 import { themesColor, containers } from "../../style";
 import Icons from "../../components/Icons";
-import { UpdateVideoList } from "../../actions/setting";
-import { defVideoList } from "../../utils/defaultData";
+import { UpdateVideoList, UpdateSongList } from "../../actions/setting";
+import { defVideoList, defSongListData } from "../../utils/defaultData";
 import { reduxStore } from "../../utils/utils";
 import { scaleSize } from "../../utils";
 import { deviceWidth } from "../../utils/scale";
@@ -33,9 +33,9 @@ export default class Test extends Component {
   onPress() {
     // console.log(this.props);
     // this.props.dispatch(types.localProfile({age: 10}))
-    // const { dispatch } = reduxStore;
+    const { dispatch } = reduxStore;
     // dispatch(types.localProfile({age: 25}))
-    // dispatch(UpdateVideoList({ list: defVideoList }));
+    dispatch(UpdateSongList({slData: defSongListData}));
   }
 
   render() {
@@ -44,7 +44,7 @@ export default class Test extends Component {
         <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
         <Button onPress={this.onPress.bind(this)}>Button</Button>
-        <BasicSliderExample/>
+        {/* <BasicSliderExample/> */}
       </View>
     );
   }
