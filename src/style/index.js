@@ -36,6 +36,7 @@ export const contain = {
 
 
 export const fonts = {
+  vxx: setSpText(6),
   vx: setSpText(8),
   xxxx: setSpText(10),
   xxx: setSpText(12),
@@ -50,6 +51,12 @@ export const text_f16_fw4_black = {
   fontSize: fonts.x,
   fontWeight: "400",
   color: themesColor.black
+};
+
+export const text_f16_fw4_gray = {
+  fontSize: fonts.x,
+  fontWeight: "400",
+  color: themesColor.gray
 };
 
 export const text_f14_fw4_black = {
@@ -105,6 +112,11 @@ export const text_f12_white = {
 export const text_f10_white = {
   fontSize: fonts.xxxx,
   color: themesColor.white
+};
+
+export const text_f10_gray = {
+  fontSize: fonts.xxxx,
+  color: themesColor.gray
 };
 
 export const spacer_line = {

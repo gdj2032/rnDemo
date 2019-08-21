@@ -8,12 +8,14 @@ import { themesColor, text_f14_fw5_white, text_f12_gray, text_f14_fw4_black } fr
 export default class OpenVipItem extends Component {
 
   render() {
-    const { defVip } = this.props;
+    const { defVip, isSelect } = this.props;
     return (
       <View style={styles.contain}>
         <View style={styles.openVip}>
           <RowView>
-            <Image source={require('../../../image/vip_music.png')} style={styles.vip_music} />
+            <View style={styles.music}>
+              <Image source={require('../../../image/vip_music.png')} style={styles.vip_music} />
+            </View>
             <Text style={text_f14_fw4_black}>{defVip[0]}</Text>
           </RowView>
           <RowView>
@@ -29,22 +31,27 @@ export default class OpenVipItem extends Component {
 const styles = StyleSheet.create({
   contain: {
     width: '100%',
-    height: 60,
+    height: 50,
     backgroundColor: themesColor.black2,
   },
   openVip: {
     width: '100%',
-    height: 60,
+    height: 50,
     backgroundColor: themesColor.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingLeft: 10,
     paddingRight: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: themesColor.gray1,
+  },
+  music: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   vip_music: {
     width: 30,

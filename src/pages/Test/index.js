@@ -46,7 +46,7 @@ export default class Test extends Component {
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
         <Button onPress={this.onPress.bind(this)}>Button</Button>
         {/* <BasicSliderExample/> */}
-        <MovieListScreen/>
+        {/* <MovieListScreen/> */}
       </View>
     );
   }
