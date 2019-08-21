@@ -46,3 +46,5 @@ android/app/src/main/res/drawable/...
   //   }, 3000);
   // }
 -->
+
+# 滑动吸顶效果组件 StickyHeader

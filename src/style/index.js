@@ -65,6 +65,12 @@ export const text_f14_fw4_black = {
   color: themesColor.black
 };
 
+export const text_f14_fw4_red = {
+  fontSize: fonts.xx,
+  fontWeight: "400",
+  color: themesColor.red
+};
+
 export const text_f12_fw4_gray = {
   fontSize: fonts.xxx,
   fontWeight: "400",
