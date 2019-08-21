@@ -92,7 +92,7 @@ export default class SLMessage extends Component {
         <View style={styles.navMsg}>
           {
             navButton.map(ele =>
-              <TouchableOpacity onPress={() => this._onNavPress(ele.key)}>
+              <TouchableOpacity onPress={() => this._onNavPress(ele.key)} key={ele.key}>
                 <Icon name={ele.icon} size="md" color={themesColor.white} />
                 <Text style={text_f10_white}>{ele.text}</Text>
               </TouchableOpacity>

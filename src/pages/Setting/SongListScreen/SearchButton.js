@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    opacity: 0.4,
   },
   contain: {
     width: '100%',

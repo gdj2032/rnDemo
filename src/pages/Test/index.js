@@ -11,6 +11,7 @@ import { reduxStore } from "../../utils/utils";
 import { scaleSize } from "../../utils";
 import { deviceWidth } from "../../utils/scale";
 import BasicSliderExample from "./BasicSliderExample";
+import MovieListScreen from "./MovieListScreen";
 
 @connect(state => ({
   local: state.local
@@ -45,6 +46,7 @@ export default class Test extends Component {
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
         <Button onPress={this.onPress.bind(this)}>Button</Button>
         {/* <BasicSliderExample/> */}
+        <MovieListScreen/>
       </View>
     );
   }
