@@ -115,9 +115,7 @@ export default class MusicVideo extends Component {
     return (
       <View style={contain}>
         <SliderItem volume={volume} onSlider={this._onSlider} />
-        <ScrollView style={contain}>
-          <LyricsItem data={data} />
-        </ScrollView>
+        <LyricsItem data={data} currentTime={this.state.currentTime} />
         <View style={styles.mus_bottom}>
           <Video
             source={{uri: data.url}}
