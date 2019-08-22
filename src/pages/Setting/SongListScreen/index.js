@@ -16,9 +16,6 @@ const defTitle = '歌单';
 const defVip = ['含7首vip专属歌曲', '首月vip仅5元']
 
 export default class SongListScreen extends Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    tabBarVisible: false,
-  });
 
   constructor(props) {
     super(props);
@@ -64,7 +61,6 @@ export default class SongListScreen extends Component {
 
   render() {
     const { title, isShowSearch, headHeight, scrollY, data, slData, isSelect, isSelectAll } = this.state;
-    console.log(slData)
     return (
       <SafeAreaView style={styles.containers}>
         <Header
@@ -127,6 +123,7 @@ export default class SongListScreen extends Component {
             data={data}
             isSelect={isSelect}
             isSelectAll={isSelectAll}
+            navigation={this.props.navigation}
           />
         </Animated.ScrollView>
         <TextInputModal

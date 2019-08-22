@@ -1,22 +1,13 @@
-import { createBottomTabNavigator } from 'react-navigation';
 import VideoScreen from './VideoScreen';
 import SongListScreen from './SongListScreen';
+import MusicVideoScreen from './MusicVideoScreen';
 
-
-const SettingsPage = createBottomTabNavigator({
-  VideoScreen: { screen: VideoScreen },
-  SongListScreen: { screen: SongListScreen },
-}, {
-  backBehavior: 'none',
-  lazy: true,
-  tabBarOptions: {
-    showLabel: false,
-    tabBarVisible: false,
-  },
-});
 
 const settingsRouteConfigMap = {
-  Settings: { screen: SettingsPage },
-};
+  VideoScreen: { screen: VideoScreen },
+  SongListScreen: { screen: SongListScreen },
+  MusicVideoScreen: { screen: MusicVideoScreen },
+}
+
 
 export default settingsRouteConfigMap;

@@ -5,9 +5,6 @@ import PlayVideo from '../../../components/PlayVideo';
 import { deviceWidth } from '../../../utils/scale';
 
 export default class VideoScreen extends Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-    tabBarVisible: false
-  });
 
   state = {
     paused: false,
