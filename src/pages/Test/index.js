@@ -12,7 +12,6 @@ import { scaleSize } from "../../utils";
 import { deviceWidth } from "../../utils/scale";
 import BasicSliderExample from "./BasicSliderExample";
 import MovieListScreen from "./MovieListScreen";
-
 @connect(state => ({
   local: state.local
 }))

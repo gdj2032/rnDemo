@@ -25,10 +25,19 @@ export default class CheckBoxItem extends Component {
     const { checked, onChange } = this.props;
     return (
       <TouchableWithoutFeedback onPress={onChange}>
-        <Icon name="check-circle" size="md" color={checked ? themesColor.red : themesColor.gray} />
+        <View style={styles.icon}>
+          <Icon name="check-circle" size="md" color={checked ? themesColor.red : themesColor.gray} />
+        </View>
       </TouchableWithoutFeedback>
     );
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  icon: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

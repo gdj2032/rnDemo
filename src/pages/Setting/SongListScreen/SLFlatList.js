@@ -35,11 +35,16 @@ export default class SLFlatList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
+    let slData = this.state.slData;
     if(nextProps.isSelectAll !== this.state.isSelectAll) {
-      let slData = this.state.slData;
       slData.forEach(ele => {
         ele.isSelect = nextProps.isSelectAll;
+      });
+      this.setState({ slData, isSelectAll: nextProps.isSelectAll });
+    }
+    if(!this.props.isSelect) {
+      slData.forEach(ele => {
+        ele.isSelect = false;
       });
       this.setState({ slData, isSelectAll: nextProps.isSelectAll });
     }

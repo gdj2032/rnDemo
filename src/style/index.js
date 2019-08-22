@@ -115,6 +115,11 @@ export const text_f12_white = {
   color: themesColor.white
 };
 
+export const text_f10_black = {
+  fontSize: fonts.xxxx,
+  color: themesColor.black
+};
+
 export const text_f10_white = {
   fontSize: fonts.xxxx,
   color: themesColor.white

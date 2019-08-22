@@ -188,9 +188,9 @@ const defSongListData = [
   },
   {
     id: 4,
-    name: '我曾 (女生版)',
+    name: '我曾 (女生版）',
     editor: '灿烂C.L',
-    details: '灿烂C.L 我曾 (女生版)',
+    details: '灿烂C.L 我曾 (女生版）',
     url: 'http://music.163.com/song/media/outer/url?id=1357477356.mp3',
     isSQ: false,
     isMV: true,

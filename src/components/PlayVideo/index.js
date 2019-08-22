@@ -186,7 +186,7 @@ export default class PlayVideo extends Component {
           minimumTrackTintColor={'#FF3030'}//滑块左侧轨道的颜色
           onValueChange={this._onSliderValueChange.bind(this)}
         />
-        </View>
+      </View>
     );
   }
 
