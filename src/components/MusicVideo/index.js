@@ -5,6 +5,7 @@ import { Icon } from "@ant-design/react-native";
 import Video from "react-native-video";
 import { contain } from '../../style';
 import SliderItem from './SliderItem';
+import LyricsItem from './LyricsItem';
 
 function formatTime(second) {
   let h = 0,
@@ -77,8 +78,13 @@ export default class MusicVideo extends Component {
     console.log(e)
   };
 
-  _onSliderValueChange = (value) => {
+  _onSliderValueChange = () => {
+    this.setState({ paused: true });
+  };
+
+  _onSlidingComplete = (value) => {
     this.video.seek(value);
+    this.setState({ paused: false });
   };
 
   onAudioBecomingNoisy = () => {
@@ -110,7 +116,7 @@ export default class MusicVideo extends Component {
       <View style={contain}>
         <SliderItem volume={volume} onSlider={this._onSlider} />
         <ScrollView style={contain}>
-          <Text>ScrollView</Text>
+          <LyricsItem data={data} />
         </ScrollView>
         <View style={styles.mus_bottom}>
           <Video
@@ -150,6 +156,7 @@ export default class MusicVideo extends Component {
                   maximumTrackTintColor={"#A5A5A5"} //滑块右侧轨道的颜色
                   minimumTrackTintColor={"#FF3030"} //滑块左侧轨道的颜色
                   onValueChange={this._onSliderValueChange.bind(this)}
+                  onSlidingComplete={this._onSlidingComplete.bind(this)}
                 />
                 <Text style={styles.progressCTime}>
                   {formatTime(this.state.duration)}
