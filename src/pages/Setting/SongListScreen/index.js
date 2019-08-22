@@ -8,7 +8,7 @@ import SearchButton from './SearchButton';
 import TextInputModal from '../../../components/TextInputModal';
 import SLMessage from './SLMessage';
 import SLFlatList from './SLFlatList';
-import OpenVipItem from './OpenVipItem';
+import StickyItem from './StickyItem';
 import StickyHeader from '../../../components/StickyHeader';
 
 const defTitle = '歌单';
@@ -28,6 +28,7 @@ export default class SongListScreen extends Component {
       scrollY: new Animated.Value(0),
       headHeight: -1,
       isSelect: false,
+      isSelectAll: false,
       data: this.props.navigation.state.params.data,
       slData: this.props.navigation.state.params.slData,
     };
@@ -57,12 +58,13 @@ export default class SongListScreen extends Component {
     alert('_onDownload')
   }
   _onSelect = () => {
-    this.setState({ isSelect: !this.state.isSelect });
+    this.setState({ isSelect: !this.state.isSelect, isSelectAll: false });
   }
 
 
   render() {
-    const { title, isShowSearch, headHeight, scrollY, data, slData, isSelect } = this.state;
+    const { title, isShowSearch, headHeight, scrollY, data, slData, isSelect, isSelectAll } = this.state;
+    console.log(slData)
     return (
       <SafeAreaView style={styles.containers}>
         <Header
@@ -113,12 +115,18 @@ export default class SongListScreen extends Component {
             stickyHeaderY={headHeight} // 把头部高度传入
             stickyScrollY={scrollY} // 把滑动距离传入
           >
-            <OpenVipItem defVip={defVip} isSelect={isSelect} />
+            <StickyItem
+              defVip={defVip}
+              isSelect={isSelect}
+              onCarryOut={(val) => this.setState({ isSelect: val })}
+              onSelectAll={(val) => this.setState({ isSelectAll: val })}
+            />
           </StickyHeader>
           <SLFlatList
             slData={slData}
             data={data}
             isSelect={isSelect}
+            isSelectAll={isSelectAll}
           />
         </Animated.ScrollView>
         <TextInputModal

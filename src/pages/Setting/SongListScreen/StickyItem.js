@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableWithoutFeedback} from 'react-native';
 import PropTypes from "prop-types";
-import { Icon, Checkbox } from '@ant-design/react-native';
+import { Icon } from '@ant-design/react-native';
 import RowView from '../../../components/RowView';
 import { themesColor, text_f14_fw4_red, text_f12_gray, text_f14_fw4_black } from '../../../style';
+import CheckBoxItem from './CheckBoxItem';
 
-export default class OpenVipItem extends Component {
+export default class StickyItem extends Component {
 
   static defaultProps = {
     isSelect: false
@@ -19,9 +20,19 @@ export default class OpenVipItem extends Component {
     checked: false
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(!nextProps.isSelect) {
+      this.setState({ checked: false });
+    }
+  }
+
   _onSelectAll = () => {
     this.setState({ checked: !this.state.checked })
     this.props.onSelectAll && this.props.onSelectAll(!this.state.checked);
+  }
+
+  _onCarryOut = (bool) => {
+    this.props.onCarryOut && this.props.onCarryOut(bool);
   }
 
   noSelect = () => {
@@ -47,17 +58,16 @@ export default class OpenVipItem extends Component {
       <View style={styles.openVip}>
         <RowView>
           <View style={styles.music}>
-            <Checkbox
-              style={{color: themesColor.red}}
-              onChange={this._onSelectAll.bind(this)}
+            <CheckBoxItem
+              onChange={() => this._onSelectAll()}
               checked={this.state.checked}
             />
           </View>
           <Text style={text_f14_fw4_red}>全选</Text>
         </RowView>
-        <RowView>
+        <TouchableWithoutFeedback onPress={() => this._onCarryOut(false)}>
           <Text style={text_f14_fw4_red}>完成</Text>
-        </RowView>
+        </TouchableWithoutFeedback>
       </View>
     )
   }

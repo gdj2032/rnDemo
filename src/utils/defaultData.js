@@ -158,6 +158,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: true,
     isExclusive: false,
+    isSelect: false,
   },
   {
     id: 2,
@@ -170,6 +171,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },
   {
     id: 3,
@@ -182,6 +184,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },
   {
     id: 4,
@@ -194,6 +197,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: true,
     isExclusive: true,
+    isSelect: false,
   },
   {
     id: 5,
@@ -206,6 +210,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },
   {
     id: 6,
@@ -218,6 +223,7 @@ const defSongListData = [
     isCloud: false,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },
   {
     id: 7,
@@ -230,6 +236,7 @@ const defSongListData = [
     isCloud: false,
     isDownload: true,
     isExclusive: true,
+    isSelect: false,
   },
   {
     id: 8,
@@ -242,6 +249,7 @@ const defSongListData = [
     isCloud: false,
     isDownload: true,
     isExclusive: true,
+    isSelect: false,
   },{
     id: 9,
     name: '盗将行',
@@ -253,6 +261,7 @@ const defSongListData = [
     isCloud: false,
     isDownload: false,
     isExclusive: true,
+    isSelect: false,
   },{
     id: 10,
     name: '追光者（电视剧《夏至未至》插曲）',
@@ -264,6 +273,7 @@ const defSongListData = [
     isCloud: false,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },{
     id: 11,
     name: '光年之外（电影《太空旅客》中文主题曲）',
@@ -275,6 +285,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },{
     id: 12,
     name: '修炼爱情',
@@ -286,6 +297,7 @@ const defSongListData = [
     isCloud: false,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },{
     id: 13,
     name: '彩虹',
@@ -297,6 +309,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },{
     id: 14,
     name: '星晴',
@@ -308,6 +321,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },{
     id: 15,
     name: '青花瓷',
@@ -319,6 +333,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },{
     id: 16,
     name: '发如雪',
@@ -330,6 +345,7 @@ const defSongListData = [
     isCloud: true,
     isDownload: false,
     isExclusive: false,
+    isSelect: false,
   },
 ]
 

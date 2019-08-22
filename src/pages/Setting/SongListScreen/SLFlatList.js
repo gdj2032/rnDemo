@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import PropTypes from "prop-types";
-import { Icon, Checkbox } from '@ant-design/react-native';
+import { Icon } from '@ant-design/react-native';
 import {
   themesColor,
   text_f16_fw4_black,
@@ -13,10 +13,13 @@ import {
 } from '../../../style';
 import RowView from '../../../components/RowView';
 import TouchRowView from '../../../components/TouchRowView';
+import CheckBoxItem from './CheckBoxItem';
+import { reduxStore } from '../../../utils/utils';
 
 export default class SLFlatList extends Component {
   static defaultProps = {
     isSelect: false,
+    isSelectAll: false,
   };
 
   static propTypes = {
@@ -26,9 +29,20 @@ export default class SLFlatList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectId: [],
-      isChecked: false,
+      slData: this.props.slData,
+      isSelectAll: false,
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    if(nextProps.isSelectAll !== this.state.isSelectAll) {
+      let slData = this.state.slData;
+      slData.forEach(ele => {
+        ele.isSelect = nextProps.isSelectAll;
+      });
+      this.setState({ slData, isSelectAll: nextProps.isSelectAll });
+    }
   }
 
   ListHeaderComponent = () => {
@@ -62,20 +76,14 @@ export default class SLFlatList extends Component {
     </View>
   )
 
-  _onCheckBox = (id) => {
-    const {selectId} = this.state;
-    let select = selectId.length > 0 && selectId.find(ele => ele === id);
-    if(!select) {
-      selectId.push(id);
-      this.setState({ selectId });
-    } else {
-      selectId.remove(id);
-      this.setState({ selectId });
-    }
-  }
-
-  _isChecked = (id) => {
-    return this.state.selectId.find(ele => ele === id);
+  _onCheckBox = (item) => {
+    let slData = this.state.slData;
+    slData.forEach(ele => {
+      if(ele.id === item.id) {
+        ele.isSelect = !item.isSelect
+      }
+    });
+    this.setState({ slData });
   }
 
   CloudIcon = () => (
@@ -114,11 +122,9 @@ export default class SLFlatList extends Component {
         <View style={styles.center_wh50}>
           {
             this.props.isSelect ?
-            <Checkbox
-              style={{color: themesColor.red}}
-              defaultChecked={false}
-              onChange={() => this._onCheckBox.bind(this, item.id)}
-              checked={this._isChecked(item.id)}
+            <CheckBoxItem
+              onChange={() => this._onCheckBox(item)}
+              checked={item.isSelect}
             />
             :
             <Text style={text_f16_fw4_gray}>{item.id}</Text>
@@ -151,7 +157,7 @@ export default class SLFlatList extends Component {
   }
 
   render() {
-    const { slData, data } = this.props;
+    const { slData } = this.state;
     return (
       <FlatList
         style={styles.flatList}
