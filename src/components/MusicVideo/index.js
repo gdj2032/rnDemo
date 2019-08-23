@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView, Slider, TouchableWithoutFeedback} from 'react-native';
 import PropTypes from "prop-types";
-import { Icon } from "@ant-design/react-native";
+import { Icon, Modal, Provider } from "@ant-design/react-native";
 import Video from "react-native-video";
 import { contain } from '../../style';
 import SliderItem from './SliderItem';
 import LyricsItem from './LyricsItem';
+import MenuModal from './MenuModal';
 
 function formatTime(second) {
   let h = 0,
@@ -54,19 +55,10 @@ export default class MusicVideo extends Component {
       volume: 100,
       currentTime: 0,
       duration: 0,
+      visible: false,
     };
   }
 
-  // init = () => {
-  //   this.setState({
-  //     paused: false,
-  //     muted: false,
-  //     currentTime: 0,
-  //     duration: 0,
-  //   });
-  //   // this.video.seek(0);
-  //   lyrObj = [];
-  // }
   async componentDidMount() {
     await this.init();
   }
@@ -171,12 +163,17 @@ export default class MusicVideo extends Component {
       currentTime: 0,
     });
     const { data, slData } = this.state;
-    let index = data.id - 2;
-    if(index < 0) {
-      index = slData.length - 1;
-    }
-    console.log(slData[index])
-    this.props.updateData(slData[index]);
+    let preData = slData.find((ele, index) => {
+      if(ele.id === data.id) {
+        let i = index - 1;
+        if(i - 1 < 0) {
+          i = slData.length - 1;
+        }
+        return slData[i];
+      }
+    })
+    console.log(preData)
+    this.props.updateData(preData);
     this.setState({ paused: false });
   }
 
@@ -198,12 +195,12 @@ export default class MusicVideo extends Component {
     this.setState({ paused: false });
   }
   _onMenu = () => {
-    alert('_onMenu')
+    this.setState({ visible: !this.state.visible })
   }
   render() {
-    const { data, muted, paused, volume, lyrObjs } = this.state;
+    const { data, muted, paused, volume, lyrObjs, visible, slData } = this.state;
     return (
-      <View style={contain}>
+      <Provider style={contain}>
         <SliderItem volume={volume} onSlider={this._onSlider} />
         <LyricsItem data={this.state.data} currentTime={this.state.currentTime} lyrObj={lyrObjs} />
         <View style={styles.mus_bottom}>
@@ -218,7 +215,7 @@ export default class MusicVideo extends Component {
             paused={paused}
             resizeMode="cover"
             repeat={true}
-            playInBackground
+            playInBackground={true}
             playWhenInactive={true}
             progressUpdateInterval={250.0}
             ignoreSilentSwitch={"ignore"}
@@ -270,7 +267,13 @@ export default class MusicVideo extends Component {
             </TouchableWithoutFeedback>
           </View>
         </View>
-      </View>
+        <MenuModal
+          visible={visible}
+          onClose={() => this._onMenu()}
+          data={data}
+          slData={slData}
+        />
+      </Provider>
     );
   }
 }
@@ -309,5 +312,13 @@ const styles = StyleSheet.create({
     right: 0,
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  modal: {
+    width: '100%',
+    height: 500,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });
