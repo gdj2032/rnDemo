@@ -16,7 +16,8 @@ export default class MusicVideoScreen extends Component {
     super(props);
     this.state = {
       visible: false,
-      data: this.props.navigation.state.params.data
+      data: this.props.navigation.state.params.data,
+      slData: this.props.navigation.state.params.slData
     };
   }
 
@@ -26,7 +27,7 @@ export default class MusicVideoScreen extends Component {
     alert('_onShare');
   }
   render() {
-    const { data } = this.state;
+    const { data, slData } = this.state;
     return (
       <View style={styles.containers}>
         <Header
@@ -49,6 +50,8 @@ export default class MusicVideoScreen extends Component {
         />
         <MusicVideo
           data={data}
+          slData={slData}
+          updateData={(data) => this.setState({ data })}
         />
       </View>
     );

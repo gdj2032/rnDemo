@@ -35,25 +35,93 @@ function formatTime(second) {
   return [zero(h), zero(i), zero(s)].join(":");
 }
 
+let lyrObj = []; //存放歌词
+
 export default class MusicVideo extends Component {
-  static defaultProps = {
-    visible: false,
-  };
 
   static propTypes = {
-    onClose: PropTypes.func,
+    updateData: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.state = {
       data: this.props.data,
+      slData: this.props.slData,
+      lyrObjs: [],
       paused: false,
       muted: false,
       volume: 100,
       currentTime: 0,
       duration: 0,
     };
+  }
+
+  // init = () => {
+  //   this.setState({
+  //     paused: false,
+  //     muted: false,
+  //     currentTime: 0,
+  //     duration: 0,
+  //   });
+  //   // this.video.seek(0);
+  //   lyrObj = [];
+  // }
+  async componentDidMount() {
+    await this.init();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      data: nextProps.data,
+    }, async () => {
+      await this.init();
+    })
+  }
+
+  init = () => {
+    lyrObj = [];
+    const { data } = this.state;
+    console.log(data);
+    const { lrc } = data;
+    // console.log(lrc);
+    let lrcArr = lrc.trim().split("[");
+    // console.log(lrcArr);
+    lrcArr.forEach(val => {
+      let obj = {}; //用于存放时间
+      val = val.replace(/(^\s*)|(\s*$)/g, ""); //正则,去除前后空格
+      let indeofLastTime = val.indexOf("]"); // ]的下标
+      let timeStr = val.substring(1, indeofLastTime); //把时间切出来 0:04.19
+      let minSec = "";
+      let timeMsIndex = timeStr.indexOf("."); // .的下标
+      // console.log(timeStr);
+      let curTime = '';
+      if (timeMsIndex !== -1) {
+        //存在毫秒 0:04.19
+        minSec = timeStr.split('.'); // 0:04.
+        obj.ms = Number(minSec[1]) //毫秒值 19
+        curTime = minSec[0].split(":"); // [0,04]
+      } else {
+        //不存在毫秒 0:04
+        minSec = timeStr;
+        obj.ms = 0;
+        curTime = minSec.split(":"); // [0,04]
+      }
+      // console.log(curTime);
+      obj.min = Number(curTime[0]); //分钟 0
+      obj.sec = Number(curTime[1]); //秒钟 04
+      obj.txt = val.substring(indeofLastTime + 1, val.length); //歌词文本: 留下唇印的嘴
+      obj.txt = obj.txt.replace(/(^\s*)|(\s*$)/g, "");
+      obj.dis = false;
+      obj.total = obj.min * 60 + obj.sec + obj.ms / 100; //总时间
+      // console.log(obj);
+      if (obj.txt.length > 0) {
+        lyrObj.push(obj);
+      }
+      // console.log(lyrObj);
+    });
+    // lyrObj.sort((a, b) => a.total > b.total);
+    this.setState({ lyrObjs: lyrObj })
   }
 
   _onSlider = (value) => {
@@ -98,24 +166,46 @@ export default class MusicVideo extends Component {
     alert('_onPlayStatus')
   }
   _onPrevious = () => {
-    alert('_onPrevious')
+    this.setState({
+      paused: true,
+      currentTime: 0,
+    });
+    const { data, slData } = this.state;
+    let index = data.id - 2;
+    if(index < 0) {
+      index = slData.length - 1;
+    }
+    console.log(slData[index])
+    this.props.updateData(slData[index]);
+    this.setState({ paused: false });
   }
 
   _onPaused = () => {
     this.setState({ paused: !this.state.paused })
   }
   _onNext = () => {
-    alert('_onNext')
+    this.setState({
+      paused: true,
+      currentTime: 0,
+    });
+    const { data, slData } = this.state;
+    let index = data.id;
+    if(index > slData.length - 1) {
+      index = 0;
+    }
+    console.log(slData[index])
+    this.props.updateData(slData[index]);
+    this.setState({ paused: false });
   }
   _onMenu = () => {
     alert('_onMenu')
   }
   render() {
-    const { data, muted, paused, volume } = this.state;
+    const { data, muted, paused, volume, lyrObjs } = this.state;
     return (
       <View style={contain}>
         <SliderItem volume={volume} onSlider={this._onSlider} />
-        <LyricsItem data={data} currentTime={this.state.currentTime} />
+        <LyricsItem data={this.state.data} currentTime={this.state.currentTime} lyrObj={lyrObjs} />
         <View style={styles.mus_bottom}>
           <Video
             source={{uri: data.url}}

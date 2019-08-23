@@ -5,92 +5,56 @@ import PropTypes from "prop-types";
 let lyrObj = []; //存放歌词
 export default class LyricsItem extends Component {
   static defaultProps = {
-    currentTime: 0.0
-  };
-
-  static propTypes = {
-    onClose: PropTypes.func,
+    currentTime: 0.0,
+    lyrObj: [],
   };
 
   constructor(props) {
     super(props);
     this.state = {
+      lyrObj: this.props.lyrObj,
       data: this.props.data,
       currentTime: this.props.currentTime
     };
   }
 
-  componentDidMount() {
-    this.init();
-  }
-
   componentWillReceiveProps(nextProps) {
-    this.setState({ currentTime: nextProps.currentTime })
-  }
-
-  componentWillUnmount() {
-    lyrObj = [];
-  }
-  init = () => {
-    const { data } = this.state;
-    console.log(data);
-    const { lrc } = data;
-    console.log(lrc);
-    let lrcArr = lrc.trim().split("[");
-    console.log(lrcArr);
-    lrcArr.forEach(val => {
-      let obj = {}; //用于存放时间
-      val = val.replace(/(^\s*)|(\s*$)/g, ""); //正则,去除前后空格
-      let indeofLastTime = val.indexOf("]"); // ]的下标
-      let timeStr = val.substring(1, indeofLastTime); //把时间切出来 0:04.19
-      let minSec = "";
-      let timeMsIndex = timeStr.indexOf("."); // .的下标
-      console.log(timeStr);
-      let curTime = '';
-      if (timeMsIndex !== -1) {
-        //存在毫秒 0:04.19
-        minSec = timeStr.split('.'); // 0:04.
-        obj.ms = Number(minSec[1]) //毫秒值 19
-        curTime = minSec[0].split(":"); // [0,04]
-      } else {
-        //不存在毫秒 0:04
-        minSec = timeStr;
-        obj.ms = 0;
-        curTime = minSec.split(":"); // [0,04]
-      }
-      console.log(curTime);
-      obj.min = Number(curTime[0]); //分钟 0
-      obj.sec = Number(curTime[1]); //秒钟 04
-      obj.txt = val.substring(indeofLastTime + 1, val.length); //歌词文本: 留下唇印的嘴
-      obj.txt = obj.txt.replace(/(^\s*)|(\s*$)/g, "");
-      obj.dis = false;
-      obj.total = obj.min * 60 + obj.sec + obj.ms / 100; //总时间
-      console.log(obj);
-      if (obj.txt.length > 0) {
-        lyrObj.push(obj);
-      }
-      console.log(lyrObj);
-    });
+    console.log(nextProps)
+    if(this.state.data.id !== nextProps.data.id) {
+      this.setState({
+        data: nextProps.data,
+        lyrObj: nextProps.lyrObj,
+      });
+    }
+    if(this.state.lyrObj !== nextProps.lyrObj) {
+      this.setState({
+        lyrObj: nextProps.lyrObj,
+      });
+    }
+    this.setState({
+      currentTime: nextProps.currentTime,
+    })
   }
 
   renderItem() {
     // 数组
     var itemAry = [];
+    const { lyrObj } = this.state;
     for (var i = 0; i < lyrObj.length; i++) {
       var item = lyrObj[i].txt;
-      if (this.state.currentTime.toFixed(2) > lyrObj[i].total) {
+      if (this.state.currentTime.toFixed(2) > lyrObj[i].total && this.state.currentTime.toFixed(2) < lyrObj[i + 1 === lyrObj.length ? i : i + 1].total) {
         //正在唱的歌词
         itemAry.push(
           <View key={i} style={styles.itemStyle}>
-            <Text style={{ color: "blue", textAlign: 'center' }}> {item} </Text>
+            <Text style={{ color: "red", textAlign: 'center', fontSize: 20 }}> {item} </Text>
           </View>
         );
-        _scrollView.scrollTo({ x: 0, y: 30 * i, animated: false });
+        this._scrollView.scrollTo({ x: 0, y: 30 * i, animated: true });
       } else {
         //所有歌词
         itemAry.push(
           <View key={i} style={styles.itemStyle}>
-            <Text style={{ color: "red", textAlign: 'center' }}> {item} </Text>
+            <Text style={{ color: "black", textAlign: 'center', fontSize: 14, }}> {item} </Text>
           </View>
         );
       }
@@ -103,11 +67,14 @@ export default class LyricsItem extends Component {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
         <ScrollView
-          ref={scrollView => {
-            _scrollView = scrollView;
+          ref={(ref) => {
+            this._scrollView = ref;
           }}
+          showsVerticalScrollIndicator={false}
         >
+          <View style={styles.list_hf} />
           {this.renderItem()}
+          <View style={styles.list_hf} />
         </ScrollView>
       </View>
     );
@@ -116,10 +83,14 @@ export default class LyricsItem extends Component {
 
 const styles = StyleSheet.create({
   itemStyle: {
-    paddingTop: 20,
+    height: 30,
+    lineHeight: 30,
     paddingLeft: 20,
     paddingRight: 20,
     alignItems: 'center',
     backgroundColor: "rgba(255,255,255,0.0)"
+  },
+  list_hf: {
+    height: 200,
   }
 });

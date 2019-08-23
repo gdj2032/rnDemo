@@ -64,7 +64,7 @@ export default class SLFlatList extends Component {
   }
 
   _onPress = (item) => {
-    this.props.navigation.navigate('MusicVideoScreen', {data: item});
+    this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData});
   }
 
   _onPaly = () => {
