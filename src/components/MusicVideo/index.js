@@ -163,13 +163,14 @@ export default class MusicVideo extends Component {
       currentTime: 0,
     });
     const { data, slData } = this.state;
-    let preData = slData.find((ele, index) => {
+    let preData = null;
+    slData.forEach((ele, index) => {
       if(ele.id === data.id) {
         let i = index - 1;
-        if(i - 1 < 0) {
+        if(index === 0) {
           i = slData.length - 1;
         }
-        return slData[i];
+        preData = slData[i];
       }
     })
     console.log(preData)
@@ -186,12 +187,18 @@ export default class MusicVideo extends Component {
       currentTime: 0,
     });
     const { data, slData } = this.state;
-    let index = data.id;
-    if(index > slData.length - 1) {
-      index = 0;
-    }
-    console.log(slData[index])
-    this.props.updateData(slData[index]);
+    let nextData = null;
+    slData.find((ele, index) => {
+      if(ele.id === data.id) {
+        let i = index + 2;
+        if(index === slData.length - 1) {
+          i = 0
+        }
+        nextData = slData[i];
+      }
+    })
+    console.log(nextData)
+    this.props.updateData(nextData);
     this.setState({ paused: false });
   }
   _onMenu = () => {
