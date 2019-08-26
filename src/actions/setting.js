@@ -13,3 +13,5 @@ export const UpdateLocalProfile = value => dispatch => dispatch(UPDATE('localPro
 export const UpdateSongList = value => dispatch => dispatch(UPDATE('songList', value));
 
 export const UpdateVideoList = value => dispatch => dispatch(UPDATE('videoList', value));
+
+export const UpdateAllMusic = value => dispatch => dispatch(UPDATE('allMusic', value));

@@ -119,8 +119,8 @@ export default class SongListScreen extends Component {
             />
           </StickyHeader>
           <SLFlatList
-            slData={slData}
             data={data}
+            slData={slData}
             isSelect={isSelect}
             isSelectAll={isSelectAll}
             navigation={this.props.navigation}

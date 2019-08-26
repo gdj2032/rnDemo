@@ -6,6 +6,7 @@ const types = {
   localProfile: createAction('LOCAL_PROFILE'),
   songList: createAction('SONG_LIST'),
   videoList: createAction('VIDEO_List'),
+  allMusic: createAction('ALL_MUSIC'),
 }
 
 export default types;

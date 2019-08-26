@@ -16,6 +16,11 @@ const local = combineReducers({
     name: '',
     age: 20,
   }),
+  allMusic: createReducer({
+    [types.allMusic]: (state, payload) => ({ ...state, ...payload }),
+  }, {
+    data: []
+  }),
   songList: createReducer({
     [types.songList]: (state, payload) => ({ ...state, ...payload }),
   }, {
