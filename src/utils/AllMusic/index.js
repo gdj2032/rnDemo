@@ -15,12 +15,12 @@ import other from './other';
  * ...xuSong, id: 15001=>16000
  */
 const allMusic = [
+  ...other,
   ...jjLin,
   ...erSheng,
   ...yqst,
   ...dengZiQi,
   ...xuSong,
-  ...other,
 ]
 
 export default allMusic;

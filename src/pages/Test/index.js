@@ -12,6 +12,15 @@ import { scaleSize } from "../../utils";
 import { deviceWidth } from "../../utils/scale";
 import BasicSliderExample from "./BasicSliderExample";
 import MovieListScreen from "./MovieListScreen";
+import ScrollVerticalText from "../../components/ScrollVerticalText";
+import ScrollHorizontalText from "../../components/ScrollHorizontalText";
+
+const dataArray = [
+  {
+    title: '保险全场五折,你买不了吃亏买不了上当嗷嗷嗷',
+  },
+]
+
 @connect(state => ({
   local: state.local
 }))
@@ -46,6 +55,24 @@ export default class Test extends Component {
         <Button onPress={this.onPress.bind(this)}>Button</Button>
         {/* <BasicSliderExample/> */}
         {/* <MovieListScreen/> */}
+        <ScrollVerticalText
+          data={dataArray}
+          enableAnimation
+          delay={2500}
+          duration={1000}
+          scrollHeight={34}
+          scrollStyle={{ alignItems: 'flex-start' }}
+          textStyle={{ fontSize: 14, color: '#000' }}
+        />
+        <ScrollHorizontalText
+          data={dataArray}
+          enableAnimation
+          delay={2500}
+          duration={1000}
+          scrollWidth={200}
+          scrollStyle={{ alignItems: 'flex-start' }}
+          textStyle={{ fontSize: 14, color: '#000' }}
+        />
       </View>
     );
   }
