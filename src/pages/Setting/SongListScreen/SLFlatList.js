@@ -121,7 +121,7 @@ export default class SLFlatList extends Component {
     )
   }
 
-  renderItem = (item) => {
+  renderItem = (item, index) => {
     return(
       <TouchRowView style={styles.renderItem} onPress={() => this._onPress(item)}>
         <View style={styles.center_wh50}>
@@ -132,7 +132,7 @@ export default class SLFlatList extends Component {
               checked={item.isSelect}
             />
             :
-            <Text style={text_f16_fw4_gray}>{item.id}</Text>
+            <Text style={text_f16_fw4_gray}>{index + 1}</Text>
           }
         </View>
         <RowView style={styles.render_details}>
@@ -169,7 +169,7 @@ export default class SLFlatList extends Component {
         data={slData}
         keyExtractor={item => item.name}
         ListHeaderComponent={() => this.ListHeaderComponent()}
-        renderItem={({item}) => this.renderItem(item)}
+        renderItem={({item, index}) => this.renderItem(item, index)}
       />
     );
   }
