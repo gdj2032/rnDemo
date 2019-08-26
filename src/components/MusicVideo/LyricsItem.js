@@ -45,7 +45,7 @@ export default class LyricsItem extends Component {
       if (this.state.currentTime.toFixed(2) > lyrObj[i].total && this.state.currentTime.toFixed(2) < lyrObj[i + 1 === lyrObj.length ? i : i + 1].total) {
         //正在唱的歌词
         itemAry.push(
-          <View key={i} style={styles.itemStyle}>
+          <View key={i} style={[styles.itemStyle, styles.active]}>
             <Text style={{ color: "red", textAlign: 'center', fontSize: 20 }}> {item} </Text>
           </View>
         );
@@ -87,10 +87,14 @@ const styles = StyleSheet.create({
     lineHeight: 30,
     paddingLeft: 20,
     paddingRight: 20,
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: "rgba(255,255,255,0.0)"
   },
   list_hf: {
     height: 200,
+  },
+  active: {
+    backgroundColor: '#dfdfdf'
   }
 });

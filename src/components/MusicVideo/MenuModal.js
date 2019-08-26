@@ -1,17 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, TouchableWithoutFeedback, FlatList} from 'react-native';
+import {StyleSheet, Text, View, TouchableWithoutFeedback, FlatList, TouchableOpacity} from 'react-native';
 import { Icon, Modal } from "@ant-design/react-native";
 import PropTypes from "prop-types";
 
 export default class MenuModal extends Component {
-  static navigationOptions = ({ navigation, screenProps }) => ({
-  });
+
   static defaultProps = {
     visible: false,
   };
 
   static propTypes = {
     onClose: PropTypes.func,
+    SelectPlay: PropTypes.func,
   };
 
   constructor(props) {
@@ -21,12 +21,30 @@ export default class MenuModal extends Component {
     };
   }
 
+  _onSelectPaly = (item, active) => {
+    if(active) {
+      return;
+    }
+    this.props.SelectPlay && this.props.SelectPlay(item);
+  }
+
   renderItem = (item) => {
+    const { data } = this.props;
+    const active = item.id == data.id;
     return(
       <View style={styles.renderItem}>
-        <Text>{item.name}</Text>
-        <Text>-</Text>
-        <Text>{item.editor}</Text>
+        <TouchableOpacity style={styles.renderLeft} onPress={() => this._onSelectPaly(item, active)}>
+          {
+            active &&
+            <Icon name="sound" size="sm" color={'#FF3030'} />
+          }
+          <Text style={[styles.left_one, active && styles.active]}>{item.name}</Text>
+          <Text style={[styles.left_two, active && styles.active]}>-</Text>
+          <Text style={[styles.left_three, active && styles.active]}>{item.editor}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.renderRight}>
+          <Icon name="close" size="md" color={'#aaa'} />
+        </TouchableOpacity>
       </View>
     )
   }
@@ -112,8 +130,36 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 48,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  renderLeft: {
+    flex: 0.8,
+    flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+  },
+  left_one: {
+    fontSize: 16,
+  },
+  left_two: {
+    paddingLeft: 5,
+    paddingRight: 5,
+    color: '#aaa'
+  },
+  left_three: {
+    fontSize: 12,
+    color: '#aaa'
+  },
+  active: {
+    color: '#FF3030',
+  },
+  renderRight: {
+    flex: 0.2,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: 10,
   },
   close: {
     width: '100%',

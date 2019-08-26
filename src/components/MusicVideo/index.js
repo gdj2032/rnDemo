@@ -50,7 +50,7 @@ export default class MusicVideo extends Component {
       data: this.props.data,
       slData: this.props.slData,
       lyrObjs: [],
-      paused: false,
+      paused: true,
       muted: false,
       volume: 100,
       currentTime: 0,
@@ -197,6 +197,18 @@ export default class MusicVideo extends Component {
   _onMenu = () => {
     this.setState({ visible: !this.state.visible })
   }
+
+  _onSelectPlay = (value) => {
+    this.setState({
+      paused: true,
+      currentTime: 0,
+    });
+    this.props.updateData(value);
+    this.setState({
+      paused: false,
+      visible: false,
+    });
+  }
   render() {
     const { data, muted, paused, volume, lyrObjs, visible, slData } = this.state;
     return (
@@ -272,6 +284,7 @@ export default class MusicVideo extends Component {
           onClose={() => this._onMenu()}
           data={data}
           slData={slData}
+          SelectPlay={(value) => this._onSelectPlay(value)}
         />
       </Provider>
     );
