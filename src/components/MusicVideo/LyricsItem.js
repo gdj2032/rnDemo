@@ -46,7 +46,7 @@ export default class LyricsItem extends Component {
         //正在唱的歌词
         itemAry.push(
           <View key={i} style={[styles.itemStyle, styles.active]}>
-            <Text style={{ color: "red", textAlign: 'center', fontSize: 20 }}> {item} </Text>
+            <Text style={{ color: "red", textAlign: 'center', fontSize: 18 }}> {item} </Text>
           </View>
         );
         this._scrollView.scrollTo({ x: 0, y: 30 * i, animated: true });

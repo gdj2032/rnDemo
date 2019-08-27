@@ -1,8 +1,9 @@
 import jjLin from './jjLin';
-import erSheng from './双笙';
-import yqst from './音阙诗听';
+import erSheng from './erSheng';
+import yqst from './yqst';
 import dengZiQi from './dengZiQi';
 import xuSong from './xuSong';
+import liRongHao from './liRongHao';
 import other from './other';
 
 
@@ -13,6 +14,7 @@ import other from './other';
  * ...yqst, id: 12001=>13000
  * ...dengZiQi, id: 14001=>15000
  * ...xuSong, id: 15001=>16000
+ * ...liRongHao, id: 16001=>17000
  */
 const allMusic = [
   ...other,
@@ -21,6 +23,7 @@ const allMusic = [
   ...yqst,
   ...dengZiQi,
   ...xuSong,
+  ...liRongHao,
 ]
 
 export default allMusic;
