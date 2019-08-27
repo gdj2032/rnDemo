@@ -7,6 +7,7 @@ import User from './User';
 import Test from './Test';
 import { themesColor } from '../style';
 import settingsRouteConfigMap from './Setting'
+import testRouteConfigMap from './Test/Screen';
 
 const Navigator = createBottomTabNavigator({
   Home: { screen: Home },
@@ -53,7 +54,8 @@ const Navigator = createBottomTabNavigator({
 
 const mainRouteConfigMap = {
   Main: { screen: Navigator },
-  ...settingsRouteConfigMap
+  ...settingsRouteConfigMap,
+  ...testRouteConfigMap,
 };
 
 export default mainRouteConfigMap;
