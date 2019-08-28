@@ -21,7 +21,7 @@ export default class TextInputButton extends Component {
 
 const styles = StyleSheet.create({
   touch: {
-    width: scaleSize(600),
+    width: scaleSize(800),
     height: 30,
     flexDirection: 'row',
     justifyContent: 'center',

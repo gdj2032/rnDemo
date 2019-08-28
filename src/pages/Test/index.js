@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Animated, Easing } from "react-native";
 import { Button, Icon } from "@ant-design/react-native";
 import { connect } from "react-redux";
 import { containers } from "../../style";
 import { scaleSize } from "../../utils";
+import MyTest from "./MyTest";
 
 const screen = [
   {
@@ -43,6 +44,7 @@ export default class Test extends Component {
           {
             screen.map(ele => <Button onPress={this._onPress.bind(this, ele.nav)}>{ele.name}</Button>)
           }
+          <MyTest/>
         </ScrollView>
       </View>
     );

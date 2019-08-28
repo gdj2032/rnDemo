@@ -58,7 +58,7 @@ export default class SLFlatList extends Component {
           <Icon name="play-circle" size="lg" color={themesColor.black} />
         </View>
         <Text style={text_f16_fw4_black}>播放全部</Text>
-        <Text style={text_f12_gray}>{`(共${data.all}首)`}</Text>
+        { data.all && <Text style={text_f12_gray}>{`(共${data.all}首)`}</Text> }
       </RowView>
     )
   }
@@ -177,7 +177,7 @@ export default class SLFlatList extends Component {
 
 const styles = StyleSheet.create({
   flatList: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: themesColor.white
   },
   center_wh50: {

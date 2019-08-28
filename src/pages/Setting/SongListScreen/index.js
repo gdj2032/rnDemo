@@ -1,22 +1,30 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Image, Animated,} from 'react-native';
-import { SafeAreaView } from 'react-navigation';
-import { Icon } from '@ant-design/react-native';
-import Header from '../../../components/Header';
-import { themesColor, text_f14_fw5_white } from '../../../style';
-import SearchButton from './SearchButton';
-import TextInputModal from '../../../components/TextInputModal';
-import SLMessage from './SLMessage';
-import SLFlatList from './SLFlatList';
-import StickyItem from './StickyItem';
-import StickyHeader from '../../../components/StickyHeader';
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Animated
+} from "react-native";
+import { SafeAreaView } from "react-navigation";
+import { Icon } from "@ant-design/react-native";
+import Header from "../../../components/Header";
+import { themesColor, text_f14_fw5_white } from "../../../style";
+import SearchButton from "./SearchButton";
+import TextInputModal from "../../../components/TextInputModal";
+import SLMessage from "./SLMessage";
+import SLFlatList from "./SLFlatList";
+import StickyItem from "./StickyItem";
+import StickyHeader from "../../../components/StickyHeader";
 
-const defTitle = '歌单';
+const defTitle = "歌单";
 
-const defVip = ['含7首vip专属歌曲', '首月vip仅5元']
+const defVip = ["含7首vip专属歌曲", "首月vip仅5元"];
 
 export default class SongListScreen extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -27,48 +35,55 @@ export default class SongListScreen extends Component {
       isSelect: false,
       isSelectAll: false,
       data: this.props.navigation.state.params.data,
-      slData: this.props.navigation.state.params.slData,
+      slData: this.props.navigation.state.params.slData
     };
   }
 
   _onDefaultPress = () => {
-    alert('_onDefaultPress');
-  }
+    alert("_onDefaultPress");
+  };
   _onEllipsisPress = () => {
-    alert('_onEllipsisPress');
-  }
+    alert("_onEllipsisPress");
+  };
 
   goBack = () => this.props.navigation.goBack(null);
 
-
-  _onShowSearch = (bool) => {
-    this.setState({isShowSearch: bool});
-  }
+  _onShowSearch = bool => {
+    this.setState({ isShowSearch: bool });
+  };
 
   _onMessage = () => {
-    alert('_onMessage')
-  }
+    alert("_onMessage");
+  };
   _onShare = () => {
-    alert('_onShare')
-  }
+    alert("_onShare");
+  };
   _onDownload = () => {
-    alert('_onDownload')
-  }
+    alert("_onDownload");
+  };
   _onSelect = () => {
     this.setState({ isSelect: !this.state.isSelect, isSelectAll: false });
-  }
-
+  };
 
   render() {
-    const { title, isShowSearch, headHeight, scrollY, data, slData, isSelect, isSelectAll } = this.state;
+    const {
+      title,
+      isShowSearch,
+      headHeight,
+      scrollY,
+      data,
+      slData,
+      isSelect,
+      isSelectAll
+    } = this.state;
     return (
-      <SafeAreaView style={styles.containers}>
+      <View style={styles.containers}>
         <Header
-          LeftItem={() =>
+          LeftItem={() => (
             <TouchableOpacity onPress={this.goBack}>
-              <Icon name="left" size="md" color={themesColor.white}/>
+              <Icon name="left" size="md" color={themesColor.white} />
             </TouchableOpacity>
-          }
+          )}
           CenterItem={() => <Text style={text_f14_fw5_white}>{title}</Text>}
           defaultItem={true}
           ellipsisItem={true}
@@ -103,7 +118,11 @@ export default class SongListScreen extends Component {
               onDownload={this._onDownload}
               onSelect={this._onSelect}
             >
-              <SearchButton onShowSearch={() => this._onShowSearch(true)} />
+              <View style={{ width: "100%", height: 48 }}>
+                {!isShowSearch && (
+                  <SearchButton onShowSearch={() => this._onShowSearch(true)} />
+                )}
+              </View>
             </SLMessage>
           </View>
 
@@ -114,8 +133,8 @@ export default class SongListScreen extends Component {
             <StickyItem
               defVip={defVip}
               isSelect={isSelect}
-              onCarryOut={(val) => this.setState({ isSelect: val })}
-              onSelectAll={(val) => this.setState({ isSelectAll: val })}
+              onCarryOut={val => this.setState({ isSelect: val })}
+              onSelectAll={val => this.setState({ isSelectAll: val })}
             />
           </StickyHeader>
           <SLFlatList
@@ -127,10 +146,13 @@ export default class SongListScreen extends Component {
           />
         </Animated.ScrollView>
         <TextInputModal
+          data={data}
+          slData={slData}
           visible={isShowSearch}
-          onClose={(bool) => this._onShowSearch(bool)}
+          navigation={this.props.navigation}
+          onClose={bool => this._onShowSearch(bool)}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -138,6 +160,6 @@ export default class SongListScreen extends Component {
 const styles = StyleSheet.create({
   containers: {
     flex: 1,
-    backgroundColor: themesColor.black3,
-  },
+    backgroundColor: themesColor.black3
+  }
 });

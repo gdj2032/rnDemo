@@ -14,7 +14,6 @@ export default class FadeOutAnimated extends Component {
     super(props);
     this.state = {
       fadeOutOpacity1: new Animated.Value(1),
-      animatedValue2: new Animated.Value(0)
     };
     this.fade_renderItem1 = Animated.timing(this.state.fadeOutOpacity1, {
       toValue: 0, //透明度动画最终值

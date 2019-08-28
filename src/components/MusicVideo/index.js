@@ -50,7 +50,7 @@ export default class MusicVideo extends Component {
       data: this.props.data,
       slData: this.props.slData,
       lyrObjs: [],
-      paused: true,
+      paused: false,
       muted: false,
       volume: 100,
       currentTime: 0,

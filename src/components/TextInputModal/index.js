@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, ScrollView
 import PropTypes from 'prop-types';
 import { Modal, Provider, Icon } from '@ant-design/react-native';
 import { themesColor, text_f14_fw5_white } from '../../style';
+import SLFlatList from '../../pages/Setting/SongListScreen/SLFlatList';
 
 export default class TextInputModal extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({});
@@ -18,21 +19,37 @@ export default class TextInputModal extends Component {
     super(props);
     this.state = {
       visible: false,
-      searchText: null,
+      searchText: [],
+      data: this.props.data,
+      slData: this.props.slData,
+      value: null,
     };
   }
 
   _onClose() {
+    this.setState({ searchText: [], value: null });
     this.props.onClose(false);
   }
 
   _onChangeText = (value) => {
-    this.setState({ searchText: value || null });
+    if(!value) {
+      this.setState({ searchText: [], value: null });
+      return;
+    }
+    const slData = this.state.slData;
+    let searchText = [];
+    slData.forEach(ele => {
+      let text = ele.name + ele.editor+ ele.details;
+      if(text.indexOf(value) != -1) {
+        searchText.push(ele)
+      }
+    });
+    this.setState({ searchText: searchText, value: value });
   }
 
   render() {
     const { visible } = this.props;
-    const { searchText } = this.state;
+    const { searchText, data, slData, value } = this.state;
     return (
       <Provider>
         <Modal
@@ -50,7 +67,7 @@ export default class TextInputModal extends Component {
                 onChangeText={this._onChangeText.bind(this)}
               />
               {
-                !!searchText &&
+                value &&
                 <Icon name="close" size="md" color={themesColor.white} />
               }
             </View>
@@ -59,9 +76,14 @@ export default class TextInputModal extends Component {
             </TouchableWithoutFeedback>
           </View>
           {
-            !!searchText &&
+            searchText.length > 0 &&
             <ScrollView style={styles.result}>
-              <Text>{searchText}</Text>
+              <SLFlatList
+                data={data}
+                slData={searchText}
+                navigation={this.props.navigation}
+              />
+              <View style={{height: 100}}/>
             </ScrollView>
           }
         </Modal>
