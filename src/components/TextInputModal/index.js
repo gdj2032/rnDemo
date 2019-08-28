@@ -31,6 +31,10 @@ export default class TextInputModal extends Component {
     this.props.onClose(false);
   }
 
+  _onIconClose() {
+    this.setState({ searchText: [], value: null });
+  }
+
   _onChangeText = (value) => {
     if(!value) {
       this.setState({ searchText: [], value: null });
@@ -61,6 +65,7 @@ export default class TextInputModal extends Component {
             <View style={styles.inputView}>
               <Icon name="search" size="md" color={themesColor.white} />
               <TextInput
+                value={value}
                 style={styles.textInput}
                 placeholder={'搜索歌单内的歌曲'}
                 placeholderTextColor={themesColor.white}
@@ -68,7 +73,9 @@ export default class TextInputModal extends Component {
               />
               {
                 value &&
-                <Icon name="close" size="md" color={themesColor.white} />
+                <TouchableWithoutFeedback onPress={() => this._onIconClose()}>
+                  <Icon name="close" size="md" color={themesColor.white} />
+                </TouchableWithoutFeedback>
               }
             </View>
             <TouchableWithoutFeedback onPress={() => this._onClose()}>
