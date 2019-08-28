@@ -10,7 +10,7 @@ export default class MyCreatePanel extends Component {
   state = {
     isShowList: this.props.data.isShowList,
     data: this.props.data,
-    slData: this.props.slData
+    slData: this.props.slData,
   };
   _isShowHeader() {}
 
@@ -21,17 +21,17 @@ export default class MyCreatePanel extends Component {
   }
 
   _onAdd() {
-    alert('add')
+    this.props.onShowAddModal && this.props.onShowAddModal();
   }
   _onMore() {
     alert('more')
   }
 
-  _onSongList(data, slData) {
-    this.props.navigation.navigate('SongListScreen', { data: data, slData: slData })
+  _onSongList(data) {
+    this.props.navigation.navigate('SongListScreen', { data: data, slData: data.list })
   }
   render() {
-    const { isShowList, data, slData } = this.state;
+    const { isShowList, data } = this.state;
     return (
       <View style={[container, styles.container]}>
         <CreateHeader
@@ -45,7 +45,7 @@ export default class MyCreatePanel extends Component {
         {
           isShowList &&
           data.list.length > 0 &&
-          data.list.map(ele => <SongListItem data={ele} key={ele.id} onPress={() => this._onSongList(ele, slData)} />)
+          data.list.map(ele => <SongListItem data={ele} key={ele.id} onPress={() => this._onSongList(ele)} />)
         }
       </View>
     );

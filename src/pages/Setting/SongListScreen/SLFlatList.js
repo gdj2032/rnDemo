@@ -10,6 +10,7 @@ import {
   text_f16_fw4_gray,
   transform90,
   fonts,
+  containers,
 } from '../../../style';
 import RowView from '../../../components/RowView';
 import TouchRowView from '../../../components/TouchRowView';
@@ -20,10 +21,11 @@ export default class SLFlatList extends Component {
   static defaultProps = {
     isSelect: false,
     isSelectAll: false,
+    noNeedHeader: false,
   };
 
   static propTypes = {
-    // onClose: PropTypes.func,
+    onAddSong: PropTypes.func,
   };
 
   constructor(props) {
@@ -51,14 +53,17 @@ export default class SLFlatList extends Component {
   }
 
   ListHeaderComponent = () => {
-    const { data } = this.props;
+    const { data, noNeedHeader } = this.props;
+    if(noNeedHeader) {
+      return null;
+    }
     return(
       <RowView style={styles.listHead}>
         <View style={styles.center_wh50}>
           <Icon name="play-circle" size="lg" color={themesColor.black} />
         </View>
         <Text style={text_f16_fw4_black}>播放全部</Text>
-        { data.all && <Text style={text_f12_gray}>{`(共${data.all}首)`}</Text> }
+        <Text style={text_f12_gray}>{`(共${data.all}首)`}</Text>
       </RowView>
     )
   }
@@ -164,20 +169,28 @@ export default class SLFlatList extends Component {
   render() {
     const { slData } = this.state;
     return (
-      <FlatList
-        style={styles.flatList}
-        data={slData}
-        keyExtractor={item => item.name}
-        ListHeaderComponent={() => this.ListHeaderComponent()}
-        renderItem={({item, index}) => this.renderItem(item, index)}
-      />
+      <View>
+        {
+          slData.length > 0 ?
+          <FlatList
+            style={styles.flatList}
+            data={slData}
+            keyExtractor={item => item.name}
+            ListHeaderComponent={() => this.ListHeaderComponent()}
+            renderItem={({item, index}) => this.renderItem(item, index)}
+          />
+          :
+          <TouchableOpacity style={styles.addSong} onPress={this.props.onAddSong}>
+            <Text style={styles.addText}>添加歌曲</Text>
+          </TouchableOpacity>
+        }
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   flatList: {
-    // flex: 1,
     backgroundColor: themesColor.white
   },
   center_wh50: {
@@ -216,5 +229,22 @@ const styles = StyleSheet.create({
 
   marRight: {
     marginRight: 4,
-  }
+  },
+  addSong: {
+    width: '100%',
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  addText: {
+    color: themesColor.red,
+    fontSize: fonts.x,
+    borderWidth: 1,
+    borderColor: themesColor.red,
+    borderRadius: 10,
+    paddingLeft: 40,
+    paddingRight: 40,
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
 });

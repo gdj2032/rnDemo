@@ -42,7 +42,7 @@ export default class Test extends Component {
       <View style={containers}>
         <ScrollView>
           {
-            screen.map(ele => <Button onPress={this._onPress.bind(this, ele.nav)}>{ele.name}</Button>)
+            screen.map(ele => <Button key={ele.nav} onPress={this._onPress.bind(this, ele.nav)}>{ele.name}</Button>)
           }
           <MyTest/>
         </ScrollView>

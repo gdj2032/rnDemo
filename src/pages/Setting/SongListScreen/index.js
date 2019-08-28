@@ -12,7 +12,7 @@ import {
 import { SafeAreaView } from "react-navigation";
 import { Icon } from "@ant-design/react-native";
 import Header from "../../../components/Header";
-import { themesColor, text_f14_fw5_white } from "../../../style";
+import { themesColor, text_f14_fw5_white, contain } from "../../../style";
 import SearchButton from "./SearchButton";
 import TextInputModal from "../../../components/TextInputModal";
 import SLMessage from "./SLMessage";
@@ -65,6 +65,10 @@ export default class SongListScreen extends Component {
     this.setState({ isSelect: !this.state.isSelect, isSelectAll: false });
   };
 
+  _onAddSong = () => {
+    alert("_onAddSong");
+  };
+
   render() {
     const {
       title,
@@ -79,6 +83,7 @@ export default class SongListScreen extends Component {
     return (
       <View style={styles.containers}>
         <Header
+          style={{ backgroundColor: themesColor.black3 }}
           LeftItem={() => (
             <TouchableOpacity onPress={this.goBack}>
               <Icon name="left" size="md" color={themesColor.white} />
@@ -143,6 +148,7 @@ export default class SongListScreen extends Component {
             isSelect={isSelect}
             isSelectAll={isSelectAll}
             navigation={this.props.navigation}
+            onAddSong={this._onAddSong}
           />
         </Animated.ScrollView>
         <TextInputModal
@@ -160,6 +166,6 @@ export default class SongListScreen extends Component {
 const styles = StyleSheet.create({
   containers: {
     flex: 1,
-    backgroundColor: themesColor.black3
+    backgroundColor: themesColor.white
   }
 });

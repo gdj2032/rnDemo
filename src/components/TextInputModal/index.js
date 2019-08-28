@@ -65,6 +65,7 @@ export default class TextInputModal extends Component {
             <View style={styles.inputView}>
               <Icon name="search" size="md" color={themesColor.white} />
               <TextInput
+                autoFocus={true}
                 value={value}
                 style={styles.textInput}
                 placeholder={'搜索歌单内的歌曲'}
@@ -89,6 +90,7 @@ export default class TextInputModal extends Component {
                 data={data}
                 slData={searchText}
                 navigation={this.props.navigation}
+                noNeedHeader={true}
               />
               <View style={{height: 100}}/>
             </ScrollView>

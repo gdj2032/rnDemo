@@ -8,6 +8,9 @@ import { createReducer } from 'redux-act';
 import types from '../actions/types';
 import { defSongList, defVideoList, defSongListData } from '../utils/defaultData';
 
+const createSumReducer = actionType => createReducer({
+  [actionType]: (state, payload) => state + payload,
+}, 0);
 
 const local = combineReducers({
   profile: createReducer({
@@ -34,6 +37,7 @@ const local = combineReducers({
   }, {
     list: defVideoList,
   }),
+  loading: createSumReducer(types.loading),
 });
 
 export default local;

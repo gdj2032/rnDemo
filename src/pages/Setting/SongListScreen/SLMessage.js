@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     height: 300,
+    backgroundColor: themesColor.black3
   },
   message: {
     width: '100%',
