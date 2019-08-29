@@ -12,7 +12,9 @@ import SpacerItem from '../../components/SpacerItem';
 import PullScrollView from '../../components/PullScrollView';
 import RecommendSongList from './RecommendSongList';
 import NewSongDish from './NewSongDish';
-import { reduxStore } from '../../utils/utils';
+import { reduxStore, randomArr } from '../../utils/utils';
+import { defHomeNavBtn } from '../../utils/defaultData';
+import { UpdateDailyRecommend } from '../../actions/setting';
 
 const RecommendData = [
   {
@@ -75,29 +77,7 @@ export default class Home extends Component {
   };
 
   state = {
-    navBtn: [
-      {
-        text: '每日推荐',
-        icon_name: 'calendar',
-        nav: '',
-      },{
-        text: '歌单',
-        icon_name: 'menu',
-        nav: '',
-      },{
-        text: '排行榜',
-        icon_name: 'align-left',
-        nav: '',
-      },{
-        text: '电台',
-        icon_name: 'customer-service',
-        nav: '',
-      },{
-        text: '直播',
-        icon_name: 'play-square',
-        nav: '',
-      },
-    ],
+    navBtn: defHomeNavBtn,
     songList: '推荐歌单',
     songListSquare: {
       name: '歌单广场',
@@ -108,6 +88,23 @@ export default class Home extends Component {
   componentDidMount() {
     reduxStore.dispatch = this.props.dispatch;
     reduxStore.navigation = this.props.navigation;
+    this.setDailyRecommend();
+  }
+
+  setDailyRecommend() {
+    const { dailyRecommend, allMusic } = this.props.local;
+    const date = new Date()
+    const nowDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+    const allMusicData = allMusic.data;
+    if(dailyRecommend.time !== nowDay) {
+      const ranArr = randomArr(allMusicData.length, 15);
+      let list = [];
+      ranArr.forEach(ele => {
+        list.push(allMusicData[ele]);
+      })
+      console.log(list);
+      this.props.dispatch(UpdateDailyRecommend({data: list, time: nowDay}))
+    }
   }
 
   onPullRelease(resolve) {
@@ -120,6 +117,15 @@ export default class Home extends Component {
 
   _onSearch() {
     alert('wait')
+  }
+
+  _onNavPress(ele) {
+    if(ele.title === '每日推荐') {
+      const { dailyRecommend } = this.props.local;
+      this.props.navigation.navigate('SongListScreen', { data: ele, slData: dailyRecommend.data })
+    } else {
+      alert(ele.title)
+    }
   }
 
   render() {
@@ -137,7 +143,7 @@ export default class Home extends Component {
           <SwiperItem />
           <View style={styles.navBtn}>
             {
-              navBtn.map(ele => <NavBtnItem key={ele.text} text={ele.text} icon_name={ele.icon_name} />)
+              navBtn.map(ele => <NavBtnItem key={ele.title} text={ele.title} icon_name={ele.icon_name} onPress={() => this._onNavPress(ele)} />)
             }
           </View>
           <SpacerItem />

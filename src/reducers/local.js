@@ -24,6 +24,12 @@ const local = combineReducers({
   }, {
     data: []
   }),
+  dailyRecommend: createReducer({
+    [types.dailyRecommend]: (state, payload) => ({ ...state, ...payload }),
+  }, {
+    data: [],
+    time: null,
+  }),
   songList: createReducer({
     [types.songList]: (state, payload) => ({ ...state, ...payload }),
   }, {

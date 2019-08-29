@@ -15,3 +15,5 @@ export const UpdateSongList = value => dispatch => dispatch(UPDATE('songList', v
 export const UpdateVideoList = value => dispatch => dispatch(UPDATE('videoList', value));
 
 export const UpdateAllMusic = value => dispatch => dispatch(UPDATE('allMusic', value));
+
+export const UpdateDailyRecommend = value => dispatch => dispatch(UPDATE('dailyRecommend', value));

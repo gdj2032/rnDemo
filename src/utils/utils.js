@@ -86,3 +86,24 @@ Array.prototype.remove = function(val) {
 export const isAndroid = () => Platform.OS === 'android';
 
 export const isIOS = () => Platform.OS === 'ios';
+
+/**
+ * 获取随机数数组
+ * @param {*} max 随机最大数
+ * @param {*} needNum 需要随机的数量
+ */
+export const randomArr = (max, needNum) => {
+  let arr = [];//随机数数组
+  for(let i = 0; i <= max; i++) {
+    if(arr.length === needNum){
+      break;
+    }
+    let nums = parseInt(Math.random()*max);
+    if(arr.indexOf(nums) === -1) {
+      arr.push(nums);
+    } else {
+      continue;
+    }
+  }
+  return arr;
+};

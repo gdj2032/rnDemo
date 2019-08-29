@@ -161,6 +161,64 @@ const defVideoList = [
   },
 ]
 
+const defHomeNavBtn = [
+  {
+    id: 100001,
+    title: "每日推荐",
+    icon_name: 'calendar',
+    isLove: false,
+    love: "非心动模式",
+    all: 15,
+    download: 0,
+    isSing: false,
+    list: []
+  },
+  {
+    id: 100002,
+    title: "歌单",
+    icon_name: 'menu',
+    isLove: false,
+    love: "非心动模式",
+    all: 0,
+    download: 0,
+    isSing: false,
+    list: []
+  },
+  {
+    id: 100003,
+    title: "排行榜",
+    icon_name: 'align-left',
+    isLove: false,
+    love: "非心动模式",
+    all: 0,
+    download: 0,
+    isSing: false,
+    list: []
+  },
+  {
+    id: 100004,
+    title: '电台',
+    icon_name: 'customer-service',
+    isLove: false,
+    love: "非心动模式",
+    all: 0,
+    download: 0,
+    isSing: false,
+    list: []
+  },
+  {
+    id: 100005,
+    title: '直播',
+    icon_name: 'play-square',
+    isLove: false,
+    love: "非心动模式",
+    all: 0,
+    download: 0,
+    isSing: false,
+    list: []
+  },
+]
+
 const defSongListData = [];
 
 export {
@@ -172,4 +230,5 @@ export {
   def_videoUrl1,
   def_videoUrl2,
   defSongListData,
+  defHomeNavBtn
 };
