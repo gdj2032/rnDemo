@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import { SafeAreaView } from 'react-navigation';
 import { Icon } from '@ant-design/react-native';
 import Header from '../../../components/Header';
 import {
@@ -9,6 +8,8 @@ import {
   text_f10_black,
 } from '../../../style';
 import MusicVideo from '../../../components/MusicVideo';
+import { reduxStore } from '../../../utils/utils';
+import { UpdateAllMusic } from '../../../actions/setting'
 
 export default class MusicVideoScreen extends Component {
 
@@ -17,8 +18,26 @@ export default class MusicVideoScreen extends Component {
     this.state = {
       visible: false,
       data: this.props.navigation.state.params.data,
-      slData: this.props.navigation.state.params.slData
+      slData: this.props.navigation.state.params.slData,
+      allMusicData: this.props.navigation.state.params.allMusicData,
+      lyrObj: null,
     };
+  }
+
+  componentDidMount() {
+    this.getLyrObj();
+  }
+
+  componentWillUnmount() {
+    this.setState({ lyrObj: null });
+  }
+
+  getLyrObj = () => {
+    const { data, allMusicData } = this.state;
+    let need = allMusicData.filter(ele => ele.id === data.id);
+    if(need.cache && need.cache.lyrObj) {
+      this.setState({ lyrObj: need.cache.lyrObj });
+    }
   }
 
   goBack = () => this.props.navigation.goBack(null);
@@ -26,8 +45,30 @@ export default class MusicVideoScreen extends Component {
   _onShare = () => {
     alert('_onShare');
   }
+
+  _updateData = (data) => {
+    this.setState({ data });
+    let allMusicData = this.state.allMusicData;
+    let need = allMusicData.filter(ele => ele.id === data.id);
+    if(need.cache && need.cache.lyrObj) {
+      this.setState({ lyrObj: need.cache.lyrObj });
+    }
+  }
+
+  _setLyrObj = (lyrObj) => {
+    const { data } = this.state;
+    let allMusicData = this.state.allMusicData;
+    allMusicData.forEach(ele => {
+      if(ele.id === data.id) {
+        ele.cache.lyrObj = lyrObj;
+      }
+    });
+    const { dispatch } = reduxStore;
+    dispatch(UpdateAllMusic({data: allMusicData}));
+  }
+
   render() {
-    const { data, slData } = this.state;
+    const { data, slData, lyrObj } = this.state;
     return (
       <View style={styles.containers}>
         <Header
@@ -51,7 +92,9 @@ export default class MusicVideoScreen extends Component {
         <MusicVideo
           data={data}
           slData={slData}
-          updateData={(data) => this.setState({ data })}
+          lyrObj={lyrObj}
+          updateData={(data) => this._updateData(data)}
+          setLyrObj={(data) => this._setLyrObj(data)}
         />
       </View>
     );

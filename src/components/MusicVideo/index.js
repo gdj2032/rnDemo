@@ -42,6 +42,7 @@ export default class MusicVideo extends Component {
 
   static propTypes = {
     updateData: PropTypes.func,
+    setLyrObj: PropTypes.func,
   };
 
   constructor(props) {
@@ -72,6 +73,10 @@ export default class MusicVideo extends Component {
   }
 
   init = () => {
+    if(this.props.lyrObj) {
+      this.setState({ lyrObjs: this.props.lyrObj });
+      return;
+    }
     lyrObj = [];
     const { data } = this.state;
     console.log(data);
@@ -113,7 +118,8 @@ export default class MusicVideo extends Component {
       // console.log(lyrObj);
     });
     // lyrObj.sort((a, b) => a.total > b.total);
-    this.setState({ lyrObjs: lyrObj })
+    this.setState({ lyrObjs: lyrObj });
+    this.props.setLyrObj(lyrObj);
   }
 
   _onSlider = (value) => {

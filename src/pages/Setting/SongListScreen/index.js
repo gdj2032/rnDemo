@@ -9,7 +9,7 @@ import {
   Image,
   Animated
 } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { connect } from 'react-redux';
 import { Icon } from "@ant-design/react-native";
 import Header from "../../../components/Header";
 import { themesColor, text_f14_fw5_white, contain } from "../../../style";
@@ -19,11 +19,16 @@ import SLMessage from "./SLMessage";
 import SLFlatList from "./SLFlatList";
 import StickyItem from "./StickyItem";
 import StickyHeader from "../../../components/StickyHeader";
+import { reduxStore } from '../../../utils/utils';
+import { UpdateAllMusic } from '../../../actions/setting';
 
 const defTitle = "歌单";
 
 const defVip = ["含7首vip专属歌曲", "首月vip仅5元"];
 
+@connect(state => ({
+  local: state.local,
+}))
 export default class SongListScreen extends Component {
   constructor(props) {
     super(props);
@@ -67,6 +72,22 @@ export default class SongListScreen extends Component {
 
   _onAddSong = () => {
     alert("_onAddSong");
+  };
+
+  _onNext = (item) => {
+    const { dispatch } = reduxStore;
+    let allMusicData = this.props.local.allMusic.data;
+    allMusicData.forEach(ele => {
+      if(ele.id === item.id) {
+        ele.cache = {
+          currentTime: new Date().getTime(),
+          times: ele.cache && ele.cache.times ? ele.cache.times + 1 : 1
+        }
+      }
+    })
+    console.log(allMusicData)
+    dispatch(UpdateAllMusic({data: allMusicData}));
+    this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData, allMusicData: allMusicData});
   };
 
   render() {
@@ -149,6 +170,7 @@ export default class SongListScreen extends Component {
             isSelectAll={isSelectAll}
             navigation={this.props.navigation}
             onAddSong={this._onAddSong}
+            onNext={(val) => this._onNext(val)}
           />
         </Animated.ScrollView>
         <TextInputModal

@@ -1,4 +1,4 @@
-const dengZiQi = [
+export const dengZiQi = [
   {
     id: 14001,
     name: '光年之外（电影《太空旅客》中文主题曲）',
@@ -82,6 +82,6 @@ let i = {
   isExclusive: false,
   isSelect: false,cache: null,
   lrc: "",
-},
+};
 
 export default dengZiQi;

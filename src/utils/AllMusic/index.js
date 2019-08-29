@@ -24,6 +24,6 @@ const allMusic = [
   ...dengZiQi,
   ...xuSong,
   ...liRongHao,
-]
+];
 
 export default allMusic;

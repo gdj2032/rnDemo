@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 import { containers } from '../../../style';
 import { reduxStore } from '../../../utils/utils';
 import { defSongList } from '../../../utils/defaultData';
-import { UpdateVideoList, UpdateSongList } from "../../../actions/setting";
+import { UpdateVideoList, UpdateSongList, UpdateAllMusic } from "../../../actions/setting";
 import types from '../../../actions/types';
+import allMusic from '../../../utils/AllMusic';
 
 @connect(state => ({
   local: state.local
@@ -34,7 +35,8 @@ export default class AntdScreen extends Component {
     const { dispatch } = reduxStore;
     // dispatch(types.localProfile({age: 25}))
     // dispatch(UpdateSongList({list: defSongList.list}));
-    dispatch(types.loading(1));
+    dispatch(UpdateAllMusic({data: allMusic}))
+    // dispatch(types.loading(1));
   }
 
 

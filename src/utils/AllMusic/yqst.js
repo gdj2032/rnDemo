@@ -1,6 +1,6 @@
 //音阙诗听
 
-const yqst = [
+export const yqst = [
   {
     id: 12001,
     name: '红昭愿',
@@ -32,6 +32,6 @@ let i = {
   isExclusive: false,
   isSelect: false,cache: null,
   lrc: '',
-},
+};
 
 export default yqst;

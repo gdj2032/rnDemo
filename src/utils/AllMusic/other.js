@@ -321,6 +321,6 @@ let i = {
     isExclusive: false,
     isSelect: false,cache: null,
     lrc: '',
-  },
+  };
 
 export default other;

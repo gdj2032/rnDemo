@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { Icon } from '@ant-design/react-native';
 import {
@@ -15,8 +16,10 @@ import {
 import RowView from '../../../components/RowView';
 import TouchRowView from '../../../components/TouchRowView';
 import CheckBoxItem from './CheckBoxItem';
-import { reduxStore } from '../../../utils/utils';
 
+@connect(state => ({
+  local: state.local,
+}))
 export default class SLFlatList extends Component {
   static defaultProps = {
     isSelect: false,
@@ -26,11 +29,13 @@ export default class SLFlatList extends Component {
 
   static propTypes = {
     onAddSong: PropTypes.func,
+    onNext: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.state = {
+      list: this.props.data,
       slData: this.props.slData,
       isSelectAll: false,
     };
@@ -69,8 +74,7 @@ export default class SLFlatList extends Component {
   }
 
   _onPress = (item) => {
-    console.log(item)
-    this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData});
+    this.props.onNext(item);
   }
 
   _onPaly = () => {
