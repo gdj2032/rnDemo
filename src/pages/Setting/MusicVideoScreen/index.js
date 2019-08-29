@@ -52,6 +52,8 @@ export default class MusicVideoScreen extends Component {
     let need = allMusicData.filter(ele => ele.id === data.id);
     if(need.cache && need.cache.lyrObj) {
       this.setState({ lyrObj: need.cache.lyrObj });
+    } else {
+      this.setState({ lyrObj: null });
     }
   }
 
