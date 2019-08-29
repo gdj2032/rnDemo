@@ -114,8 +114,7 @@ export default class DailyRecommendScreen extends Component {
             stickyScrollY={scrollY} // 把滑动距离传入
           >
             <DailySticky
-              isOpenSelect={isOpenSelect}
-              // isSelectAll={isSelectAll}
+              isSelectAll={isSelectAll}
               onOpenSelect={() => this._onOpenSelect()}
               onCarryOut={val => this.setState({ isOpenSelect: val })}
               // onSelectAll={val => this.setState({ isSelectAll: val })}

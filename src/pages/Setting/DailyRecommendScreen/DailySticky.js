@@ -20,7 +20,6 @@ import TouchRowView from "../../../components/TouchRowView";
 
 export default class DailySticky extends Component {
   static defaultProps = {
-    isOpenSelect: false,
     isSelectAll: false,
   };
 
@@ -31,7 +30,8 @@ export default class DailySticky extends Component {
   };
 
   state = {
-    checked: false
+    checked: false,
+    isOpenSelect: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -40,12 +40,18 @@ export default class DailySticky extends Component {
     }
   }
 
+  _onOpenSelect = () => {
+    this.props.onOpenSelect();
+    this.setState({ isOpenSelect: true });
+  }
+
   _onSelectAll = () => {
     this.setState({ checked: !this.state.checked })
     this.props.onSelectAll && this.props.onSelectAll(!this.state.checked);
   }
 
   _onCarryOut = (bool) => {
+    this.setState({ isOpenSelect: false });
     this.props.onCarryOut && this.props.onCarryOut(bool);
   }
 
@@ -58,7 +64,7 @@ export default class DailySticky extends Component {
           </View>
           <Text style={text_f14_fw4_black}>播放全部</Text>
         </RowView>
-        <TouchRowView onPress={() => this.props.onOpenSelect()}>
+        <TouchRowView onPress={() => this._onOpenSelect()}>
           <Icon name="unordered-list" size="md" color={themesColor.black} />
           <Text style={text_f14_fw4_black}>选择</Text>
         </TouchRowView>
@@ -86,7 +92,7 @@ export default class DailySticky extends Component {
   };
 
   render() {
-    const { isOpenSelect } = this.props;
+    const { isOpenSelect } = this.state;
     return (
       <View style={styles.contain}>
         {

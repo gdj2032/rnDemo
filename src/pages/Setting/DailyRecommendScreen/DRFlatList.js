@@ -30,13 +30,11 @@ export default class DRFlatList extends Component {
     this.state = {
       list: this.props.data,
       drData: this.props.drData,
-      isOpenSelect: false,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps)
-    this.setState({ isOpenSelect: nextProps.isOpenSelect })
   }
 
   _onPress = (item) => {
@@ -102,7 +100,7 @@ export default class DRFlatList extends Component {
       <TouchRowView style={styles.renderItem} onPress={() => this._onPress(item)}>
         <View style={styles.center_wh50}>
           {
-            this.state.isOpenSelect ?
+            this.props.isOpenSelect ?
             <CheckBoxItem
               onChange={() => this._onCheckBox(item)}
               checked={item.isSelect}
