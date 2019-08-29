@@ -11,10 +11,9 @@ import FireNavItem from './FireNavItem';
 import MyCreatePanel from './MyCreatePanel';
 import { defFireScroll, defFireNav } from '../../utils/defaultData';
 import AddModal from "./AddModal";
-import { createSongList } from '../../utils/realm';
 import { reduxStore } from '../../utils/utils';
 import { UpdateSongList } from '../../actions/setting';
-
+import { createSongList } from '../../utils/realm';
 
 @connect(state => ({
   local: state.local,
@@ -30,19 +29,39 @@ export default class Fire extends Component {
   }
 
   _onComplete = (value) => {
+    console.log(value)
     if(!value) {
       Toast.info('请输入歌单标题', 1);
       return;
     }
+    let data = this.props.local.songList.list;
+    console.log(data)
+    let isExit = data.find(ele => ele.title === value);
+    if(isExit) {
+      Toast.info('歌单标题已存在', 1);
+      return;
+    }
     this.setState({ isShowAddModal: false });
-    let createData = createSongList;
+    const createData = {...createSongList};
     createData.title = value;
     console.log(createData)
     const { dispatch } = reduxStore;
-    let data = this.state.songList.list;
     data.push(createData)
     console.log(data)
-    // dispatch(UpdateSongList({list: data}));
+    dispatch(UpdateSongList({list: data}));
+  }
+
+  _onDelete = (value) => {
+    const { dispatch } = reduxStore;
+    let data = this.props.local.songList.list;
+    let spIndex = 0;
+    data.forEach((ele, index) => {
+      if(ele.id === value.id) {
+        spIndex = index;
+      }
+    });
+    data.splice(spIndex, 1);
+    dispatch(UpdateSongList({list: data}));
   }
 
   render() {
@@ -63,6 +82,7 @@ export default class Fire extends Component {
             data={songList}
             navigation={this.props.navigation}
             onShowAddModal={() => this.setState({ isShowAddModal: true })}
+            onDelete={(data) => this._onDelete(data)}
             />
         </ScrollView>
         <AddModal

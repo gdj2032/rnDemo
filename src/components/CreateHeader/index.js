@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
   left: {
     flex: 0.8,
     flexDirection: 'row',
+    alignItems: 'center',
   },
   left_t1: {
     fontSize: setSpText(18),

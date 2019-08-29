@@ -31,6 +31,7 @@ export default class AddModal extends Component {
 
   _onComplete = (value) => {
     this.props.onComplete(value);
+    this.setState({ value: null });
   }
 
   render() {

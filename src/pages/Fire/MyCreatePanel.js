@@ -30,6 +30,10 @@ export default class MyCreatePanel extends Component {
   _onSongList(data) {
     this.props.navigation.navigate('SongListScreen', { data: data, slData: data.list })
   }
+
+  _onDelete(data) {
+    this.props.onDelete && this.props.onDelete(data)
+  }
   render() {
     const { isShowList, data } = this.state;
     return (
@@ -45,7 +49,13 @@ export default class MyCreatePanel extends Component {
         {
           isShowList &&
           data.list.length > 0 &&
-          data.list.map(ele => <SongListItem data={ele} key={ele.id} onPress={() => this._onSongList(ele)} />)
+          data.list.map(ele =>
+            <SongListItem
+              data={ele}
+              key={ele.id}
+              onPress={() => this._onSongList(ele)}
+              onDelete={() => this._onDelete(ele)}
+              />)
         }
       </View>
     );
