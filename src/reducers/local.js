@@ -1,12 +1,9 @@
 /* eslint-disable no-multi-spaces */
-/**
- * Created by hpcherry on 2018/4/16.
- */
-
 import { combineReducers } from 'redux';
 import { createReducer } from 'redux-act';
 import types from '../actions/types';
 import { defSongList, defVideoList, defSongListData } from '../utils/defaultData';
+import allMusic from '../utils/AllMusic'
 
 const createSumReducer = actionType => createReducer({
   [actionType]: (state, payload) => state + payload,
@@ -22,7 +19,7 @@ const local = combineReducers({
   allMusic: createReducer({
     [types.allMusic]: (state, payload) => ({ ...state, ...payload }),
   }, {
-    data: []
+    data: allMusic
   }),
   dailyRecommend: createReducer({
     [types.dailyRecommend]: (state, payload) => ({ ...state, ...payload }),

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Icon } from '@ant-design/react-native';
 import RowView from '../../../components/RowView';
 import { themesColor, text_f14_fw4_red, text_f12_gray, text_f14_fw4_black } from '../../../style';
-import CheckBoxItem from './CheckBoxItem';
+import CheckBoxItem from '../../../components/CheckBoxItem';
 
 export default class StickyItem extends Component {
 

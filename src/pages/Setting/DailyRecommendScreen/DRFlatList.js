@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, FlatList, TouchableOpacity, Image} from 'react-native';
 import PropTypes from "prop-types";
-import { Icon } from '@ant-design/react-native';
 import {
   themesColor,
   text_f16_fw4_black,
@@ -10,21 +9,19 @@ import {
   text_f16_fw4_gray,
   transform90,
   fonts,
-  containers,
 } from '../../../style';
-import RowView from '../../../components/RowView';
+import { Icon } from '@ant-design/react-native';
 import TouchRowView from '../../../components/TouchRowView';
+import RowView from '../../../components/RowView';
 import CheckBoxItem from '../../../components/CheckBoxItem';
 
-export default class SLFlatList extends Component {
+export default class DRFlatList extends Component {
   static defaultProps = {
-    isSelect: false,
+    isOpenSelect: false,
     isSelectAll: false,
-    noNeedHeader: false,
   };
 
   static propTypes = {
-    onAddSong: PropTypes.func,
     onNext: PropTypes.func,
   };
 
@@ -32,41 +29,14 @@ export default class SLFlatList extends Component {
     super(props);
     this.state = {
       list: this.props.data,
-      slData: this.props.slData,
-      isSelectAll: false,
+      drData: this.props.drData,
+      isOpenSelect: false,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    let slData = this.state.slData;
-    if(nextProps.isSelectAll !== this.state.isSelectAll) {
-      slData.forEach(ele => {
-        ele.isSelect = nextProps.isSelectAll;
-      });
-      this.setState({ slData, isSelectAll: nextProps.isSelectAll });
-    }
-    if(!this.props.isSelect) {
-      slData.forEach(ele => {
-        ele.isSelect = false;
-      });
-      this.setState({ slData, isSelectAll: nextProps.isSelectAll });
-    }
-  }
-
-  ListHeaderComponent = () => {
-    const { data, noNeedHeader } = this.props;
-    if(noNeedHeader) {
-      return null;
-    }
-    return(
-      <RowView style={styles.listHead}>
-        <View style={styles.center_wh50}>
-          <Icon name="play-circle" size="lg" color={themesColor.black} />
-        </View>
-        <Text style={text_f16_fw4_black}>播放全部</Text>
-        <Text style={text_f12_gray}>{`(共${data.all}首)`}</Text>
-      </RowView>
-    )
+    console.log(nextProps)
+    this.setState({ isOpenSelect: nextProps.isOpenSelect })
   }
 
   _onPress = (item) => {
@@ -88,13 +58,13 @@ export default class SLFlatList extends Component {
   )
 
   _onCheckBox = (item) => {
-    let slData = this.state.slData;
-    slData.forEach(ele => {
+    let drData = this.state.drData;
+    drData.forEach(ele => {
       if(ele.id === item.id) {
         ele.isSelect = !item.isSelect
       }
     });
-    this.setState({ slData });
+    this.setState({ drData });
   }
 
   CloudIcon = () => (
@@ -127,18 +97,21 @@ export default class SLFlatList extends Component {
     )
   }
 
-  renderItem = (item, index) => {
+  renderItem = (item) => {
     return(
       <TouchRowView style={styles.renderItem} onPress={() => this._onPress(item)}>
         <View style={styles.center_wh50}>
           {
-            this.props.isSelect ?
+            this.state.isOpenSelect ?
             <CheckBoxItem
               onChange={() => this._onCheckBox(item)}
               checked={item.isSelect}
             />
             :
-            <Text style={text_f16_fw4_gray}>{index + 1}</Text>
+            <Image
+              source={require('../../../image/song.png')}
+              style={{width: 30, height: 30, borderRadius: 5}}
+            />
           }
         </View>
         <RowView style={styles.render_details}>
@@ -168,31 +141,23 @@ export default class SLFlatList extends Component {
   }
 
   render() {
-    const { slData } = this.state;
+    const { drData } = this.state;
     return (
-      <View>
-        {
-          slData.length > 0 ?
-          <FlatList
-            style={styles.flatList}
-            data={slData}
-            keyExtractor={item => item.name}
-            ListHeaderComponent={() => this.ListHeaderComponent()}
-            renderItem={({item, index}) => this.renderItem(item, index)}
-          />
-          :
-          <TouchableOpacity style={styles.addSong} onPress={this.props.onAddSong}>
-            <Text style={styles.addText}>添加歌曲</Text>
-          </TouchableOpacity>
-        }
+      <View style={styles.contain}>
+        <FlatList
+          data={drData}
+          keyExtractor={item => item.name}
+          renderItem={({item}) => this.renderItem(item)}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  flatList: {
-    backgroundColor: themesColor.white
+  contain: {
+    flex: 1,
+    backgroundColor: themesColor.white,
   },
   center_wh50: {
     width: 50,
@@ -230,22 +195,5 @@ const styles = StyleSheet.create({
 
   marRight: {
     marginRight: 4,
-  },
-  addSong: {
-    width: '100%',
-    height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  addText: {
-    color: themesColor.red,
-    fontSize: fonts.x,
-    borderWidth: 1,
-    borderColor: themesColor.red,
-    borderRadius: 10,
-    paddingLeft: 40,
-    paddingRight: 40,
-    paddingTop: 5,
-    paddingBottom: 5,
   },
 });

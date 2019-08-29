@@ -94,7 +94,7 @@ export default class Home extends Component {
   setDailyRecommend() {
     const { dailyRecommend, allMusic } = this.props.local;
     const date = new Date()
-    const nowDay = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+    const nowDay = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     const allMusicData = allMusic.data;
     if(dailyRecommend.time !== nowDay) {
       const ranArr = randomArr(allMusicData.length, 15);
@@ -122,7 +122,7 @@ export default class Home extends Component {
   _onNavPress(ele) {
     if(ele.title === '每日推荐') {
       const { dailyRecommend } = this.props.local;
-      this.props.navigation.navigate('SongListScreen', { data: ele, slData: dailyRecommend.data })
+      this.props.navigation.navigate('DailyRecommendScreen', { data: ele, dailyRecommend: dailyRecommend })
     } else {
       alert(ele.title)
     }
@@ -131,7 +131,7 @@ export default class Home extends Component {
   render() {
     const { navBtn, songList, songListSquare } = this.state;
     return (
-      <SafeAreaView style={containers}>
+      <View style={containers}>
         <Header
           LeftItem={() => <Icon name={'audio'} size="md" color={themesColor.black}/>}
           CenterItem={() => <TextInputButton onPress={this._onSearch.bind(this)} />}
@@ -154,7 +154,7 @@ export default class Home extends Component {
           />
           <NewSongDish />
         </PullScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 }

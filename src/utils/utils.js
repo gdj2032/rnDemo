@@ -107,3 +107,7 @@ export const randomArr = (max, needNum) => {
   }
   return arr;
 };
+
+export const dateFormat = date => moment(date).format('YYYY-MM-DDTHH:mm:ss');
+
+export const getDate = (date, format) => moment(date).format(format);
