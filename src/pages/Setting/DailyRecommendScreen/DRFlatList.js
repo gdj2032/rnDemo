@@ -13,7 +13,6 @@ import {
 import { Icon } from '@ant-design/react-native';
 import TouchRowView from '../../../components/TouchRowView';
 import RowView from '../../../components/RowView';
-import CheckBoxItem from '../../../components/CheckBoxItem';
 
 export default class DRFlatList extends Component {
   static defaultProps = {
@@ -99,18 +98,10 @@ export default class DRFlatList extends Component {
     return(
       <TouchRowView style={styles.renderItem} onPress={() => this._onPress(item)}>
         <View style={styles.center_wh50}>
-          {
-            this.props.isOpenSelect ?
-            <CheckBoxItem
-              onChange={() => this._onCheckBox(item)}
-              checked={item.isSelect}
-            />
-            :
-            <Image
-              source={require('../../../image/song.png')}
-              style={{width: 30, height: 30, borderRadius: 5}}
-            />
-          }
+          <Image
+            source={require('../../../image/song.png')}
+            style={{width: 30, height: 30, borderRadius: 5}}
+          />
         </View>
         <RowView style={styles.render_details}>
           <View style={{flex: 1}}>

@@ -41,18 +41,18 @@ export default class DailySticky extends Component {
   }
 
   _onOpenSelect = () => {
-    this.props.onOpenSelect();
-    this.setState({ isOpenSelect: true });
+    // this.props.onOpenSelect();
+    // this.setState({ isOpenSelect: true });
   }
 
   _onSelectAll = () => {
-    this.setState({ checked: !this.state.checked })
-    this.props.onSelectAll && this.props.onSelectAll(!this.state.checked);
+    // this.setState({ checked: !this.state.checked })
+    // this.props.onSelectAll && this.props.onSelectAll(!this.state.checked);
   }
 
   _onCarryOut = (bool) => {
-    this.setState({ isOpenSelect: false });
-    this.props.onCarryOut && this.props.onCarryOut(bool);
+    // this.setState({ isOpenSelect: false });
+    // this.props.onCarryOut && this.props.onCarryOut(bool);
   }
 
   noSelect = () => {

@@ -113,18 +113,11 @@ export default class DailyRecommendScreen extends Component {
             stickyHeaderY={headHeight} // 把头部高度传入
             stickyScrollY={scrollY} // 把滑动距离传入
           >
-            <DailySticky
-              isSelectAll={isSelectAll}
-              onOpenSelect={() => this._onOpenSelect()}
-              onCarryOut={val => this.setState({ isOpenSelect: val })}
-              // onSelectAll={val => this.setState({ isSelectAll: val })}
-            />
+            <DailySticky />
           </StickyHeader>
           <DRFlatList
             data={data}
             drData={dailyRecommend.data}
-            isOpenSelect={isOpenSelect}
-            // isSelectAll={isSelectAll}
             onNext={(val) => this._onNext(val)}
           />
         </Animated.ScrollView>

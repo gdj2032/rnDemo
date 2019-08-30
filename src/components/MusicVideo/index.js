@@ -138,6 +138,7 @@ export default class MusicVideo extends Component {
 
   onEnd = () => {
     this.video.seek(0);
+    this._onNext();
   };
 
   onBuffer = (e) => {
