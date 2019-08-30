@@ -75,6 +75,7 @@ export default class SongListScreen extends Component {
   };
 
   _onNext = (item) => {
+    this._onShowSearch(false)
     this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData});
   };
 
@@ -167,6 +168,7 @@ export default class SongListScreen extends Component {
           visible={isShowSearch}
           navigation={this.props.navigation}
           onClose={bool => this._onShowSearch(bool)}
+          onNext={(val) => this._onNext(val)}
         />
       </View>
     );

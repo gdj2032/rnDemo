@@ -12,7 +12,8 @@ export default class TextInputModal extends Component {
   };
 
   static propTypes = {
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    onNext: PropTypes.func,
   };
 
   constructor(props) {
@@ -51,8 +52,13 @@ export default class TextInputModal extends Component {
     this.setState({ searchText: searchText, value: value });
   }
 
+  _onNext(item) {
+    this.setState({ searchText: [], value: null });
+    this.props.onNext(item);
+  }
+
   render() {
-    const { visible } = this.props;
+    const { visible, onNext } = this.props;
     const { searchText, data, slData, value } = this.state;
     return (
       <Provider>
@@ -91,6 +97,7 @@ export default class TextInputModal extends Component {
                 slData={searchText}
                 navigation={this.props.navigation}
                 noNeedHeader={true}
+                onNext={(item) => this._onNext(item)}
               />
               <View style={{height: 100}}/>
             </ScrollView>
