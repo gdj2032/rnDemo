@@ -19,7 +19,8 @@ const local = combineReducers({
   allMusic: createReducer({
     [types.allMusic]: (state, payload) => ({ ...state, ...payload }),
   }, {
-    data: allMusic
+    data: allMusic,
+    current: [],//{id: ..., times:, currentTime: }
   }),
   dailyRecommend: createReducer({
     [types.dailyRecommend]: (state, payload) => ({ ...state, ...payload }),

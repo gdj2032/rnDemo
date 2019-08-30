@@ -11,7 +11,7 @@ export default class SongListItem extends Component {
     const { data, onPress, onDelete } = this.props;
     const right = [
       {
-        text: 'Delete',
+        text: '删除',
         onPress: () => onDelete(),
         style: { backgroundColor: themesColor.red, color: themesColor.white },
       },
@@ -19,7 +19,7 @@ export default class SongListItem extends Component {
     return (
       <SwipeAction
         autoClose
-        right={!data.isLove &&right}
+        right={!data.isLove && right}
         style={{ backgroundColor: 'transparent' }}
       >
         <TouchableWithoutFeedback onPress={onPress}>

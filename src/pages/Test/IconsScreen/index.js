@@ -27,6 +27,7 @@ export default class IconsScreen extends Component {
       <View style={containers}>
         <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
         <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
+        <Icons name="external-link" type="evilicon" color="#517fa4" size={40} />
       </View>
     );
   }

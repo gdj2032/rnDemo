@@ -26,6 +26,7 @@ export default class SLFlatList extends Component {
   static propTypes = {
     onAddSong: PropTypes.func,
     onNext: PropTypes.func,
+    onEllipsis: PropTypes.func,
   };
 
   constructor(props) {
@@ -77,8 +78,8 @@ export default class SLFlatList extends Component {
     alert('_onPaly');
   }
 
-  _onEllipsis = () => {
-    alert('_onEllipsis');
+  _onEllipsis = (item) => {
+    this.props.onEllipsis && this.props.onEllipsis(item);
   }
 
   SQIcon = () => (
@@ -158,7 +159,7 @@ export default class SLFlatList extends Component {
                 <Icon name="youtube" size="md" color={themesColor.gray} />
               </TouchableOpacity>
             }
-            <TouchableOpacity onPress={this._onEllipsis}>
+            <TouchableOpacity onPress={() => this._onEllipsis(item)}>
               <Icon name="ellipsis" size="lg" color={themesColor.black} style={transform90} />
             </TouchableOpacity>
           </RowView>

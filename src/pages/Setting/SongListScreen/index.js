@@ -9,8 +9,8 @@ import {
   Image,
   Animated
 } from "react-native";
-import { connect } from 'react-redux';
 import { Icon } from "@ant-design/react-native";
+import { connect } from 'react-redux';
 import Header from "../../../components/Header";
 import { themesColor, text_f14_fw5_white, contain } from "../../../style";
 import SearchButton from "./SearchButton";
@@ -21,6 +21,8 @@ import StickyItem from "./StickyItem";
 import StickyHeader from "../../../components/StickyHeader";
 import { reduxStore } from '../../../utils/utils';
 import { UpdateAllMusic } from '../../../actions/setting';
+import EllipsisModal from "../../../components/EllipsisModal";
+import AddFolderModal from "../../../components/AddFolderModal";
 
 const defTitle = "歌单";
 
@@ -35,6 +37,9 @@ export default class SongListScreen extends Component {
     this.state = {
       title: defTitle,
       isShowSearch: false,
+      isShowEllipsisModal: false,
+      ellipsisModalData: null,
+      isShowAddFolderModal: false,
       scrollY: new Animated.Value(0),
       headHeight: -1,
       isSelect: false,
@@ -79,10 +84,63 @@ export default class SongListScreen extends Component {
     this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData});
   };
 
+  _onShowEllipsisModal = (val, item) => {
+    this.setState({ isShowEllipsisModal: val });
+    if(item) {
+      this.setState({ ellipsisModalData: item });
+    }
+  };
+
+  _onModalNext = (item) => {
+    this._onShowEllipsisModal(false);
+    const { slData } = this.state;
+    let nextData = null;
+    slData.find((ele, index) => {
+      if(ele.id === item.id) {
+        let i = index + 1;
+        if(index === slData.length - 1) {
+          i = 0
+        }
+        nextData = slData[i];
+      }
+    })
+    this.props.navigation.navigate('MusicVideoScreen', {data: nextData, slData: slData});
+  };
+
+  _onModalAddFolder = (item) => {
+    this._onShowEllipsisModal(false);
+    this._onShowAddFolderModal(true);
+  }
+  _onModalDownLoad = (item) => {
+    alert('_onModalDownLoad')
+  }
+  _onModalComment = (item) => {
+    alert('_onModalComment')
+  }
+  _onModalShare = (item) => {
+    alert('_onModalShare')
+  }
+  _onModalSonger = (item) => {
+    alert('_onModalSonger')
+  }
+  _onModalDelete = (item) => {
+    alert('_onModalDelete')
+  }
+  _onShowAddFolderModal = (val) => {
+    this.setState({ isShowAddFolderModal: val });
+  }
+
+  _onSongList = (val) => {
+    alert('_onSongList')
+  }
+
   render() {
     const {
       title,
       isShowSearch,
+      isShowEllipsisModal,
+      isShowAddFolderModal,
+      ellipsisModalData,
       headHeight,
       scrollY,
       data,
@@ -160,6 +218,7 @@ export default class SongListScreen extends Component {
             navigation={this.props.navigation}
             onAddSong={this._onAddSong}
             onNext={(val) => this._onNext(val)}
+            onEllipsis={(item) => this._onShowEllipsisModal(true, item)}
           />
         </Animated.ScrollView>
         <TextInputModal
@@ -169,6 +228,25 @@ export default class SongListScreen extends Component {
           navigation={this.props.navigation}
           onClose={bool => this._onShowSearch(bool)}
           onNext={(val) => this._onNext(val)}
+        />
+        <EllipsisModal
+          data={ellipsisModalData}
+          visible={isShowEllipsisModal}
+          onClose={() => this._onShowEllipsisModal(false)}
+          onNext={(val) => this._onModalNext(val)}
+          onAddFolder={(val) => this._onModalAddFolder(val)}
+          onDownLoad={(val) => this._onModalDownLoad(val)}
+          onComment={(val) => this._onModalComment(val)}
+          onShare={(val) => this._onModalShare(val)}
+          onSonger={(val) => this._onModalSonger(val)}
+          onDelete={(val) => this._onModalDelete(val)}
+        />
+        <AddFolderModal
+          data={ellipsisModalData}
+          songList={this.props.local.songList.list}
+          visible={isShowAddFolderModal}
+          onClose={() => this._onShowAddFolderModal(false)}
+          onSongList={(val) => this._onSongList(val)}
         />
       </View>
     );
