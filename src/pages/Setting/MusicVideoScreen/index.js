@@ -9,7 +9,7 @@ import {
 } from '../../../style';
 import MusicVideo from '../../../components/MusicVideo';
 import { reduxStore } from '../../../utils/utils';
-import { UpdateAllMusic } from '../../../actions/setting'
+import { UpdateAllMusic, UpdateLyrObj } from '../../../actions/setting'
 
 export default class MusicVideoScreen extends Component {
 
@@ -19,25 +19,48 @@ export default class MusicVideoScreen extends Component {
       visible: false,
       data: this.props.navigation.state.params.data,
       slData: this.props.navigation.state.params.slData,
-      allMusicData: this.props.navigation.state.params.allMusicData,
       lyrObj: null,
     };
   }
 
-  componentDidMount() {
-    this.getLyrObj();
+  async componentDidMount() {
+    await this.getLyrObj();
+    await this.setCurrentTime();
   }
 
   componentWillUnmount() {
     this.setState({ lyrObj: null });
   }
 
-  getLyrObj = () => {
-    const { data, allMusicData } = this.state;
-    let need = allMusicData.filter(ele => ele.id === data.id);
-    if(need.cache && need.cache.lyrObj) {
-      this.setState({ lyrObj: need.cache.lyrObj });
+  getLyrObj = async () => {
+    const { lyrObj } = reduxStore.getState.local;
+    const lyrData = lyrObj.data;
+    if(lyrData.length === 0) {
+      return;
     }
+    const { data } = this.state;
+    let exit = lyrData.filter(ele => ele.id === data.id);
+    if(exit.length !== 0) {
+      this.setState({ lyrObj: exit[0].lyr });
+    } else {
+      this.setState({ lyrObj: null });
+    }
+  }
+
+  setCurrentTime = () => {
+    const { data } = this.state;
+    const { dispatch, getState } = reduxStore;
+    let allMusicData = getState.local.allMusic.data;
+    allMusicData.forEach(ele => {
+      if(ele.id === data.id) {
+        ele.cache = {
+          currentTime: new Date().getTime(),
+          times: ele.cache && ele.cache.times ? ele.cache.times + 1 : 1
+        }
+      }
+    })
+    console.log(allMusicData)
+    dispatch(UpdateAllMusic({data: allMusicData}));
   }
 
   goBack = () => this.props.navigation.goBack(null);
@@ -47,26 +70,23 @@ export default class MusicVideoScreen extends Component {
   }
 
   _updateData = (data) => {
-    this.setState({ data });
-    let allMusicData = this.state.allMusicData;
-    let need = allMusicData.filter(ele => ele.id === data.id);
-    if(need.cache && need.cache.lyrObj) {
-      this.setState({ lyrObj: need.cache.lyrObj });
-    } else {
-      this.setState({ lyrObj: null });
-    }
+    this.setState({ data }, async () => {
+      await this.getLyrObj()
+    });
   }
 
-  _setLyrObj = (lyrObj) => {
+  _setLyrObj = (lyr) => {
     const { data } = this.state;
-    let allMusicData = this.state.allMusicData;
-    allMusicData.forEach(ele => {
-      if(ele.id === data.id) {
-        ele.cache.lyrObj = lyrObj;
-      }
-    });
-    const { dispatch } = reduxStore;
-    dispatch(UpdateAllMusic({data: allMusicData}));
+    const { dispatch, getState } = reduxStore;
+    let lyrData = getState.local.lyrObj.data;
+    const exit = lyrData.find(ele => ele.id === data.id);
+    if(exit) return;
+    const newLyr = {
+      id: data.id,
+      lyr: lyr,
+    }
+    lyrData.push(newLyr);
+    dispatch(UpdateLyrObj({data: lyrData}));
   }
 
   render() {

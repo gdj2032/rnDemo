@@ -28,7 +28,13 @@ export default class MyCreatePanel extends Component {
   }
 
   _onSongList(data) {
-    this.props.navigation.navigate('SongListScreen', { data: data, slData: data.list })
+    const allMusicData = this.props.allMusicData;
+    let slData = [];
+    data.list.forEach(ele => {
+      const a = allMusicData.filter(e => e.id === ele);
+      slData.push(a[0]);
+    });
+    this.props.navigation.navigate('SongListScreen', { data: data, slData: slData })
   }
 
   _onDelete(data) {

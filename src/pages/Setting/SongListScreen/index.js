@@ -75,19 +75,7 @@ export default class SongListScreen extends Component {
   };
 
   _onNext = (item) => {
-    const { dispatch } = reduxStore;
-    let allMusicData = this.props.local.allMusic.data;
-    allMusicData.forEach(ele => {
-      if(ele.id === item.id) {
-        ele.cache = {
-          currentTime: new Date().getTime(),
-          times: ele.cache && ele.cache.times ? ele.cache.times + 1 : 1
-        }
-      }
-    })
-    console.log(allMusicData)
-    dispatch(UpdateAllMusic({data: allMusicData}));
-    this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData, allMusicData: allMusicData});
+    this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData});
   };
 
   render() {

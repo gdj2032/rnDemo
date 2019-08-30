@@ -35,8 +35,8 @@ export default class AntdScreen extends Component {
     const { dispatch } = reduxStore;
     // dispatch(types.localProfile({age: 25}))
     // dispatch(UpdateSongList({list: defSongList.list}));
-    // dispatch(UpdateAllMusic({data: allMusic}))
-    dispatch(UpdateDailyRecommend({data: [], time: null}))
+    dispatch(UpdateAllMusic({data: allMusic}))
+    // dispatch(UpdateDailyRecommend({data: [], time: null}))
     // dispatch(types.loading(1));
   }
 

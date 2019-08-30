@@ -35,6 +35,11 @@ const local = combineReducers({
     isShowList: false,
     slData: defSongListData,
   }),
+  lyrObj: createReducer({
+    [types.lyrObj]: (state, payload) => ({ ...state, ...payload }),
+  }, {
+    data: []//{id: xxx, lyr: [....]}
+  }),
   videoList: createReducer({
     [types.videoList]: (state, payload) => ({ ...state, ...payload }),
   }, {

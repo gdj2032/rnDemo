@@ -196,7 +196,7 @@ export default class MusicVideo extends Component {
     let nextData = null;
     slData.find((ele, index) => {
       if(ele.id === data.id) {
-        let i = index + 2;
+        let i = index + 1;
         if(index === slData.length - 1) {
           i = 0
         }

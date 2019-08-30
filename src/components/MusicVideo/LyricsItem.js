@@ -19,7 +19,6 @@ export default class LyricsItem extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     if(this.state.data.id !== nextProps.data.id) {
       this.setState({
         data: nextProps.data,

@@ -75,7 +75,7 @@ export default class MenuModal extends Component {
           <FlatList
             data={slData}
             renderItem={({item}) => this.renderItem(item)}
-            keyExtractor={(item) => item}
+            keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             ItemSeparatorComponent={() => <View style={styles.line} />}
           />

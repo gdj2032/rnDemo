@@ -80,6 +80,7 @@ export default class Fire extends Component {
           <SpacerItem style={styles.spacer} />
           <MyCreatePanel
             data={songList}
+            allMusicData={this.props.local.allMusic.data}
             navigation={this.props.navigation}
             onShowAddModal={() => this.setState({ isShowAddModal: true })}
             onDelete={(data) => this._onDelete(data)}

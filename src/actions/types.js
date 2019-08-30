@@ -11,6 +11,7 @@ const types = {
   videoList: createAction('VIDEO_List'),
   allMusic: createAction('ALL_MUSIC'),
   dailyRecommend: createAction('DAILY_RECOMMEND'),
+  lyrObj: createAction('LYR_OBJ'),
 }
 
 export default types;
