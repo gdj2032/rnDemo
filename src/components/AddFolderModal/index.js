@@ -28,7 +28,7 @@ export default class AddFolderModal extends Component {
   }
 
   render() {
-    const { visible, data, songList, onClose, height } = this.props;
+    const { visible, data, songList, onClose, height, selected } = this.props;
     return (
       <Provider>
         <Modal
@@ -40,13 +40,19 @@ export default class AddFolderModal extends Component {
           style={[styles.modal, {height: height}]}
         >
           {
-            data &&
+            data && selected.length === 0 &&
             <View style={styles.m_top}>
               <Image style={styles.m_top_image} source={require('../../image/song.png')} />
               <View style={styles.m_top_text}>
                 <Text style={text_f16_fw4_black}>{data.name}</Text>
                 <Text style={text_f10_gray}>{data.editor}</Text>
               </View>
+            </View>
+          }
+          {
+            selected.length > 0 && !data &&
+            <View style={[styles.m_top, styles.select_top]}>
+              <Text style={text_f16_fw4_black}>{`已选中${selected.length}首`}</Text>
             </View>
           }
           <View style={styles.flatList}>
@@ -96,5 +102,8 @@ const styles = StyleSheet.create({
   },
   flatList: {
     height: 240,
+  },
+  select_top: {
+    justifyContent: 'center',
   },
 });

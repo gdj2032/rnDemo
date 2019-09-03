@@ -27,6 +27,7 @@ export default class SLFlatList extends Component {
     onAddSong: PropTypes.func,
     onNext: PropTypes.func,
     onEllipsis: PropTypes.func,
+    SelectedItem: PropTypes.func,
   };
 
   constructor(props) {
@@ -55,18 +56,21 @@ export default class SLFlatList extends Component {
   }
 
   ListHeaderComponent = () => {
-    const { data, noNeedHeader } = this.props;
+    const { data, noNeedHeader, onPlayAll, slData, isSelect } = this.props;
     if(noNeedHeader) {
       return null;
     }
+    if(slData.length === 0) {
+      return null;
+    }
     return(
-      <RowView style={styles.listHead}>
+      <TouchRowView style={styles.listHead} onPress={!isSelect ? onPlayAll : () => {}}>
         <View style={styles.center_wh50}>
           <Icon name="play-circle" size="lg" color={themesColor.black} />
         </View>
         <Text style={text_f16_fw4_black}>播放全部</Text>
         <Text style={text_f12_gray}>{`(共${data.all}首)`}</Text>
-      </RowView>
+      </TouchRowView>
     )
   }
 
@@ -90,12 +94,14 @@ export default class SLFlatList extends Component {
 
   _onCheckBox = (item) => {
     let slData = this.state.slData;
+    let selected = this.state.selected;
     slData.forEach(ele => {
       if(ele.id === item.id) {
         ele.isSelect = !item.isSelect
       }
     });
     this.setState({ slData });
+    this.props.SelectedItem && this.props.SelectedItem(slData);
   }
 
   CloudIcon = () => (
@@ -130,7 +136,7 @@ export default class SLFlatList extends Component {
 
   renderItem = (item, index) => {
     return(
-      <TouchRowView style={styles.renderItem} onPress={() => this._onPress(item)}>
+      <TouchRowView style={styles.renderItem} onPress={() => this.props.isSelect ? this._onCheckBox(item) : this._onPress(item)}>
         <View style={styles.center_wh50}>
           {
             this.props.isSelect ?

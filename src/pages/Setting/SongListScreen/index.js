@@ -23,6 +23,7 @@ import { reduxStore, removeArray } from '../../../utils/utils';
 import { UpdateAllMusic, UpdateSongList, UpdateDailyRecommend } from '../../../actions/setting';
 import EllipsisModal from "../../../components/EllipsisModal";
 import AddFolderModal from "../../../components/AddFolderModal";
+import MoreSelectModal from "./MoreSelectModal";
 
 const defTitle = "歌单";
 
@@ -36,17 +37,19 @@ export default class SongListScreen extends Component {
     super(props);
     this.state = {
       title: defTitle,
-      isShowSearch: false,
-      isShowEllipsisModal: false,
-      ellipsisModalData: null,
-      isShowAddFolderModal: false,
+      isShowSearch: false,//显示搜索框
+      isShowEllipsisModal: false,//显示更多modal
+      ellipsisModalData: null,//当前选中更多的data
+      isShowAddFolderModal: false,//显示收藏到歌单的modal
+      isShowMoreSelectModal: false,//显示多选modal
       scrollY: new Animated.Value(0),
       headHeight: -1,
-      isSelect: false,
-      isSelectAll: false,
-      data: this.props.navigation.state.params.data,
-      slData: this.props.navigation.state.params.slData,
-      isDailyRecommend: false,
+      isSelect: false,//是否多选
+      isSelectAll: false,//是否全选
+      selected: [],//选中的歌曲
+      data: this.props.navigation.state.params.data,//歌单信息
+      slData: this.props.navigation.state.params.slData,//歌单列表
+      isDailyRecommend: false,//是否为每日推荐
     };
   }
 
@@ -81,7 +84,12 @@ export default class SongListScreen extends Component {
     alert("_onDownload");
   };
   _onSelect = () => {
-    this.setState({ isSelect: !this.state.isSelect, isSelectAll: false });
+    this.setState({
+      isSelect: !this.state.isSelect,
+      isSelectAll: false,
+      isShowMoreSelectModal: !this.state.isShowMoreSelectModal,
+      selected: [],
+    });
   };
 
   _onAddSong = () => {
@@ -91,6 +99,12 @@ export default class SongListScreen extends Component {
   _onNext = (item) => {
     this._onShowSearch(false)
     this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData});
+  };
+
+  _SelectedItem = (item) => {
+    const selected = item.filter(ele => ele.isSelect === true);
+    console.log(selected);
+    this.setState({ selected });
   };
 
   _onShowEllipsisModal = (val, item) => {
@@ -165,33 +179,77 @@ export default class SongListScreen extends Component {
   }
 
   _onAddSongList = (item) => {
-    const { ellipsisModalData } = this.state;
-    if(!ellipsisModalData) return;
-    this._onShowAddFolderModal(false);
-    const id = ellipsisModalData.id;
-    if(item.list.indexOf(id) !== -1) {
-      Toast.info('歌曲已存在', 1);
-      return;
-    }
-    const { dispatch } = reduxStore;
-    const list = this.props.local.songList.list;
-    list.forEach(ele => {
-      if(ele.id === item.id) {
-        ele.list.unshift(id);
-        // ele.list.sort((a, b) => a - b);
+    const { ellipsisModalData, selected } = this.state;
+    if(ellipsisModalData){
+      const id = ellipsisModalData.id;
+      if(item.list.indexOf(id) !== -1) {
+        Toast.info('歌曲已存在', 1);
+        return;
       }
-    });
-    console.log(list);
-    Toast.info('歌曲已添加', 1);
-    dispatch(UpdateSongList({list : list}))
+      const { dispatch } = reduxStore;
+      const list = this.props.local.songList.list;
+      list.forEach(ele => {
+        if(ele.id === item.id) {
+          ele.list.unshift(id);
+          // ele.list.sort((a, b) => a - b);
+        }
+      });
+      console.log(list);
+      Toast.info('歌曲已添加', 1);
+      dispatch(UpdateSongList({list : list}));
+    }
+    if(selected && selected.length > 0){
+      const { selected } = this.state;
+      let needAddId = [];
+      selected.forEach(ele =>{
+        let exitId = item.list.find(e => e === ele.id);
+        if(!exitId) {
+          needAddId.push(ele.id);
+        }
+      });
+      if(needAddId.length === 0) {
+        Toast.info('歌曲已存在', 1);
+        return;
+      }
+      const { dispatch } = reduxStore;
+      const list = this.props.local.songList.list;
+      list.forEach(ele => {
+        if(ele.id === item.id) {
+          ele.list = needAddId.concat(ele.list)
+        }
+      });
+      console.log(list);
+      Toast.info(`已收藏到歌单`, 1);
+      dispatch(UpdateSongList({list : list}));
+      this._onSelect();
+    }
+    this._onShowAddFolderModal(false);
+    this.setState({ ellipsisModalData: null, selected: [] });
   }
 
+  _onMoreSelectPlay = () => {
+    const { selected } = this.state;
+    console.log(selected);
+    alert('_onMoreSelectPlay');
+  }
+  _onMoreSelectAdd = () => {
+    const { selected } = this.state;
+    console.log(selected);
+    this._onShowAddFolderModal(true);
+  }
+  _onMoreSelectDownload = () => {
+    alert('_onMoreSelectDownload')
+  }
+  _onMoreSelectDelete = () => {
+    alert('_onMoreSelectDelete')
+  }
   render() {
     const {
       title,
       isShowSearch,
       isShowEllipsisModal,
       isShowAddFolderModal,
+      isShowMoreSelectModal,
       ellipsisModalData,
       headHeight,
       scrollY,
@@ -199,9 +257,9 @@ export default class SongListScreen extends Component {
       slData,
       isSelect,
       isSelectAll,
+      selected,
       isDailyRecommend,
     } = this.state;
-    console.log(this.props)
     return (
       <View style={styles.containers}>
         <Header
@@ -265,7 +323,9 @@ export default class SongListScreen extends Component {
               defVip={defVip}
               isSelect={isSelect}
               onCarryOut={val => this.setState({ isSelect: val })}
-              onSelectAll={val => this.setState({ isSelectAll: val })}
+              onSelectAll={val =>
+                this.setState({ selected: val ? slData : [], isSelectAll: val })
+              }
             />
           </StickyHeader>
           <SLFlatList
@@ -277,6 +337,8 @@ export default class SongListScreen extends Component {
             onAddSong={this._onAddSong}
             onNext={(val) => this._onNext(val)}
             onEllipsis={(item) => this._onShowEllipsisModal(true, item)}
+            onPlayAll={() => this._onNext(slData[0])}
+            SelectedItem={(item) => this._SelectedItem(item)}
           />
         </Animated.ScrollView>
         <TextInputModal
@@ -301,11 +363,22 @@ export default class SongListScreen extends Component {
         />
         <AddFolderModal
           data={ellipsisModalData}
+          selected={selected}
           songList={this.props.local.songList.list}
           visible={isShowAddFolderModal}
           onClose={() => this._onShowAddFolderModal(false)}
           onAddSongList={(val) => this._onAddSongList(val)}
         />
+        {
+          isShowMoreSelectModal &&
+          <MoreSelectModal
+            data={selected}
+            onPaly={() => this._onMoreSelectPlay()}
+            onAdd={() => this._onMoreSelectAdd()}
+            onDownload={() => this._onMoreSelectDownload()}
+            onDelete={() => this._onMoreSelectDelete()}
+          />
+        }
       </View>
     );
   }
