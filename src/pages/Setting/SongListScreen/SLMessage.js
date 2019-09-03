@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import PropTypes from "prop-types";
 import { Icon } from '@ant-design/react-native';
-import { text_f16_fw5_white, themesColor, text_f10_white, text_f12_white } from '../../../style';
+import { text_f16_fw5_white, themesColor, text_f10_white, text_f12_white, fonts } from '../../../style';
 import CoverView from '../../../components/CoverView';
+import RowView from '../../../components/RowView';
+import { getDate } from '../../../utils/utils';
 
 const navButton = [
   {
@@ -27,6 +29,7 @@ const navButton = [
 export default class SLMessage extends Component {
   static defaultProps = {
     visible: false,
+    isDailyRecommend: false,
   };
 
   static propTypes = {
@@ -63,32 +66,45 @@ export default class SLMessage extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, isDailyRecommend } = this.props;
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { height: isDailyRecommend ? 160 : 300 }]}>
         {this.props.children}
-        <View style={styles.message}>
-          <View style={styles.imageView}>
-            <Image source={require('../../../image/sl_screen1.png')} style={styles.imageView}/>
-            <CoverView>
-              <View style={styles.center}>
-                <Image source={require('../../../image/heart.png')} style={styles.heart}/>
+        {
+          !isDailyRecommend ?
+          <View style={styles.message}>
+            <View style={styles.imageView}>
+              <Image source={require('../../../image/sl_screen1.png')} style={styles.imageView}/>
+              <CoverView>
+                <View style={styles.center}>
+                  <Image source={require('../../../image/heart.png')} style={styles.heart}/>
+                </View>
+              </CoverView>
+              <View style={styles.topLeft}>
+                <Icon name="caret-right" size="xs" color={themesColor.white} />
+                <Text style={text_f10_white}>{data.all}</Text>
               </View>
-            </CoverView>
-            <View style={styles.topLeft}>
-              <Icon name="caret-right" size="xs" color={themesColor.white} />
-              <Text style={text_f10_white}>{data.all}</Text>
+            </View>
+            <View style={styles.msgView}>
+              <Text style={text_f16_fw5_white}>{data.title}</Text>
+              <View style={styles.msg_text}>
+                <Image source={require('../../../image/song.png')} style={styles.msg_image} />
+                <Text style={text_f12_white}>{'xxxxxx之旅'}</Text>
+                <Icon name="right" size="md" color={themesColor.white} />
+              </View>
             </View>
           </View>
-          <View style={styles.msgView}>
-            <Text style={text_f16_fw5_white}>{data.title}</Text>
-            <View style={styles.msg_text}>
-              <Image source={require('../../../image/song.png')} style={styles.msg_image} />
-              <Text style={text_f12_white}>{'xxxxxx之旅'}</Text>
-              <Icon name="right" size="md" color={themesColor.white} />
+          :
+          <View style={styles.historyDaily}>
+            <RowView style={{alignItems: 'baseline'}}>
+              <Text style={[text_f12_white, {fontSize: fonts.lg}]}>{getDate(new Date(), 'DD')}</Text>
+              <Text style={text_f12_white}>/{getDate(new Date(), 'MM')}</Text>
+            </RowView>
+            <View>
+              <Text style={text_f12_white}>历史日推</Text>
             </View>
           </View>
-        </View>
+        }
         <View style={styles.navMsg}>
           {
             navButton.map(ele =>
@@ -99,6 +115,15 @@ export default class SLMessage extends Component {
             )
           }
         </View>
+        {
+          isDailyRecommend &&
+          <View style={styles.daily_image1}>
+            <Image
+              style={styles.daily_image2}
+              source={require('../../../image/sl_screen2.png')}
+            />
+          </View>
+        }
       </View>
     );
   }
@@ -162,6 +187,24 @@ const styles = StyleSheet.create({
     height: 72,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  daily_image1: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: 300,
+    zIndex: -20,
+  },
+  daily_image2: {
+    width: '100%',
+    height: 200,
+  },
+  historyDaily: {
+    width: '100%',
+    height: 80,
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

@@ -97,13 +97,15 @@ export default class Home extends Component {
     const nowDay = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     const allMusicData = allMusic.data;
     if(dailyRecommend.time !== nowDay) {
-      const ranArr = randomArr(allMusicData.length, 15);
+      let ranArr = randomArr(allMusicData.length, 15);
+      ranArr = ranArr.sort((a, b) => a - b)
       let list = [];
       ranArr.forEach(ele => {
         list.push(allMusicData[ele]);
       })
       console.log(list);
-      this.props.dispatch(UpdateDailyRecommend({data: list, time: nowDay}))
+      dailyRecommend.info.list = ranArr;
+      this.props.dispatch(UpdateDailyRecommend({data: list, time: nowDay, info: dailyRecommend.info}))
     }
   }
 
@@ -122,7 +124,7 @@ export default class Home extends Component {
   _onNavPress(ele) {
     if(ele.title === '每日推荐') {
       const { dailyRecommend } = this.props.local;
-      this.props.navigation.navigate('DailyRecommendScreen', { data: ele, dailyRecommend: dailyRecommend })
+      this.props.navigation.navigate('SongListScreen', { data: dailyRecommend.info, slData: dailyRecommend.data, key: 'daily' })
     } else {
       alert(ele.title)
     }

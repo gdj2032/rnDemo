@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { containers } from '../../../style';
 import { reduxStore } from '../../../utils/utils';
-import { defSongList } from '../../../utils/defaultData';
+import { defSongList, defDailyInfo } from '../../../utils/defaultData';
 import { UpdateVideoList, UpdateSongList, UpdateAllMusic, UpdateDailyRecommend } from "../../../actions/setting";
 import types from '../../../actions/types';
 import allMusic from '../../../utils/AllMusic';
@@ -32,11 +32,19 @@ export default class AntdScreen extends Component {
   onPress() {
     // console.log(this.props);
     // this.props.dispatch(types.localProfile({age: 10}))
-    const { dispatch } = reduxStore;
+    const { dispatch, getState } = reduxStore;
+    // let data =getState.local.dailyRecommend.data;
+    // console.log(data)
+    // let list = []
+    // data.forEach(ele => {
+    //   list.push(ele.id)
+    // });
+    // defDailyInfo.list = list.sort((a, b) => a-b);
     // dispatch(types.localProfile({age: 25}))
     // dispatch(UpdateSongList({list: defSongList.list}));
-    dispatch(UpdateAllMusic({data: allMusic}))
-    // dispatch(UpdateDailyRecommend({data: [], time: null}))
+    // dispatch(UpdateAllMusic({data: allMusic}))
+
+    // dispatch(UpdateDailyRecommend({data: data.sort((a, b) => a.id - b.id)}))
     // dispatch(types.loading(1));
   }
 

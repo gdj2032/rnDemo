@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux';
 import { createReducer } from 'redux-act';
 import types from '../actions/types';
-import { defSongList, defVideoList, defSongListData } from '../utils/defaultData';
+import { defSongList, defVideoList, defSongListData, defDailyInfo } from '../utils/defaultData';
 import allMusic from '../utils/AllMusic'
 
 const createSumReducer = actionType => createReducer({
@@ -27,6 +27,7 @@ const local = combineReducers({
   }, {
     data: [],
     time: null,
+    info: defDailyInfo,
   }),
   songList: createReducer({
     [types.songList]: (state, payload) => ({ ...state, ...payload }),
@@ -34,7 +35,6 @@ const local = combineReducers({
     title: defSongList.title,
     list: defSongList.list,
     isShowList: false,
-    slData: defSongListData,
   }),
   lyrObj: createReducer({
     [types.lyrObj]: (state, payload) => ({ ...state, ...payload }),

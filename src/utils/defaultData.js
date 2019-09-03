@@ -190,7 +190,16 @@ const defHomeNavBtn = [
   },
 ]
 
-const defSongListData = [];
+const defDailyInfo = {
+  id: 1001,
+  title: "日推",
+  isLove: false,
+  love: "非心动模式",
+  all: 15,
+  download: 0,
+  isSing: false,
+  list: []
+};
 
 export {
   defSongList,
@@ -200,6 +209,6 @@ export {
   def_poster,
   def_videoUrl1,
   def_videoUrl2,
-  defSongListData,
-  defHomeNavBtn
+  defHomeNavBtn,
+  defDailyInfo,
 };

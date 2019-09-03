@@ -13,7 +13,7 @@ export default class AddFolderModal extends Component {
 
   static propTypes = {
     onClose: PropTypes.func,
-    onSongList: PropTypes.func,
+    onAddSongList: PropTypes.func,
   };
 
   constructor(props) {
@@ -23,8 +23,8 @@ export default class AddFolderModal extends Component {
     };
   }
 
-  _onSongList = (data) => {
-    this.props.onSongList && this.props.onSongList(data)
+  _onAddSongList = (item) => {
+    this.props.onAddSongList && this.props.onAddSongList(item)
   }
 
   render() {
@@ -56,7 +56,7 @@ export default class AddFolderModal extends Component {
                 <SongListItem2
                   data={item}
                   key={item.title}
-                  onPress={() => this._onSongList(item)}
+                  onPress={() => this._onAddSongList(item)}
                 />
               }
               keyExtractor={(item) => item.title}

@@ -9,7 +9,7 @@ export default class EllipsisModal extends Component {
 
   static defaultProps = {
     visible: false,
-    height: 400,
+    height: 500,
   };
 
   static propTypes = {
@@ -130,7 +130,7 @@ export default class EllipsisModal extends Component {
 const styles = StyleSheet.create({
   modal: {
     width: '100%',
-    height: 400,
+    height: 500,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },

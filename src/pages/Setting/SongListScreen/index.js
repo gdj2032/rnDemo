@@ -9,7 +9,7 @@ import {
   Image,
   Animated
 } from "react-native";
-import { Icon } from "@ant-design/react-native";
+import { Icon, Toast } from "@ant-design/react-native";
 import { connect } from 'react-redux';
 import Header from "../../../components/Header";
 import { themesColor, text_f14_fw5_white, contain } from "../../../style";
@@ -19,8 +19,8 @@ import SLMessage from "./SLMessage";
 import SLFlatList from "./SLFlatList";
 import StickyItem from "./StickyItem";
 import StickyHeader from "../../../components/StickyHeader";
-import { reduxStore } from '../../../utils/utils';
-import { UpdateAllMusic } from '../../../actions/setting';
+import { reduxStore, removeArray } from '../../../utils/utils';
+import { UpdateAllMusic, UpdateSongList, UpdateDailyRecommend } from '../../../actions/setting';
 import EllipsisModal from "../../../components/EllipsisModal";
 import AddFolderModal from "../../../components/AddFolderModal";
 
@@ -45,8 +45,17 @@ export default class SongListScreen extends Component {
       isSelect: false,
       isSelectAll: false,
       data: this.props.navigation.state.params.data,
-      slData: this.props.navigation.state.params.slData
+      slData: this.props.navigation.state.params.slData,
+      isDailyRecommend: false,
     };
+  }
+
+  componentDidMount() {
+    if(this.props.navigation.state.params.key === 'daily') {
+      this.setState({ isDailyRecommend: true, });
+    } else {
+      this.setState({ isDailyRecommend: false, });
+    }
   }
 
   _onDefaultPress = () => {
@@ -124,14 +133,57 @@ export default class SongListScreen extends Component {
     alert('_onModalSonger')
   }
   _onModalDelete = (item) => {
-    alert('_onModalDelete')
+    const { data, slData, isDailyRecommend } = this.state;
+    data.list.remove(item.id);
+    this._onShowEllipsisModal(false);
+    const { dispatch } = reduxStore;
+    if(!isDailyRecommend) {
+      let list = this.props.local.songList.list;
+      list.forEach(ele => {
+        if(ele.id === data.id) {
+          ele.list.remove(item.id);
+        }
+      });
+      this.setState({
+        data: data,
+        slData: removeArray(slData, item)
+      });
+      dispatch(UpdateSongList({list : list}))
+    } else {
+      let list = this.props.local.dailyRecommend.data;
+      let newArr = removeArray(list, item);
+      this.setState({
+        data: data,
+        slData: newArr
+      });
+      dispatch(UpdateDailyRecommend({info : data, data: newArr}));
+    }
+    Toast.info('歌曲已删除', 1);
   }
   _onShowAddFolderModal = (val) => {
     this.setState({ isShowAddFolderModal: val });
   }
 
-  _onSongList = (val) => {
-    alert('_onSongList')
+  _onAddSongList = (item) => {
+    const { ellipsisModalData } = this.state;
+    if(!ellipsisModalData) return;
+    this._onShowAddFolderModal(false);
+    const id = ellipsisModalData.id;
+    if(item.list.indexOf(id) !== -1) {
+      Toast.info('歌曲已存在', 1);
+      return;
+    }
+    const { dispatch } = reduxStore;
+    const list = this.props.local.songList.list;
+    list.forEach(ele => {
+      if(ele.id === item.id) {
+        ele.list.unshift(id);
+        // ele.list.sort((a, b) => a - b);
+      }
+    });
+    console.log(list);
+    Toast.info('歌曲已添加', 1);
+    dispatch(UpdateSongList({list : list}))
   }
 
   render() {
@@ -146,8 +198,10 @@ export default class SongListScreen extends Component {
       data,
       slData,
       isSelect,
-      isSelectAll
+      isSelectAll,
+      isDailyRecommend,
     } = this.state;
+    console.log(this.props)
     return (
       <View style={styles.containers}>
         <Header
@@ -185,17 +239,21 @@ export default class SongListScreen extends Component {
           >
             <SLMessage
               data={data}
+              isDailyRecommend={isDailyRecommend}
               navigation={this.props.navigation}
               onMessage={this._onMessage}
               onShare={this._onShare}
               onDownload={this._onDownload}
               onSelect={this._onSelect}
             >
-              <View style={{ width: "100%", height: 48 }}>
-                {!isShowSearch && (
-                  <SearchButton onShowSearch={() => this._onShowSearch(true)} />
-                )}
-              </View>
+              {
+                !isDailyRecommend &&
+                <View style={{ width: "100%", height: 48 }}>
+                  {!isShowSearch && (
+                    <SearchButton onShowSearch={() => this._onShowSearch(true)} />
+                  )}
+                </View>
+              }
             </SLMessage>
           </View>
 
@@ -246,7 +304,7 @@ export default class SongListScreen extends Component {
           songList={this.props.local.songList.list}
           visible={isShowAddFolderModal}
           onClose={() => this._onShowAddFolderModal(false)}
-          onSongList={(val) => this._onSongList(val)}
+          onAddSongList={(val) => this._onAddSongList(val)}
         />
       </View>
     );

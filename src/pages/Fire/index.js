@@ -28,6 +28,10 @@ export default class Fire extends Component {
     isShowAddModal: false,
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ songList: nextProps.songList })
+  }
+
   _onComplete = (value) => {
     console.log(value)
     if(!value) {
@@ -44,6 +48,7 @@ export default class Fire extends Component {
     this.setState({ isShowAddModal: false });
     const createData = {...createSongList};
     createData.title = value;
+    createData.id = new Date().getTime();
     console.log(createData)
     const { dispatch } = reduxStore;
     data.push(createData)
