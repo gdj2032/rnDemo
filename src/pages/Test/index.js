@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { containers } from "../../style";
 import { scaleSize } from "../../utils";
 import MyTest from "./MyTest";
+import SongFetch from "./SongFetch";
 
 const screen = [
   {
@@ -45,6 +46,7 @@ export default class Test extends Component {
             screen.map(ele => <Button key={ele.nav} onPress={this._onPress.bind(this, ele.nav)}>{ele.name}</Button>)
           }
           <MyTest/>
+          <SongFetch/>
         </ScrollView>
       </View>
     );
