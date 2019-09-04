@@ -121,14 +121,14 @@ export default class PlayVideo extends Component {
     this.setState({ paused: !event.hasAudioFocus });
   };
 
-  getCurrentTimePercentage() {
-    if (this.state.currentTime > 0) {
-      return (
-        parseFloat(this.state.currentTime) / parseFloat(this.state.duration)
-      );
-    }
-    return 0;
-  }
+  _onSliderValueChange = () => {
+    this.setState({ paused: true });
+  };
+
+  _onSlidingComplete = (value) => {
+    this.video.seek(value);
+    this.setState({ paused: false });
+  };
 
   renderRateControl(rate) {
     const isSelected = this.state.rate === rate;
@@ -279,8 +279,6 @@ export default class PlayVideo extends Component {
   render() {
     const { style, disableTime, disableVolume, disableProgress, disableBack, disableEllipsis, disablePaused, disableFullScreen } = this.props;
     const { isFullScreen, videoWidth, videoHeight, isShowMore, isMute } = this.state;
-    const flexCompleted = this.getCurrentTimePercentage() * 100;
-    const flexRemaining = (1 - this.getCurrentTimePercentage()) * 100;
 
     return (
       <View style={[styles.container, style, this.state.isFullScreen && {width: videoWidth, height: videoHeight}]} >
@@ -312,15 +310,18 @@ export default class PlayVideo extends Component {
         {
           disableProgress &&
           <View style={styles.controls}>
-            <View style={styles.trackingControls}>
-              <View style={styles.progress}>
-                <View
-                  style={[styles.innerProgressCompleted, { flex: flexCompleted }]}
-                />
-                <View
-                  style={[styles.innerProgressRemaining, { flex: flexRemaining }]}
-                />
-              </View>
+            <View style={styles.progress}>
+              <Slider
+                style={{ flex: 1 }}
+                value={this.state.currentTime}
+                minimumValue={0}
+                maximumValue={this.state.duration}
+                thumbImage={require("./icon_control_slider.png")}
+                maximumTrackTintColor={"#A5A5A5"} //滑块右侧轨道的颜色
+                minimumTrackTintColor={"#FF3030"} //滑块左侧轨道的颜色
+                onValueChange={this._onSliderValueChange.bind(this)}
+                onSlidingComplete={this._onSlidingComplete.bind(this)}
+              />
             </View>
           </View>
         }
@@ -411,14 +412,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     position: "absolute",
     bottom: 0,
-    left: 0,
-    right: 0
+    left: 20,
+    right: 20,
+    height: 56,
   },
   progress: {
     flex: 1,
-    flexDirection: "row",
-    borderRadius: 3,
-    alignItems: 'center'
   },
   progressCTime: {
     width: 60,

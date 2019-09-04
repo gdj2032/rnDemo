@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import { Button, Icon, NoticeBar } from "@ant-design/react-native";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -9,6 +9,7 @@ import { defSongList, defDailyInfo } from '../../../utils/defaultData';
 import { UpdateVideoList, UpdateSongList, UpdateAllMusic, UpdateDailyRecommend } from "../../../actions/setting";
 import types from '../../../actions/types';
 import allMusic from '../../../utils/AllMusic';
+import BasicSliderExample from './BasicSliderExample';
 
 @connect(state => ({
   local: state.local
@@ -57,6 +58,9 @@ export default class AntdScreen extends Component {
           delayed during National Day.
         </NoticeBar>
         <Button style={{marginBottom: 50,}} onPress={this.onPress.bind(this)}>Button</Button>
+        <ScrollView>
+        <BasicSliderExample/>
+        </ScrollView>
       </View>
     );
   }
