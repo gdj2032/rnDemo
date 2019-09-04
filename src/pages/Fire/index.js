@@ -81,7 +81,7 @@ export default class Fire extends Component {
         <ScrollView>
           <MyMusicScroll data={defFireScroll} />
           <SpacerItem />
-          <FireNavItem data={defFireNav} />
+          <FireNavItem data={defFireNav} navigation={this.props.navigation} />
           <SpacerItem style={styles.spacer} />
           <MyCreatePanel
             data={songList}

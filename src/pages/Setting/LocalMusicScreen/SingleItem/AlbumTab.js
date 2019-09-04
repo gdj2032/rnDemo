@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import PropTypes from "prop-types";
-import { containers } from '../../../style';
-import Icons from "../../../components/Icons";
 
-export default class IconsScreen extends Component {
+export default class AlbumTab extends Component {
   static navigationOptions = ({ navigation, screenProps }) => ({
+    title: '专辑'
   });
   static defaultProps = {
     visible: false,
@@ -24,11 +23,8 @@ export default class IconsScreen extends Component {
 
   render() {
     return (
-      <View style={containers}>
-        <Icons name="sc-telegram" type="evilicon" color="#517fa4" size={40} />
-        <Icons name="music" type="font-awesome" color="#517fa4" size={40} />
-        <Icons name="external-link" type="evilicon" color="#517fa4" size={40} />
-        <Icons name="broadcast" type="octicon" color="#517fa4" size={40} />
+      <View>
+        <Text>AlbumTab</Text>
       </View>
     );
   }

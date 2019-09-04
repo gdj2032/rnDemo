@@ -68,22 +68,34 @@ const defFireNav = [
     id: 1,
     title: '本地音乐',
     number: 220,
-    icon: null,
+    icon: 'music',
+    type: 'font-awesome',
+    isAntd: false,
+    nav: 'LocalMusicScreen'
   },{
     id: 2,
     title: '最近播放',
     number: 102,
-    icon: null,
+    icon: 'play-circle',
+    type: null,
+    isAntd: true,
+    nav: 'CurrentPlayScreen'
   },{
     id: 3,
     title: '我的电台',
     number: 0,
-    icon: null,
+    icon: 'broadcast',
+    type: 'octicon',
+    isAntd: false,
+    nav: 'MyRadioScreen'
   },{
     id: 4,
     title: '我的收藏',
     number: 6,
-    icon: null,
+    icon: 'user-add',
+    type: null,
+    isAntd: true,
+    nav: 'MyCollectionScreen'
   },
 ]
 
