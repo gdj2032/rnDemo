@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import { Button, Icon } from "@ant-design/react-native";
+import RNFetchBlob from 'react-native-fetch-blob';
+import base64 from 'react-native-base64';
 
 export default class SongFetch extends Component {
 
@@ -27,6 +29,50 @@ export default class SongFetch extends Component {
   _onPress = () => {
     const { data } = this.state;
     console.log(data)
+    this.download(data)
+  }
+
+  // /var/mobile/Containers/Data/Application/FE778F08-3F62-422F-8DE5-A745D6B3DE4F/Documents/10001.mp3'
+  path1 = `${RNFetchBlob.fs.dirs.DocumentDir}/10001.mp3`
+  path2 = '/var/mobile/Containers/Data/Application/FE778F08-3F62-422F-8DE5-A745D6B3DE4F/Documents/10002.mp3'
+
+  download = (data) => {
+    RNFetchBlob
+    .config({
+        // DCIMDir is in external storage
+        path : `${RNFetchBlob.fs.dirs.DocumentDir}/${data.id}.mp3`
+    })
+    .fetch('GET', data.url)
+    .progress({ count: 10 }, (received, total) => {
+      console.log(`progress: `, Math.floor(received/total*100), '%')
+    })
+    .then((res) => {
+      console.log('res:',res)
+      console.log('res info:',res.info())
+      console.log('res.path():', res.path())
+      // RNFetchBlob.fs.scanFile([ { path : res.path(), mime : 'audio/mpeg' } ])
+    })
+    .catch((err) => {
+      console.log('err', err)
+    })
+  }
+
+  size = () => {
+    RNFetchBlob.fs.readFile(this.path1, 'base64')
+    .then((data) => {
+      let decodedData = base64.decode(data);
+      let bytes = decodedData.length;
+      if(bytes < 1024) console.log(bytes + " Bytes");
+      else if(bytes < 1048576) console.log("KB:"+(bytes / 1024).toFixed(3) + " KB");
+      else if(bytes < 1073741824) console.log("MB:"+(bytes / 1048576).toFixed(2) + " MB");
+      else console.log((bytes / 1073741824).toFixed(3) + " GB");
+    })
+  }
+
+  delete = () => {
+    RNFetchBlob.fs.unlink(this.path2).then((res) => {
+      console.log('delete', res)
+    })
   }
 
   render() {
@@ -34,6 +80,8 @@ export default class SongFetch extends Component {
     return (
       <View style={styles.contain}>
         <Button onPress={() => this._onPress()}>SongFetch</Button>
+        <Button onPress={() => this.delete()}>delete</Button>
+        <Button onPress={() => this.size()}>size</Button>
       </View>
     );
   }
