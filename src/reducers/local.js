@@ -46,6 +46,11 @@ const local = combineReducers({
   }, {
     list: defVideoList,
   }),
+  download: createReducer({
+    [types.download]: (state, payload) => ({ ...state, ...payload }),
+  }, {
+    data: [],//{ id: }
+  }),
   loading: createSumReducer(types.loading),
 });
 

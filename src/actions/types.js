@@ -12,6 +12,7 @@ const types = {
   allMusic: createAction('ALL_MUSIC'),
   dailyRecommend: createAction('DAILY_RECOMMEND'),
   lyrObj: createAction('LYR_OBJ'),
+  download: createAction('DOWNLOAD'),
 }
 
 export default types;
