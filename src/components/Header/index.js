@@ -44,7 +44,6 @@ const styles = StyleSheet.create({
     height: 40,
     paddingLeft: 10,
     paddingRight: 10,
-    marginTop: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

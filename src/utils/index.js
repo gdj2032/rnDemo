@@ -11,3 +11,7 @@ export {
   CheckText,
   CheckNum
 } from './utils';
+
+export {
+  gotoMusicVideoScreen
+} from './navs';

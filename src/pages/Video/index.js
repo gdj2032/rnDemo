@@ -5,6 +5,7 @@ import { themesColor, containers, text_f16_fw5 } from '../../style';
 import Header from '../../components/Header';
 import TextInputButton from '../../components/TextInputButton';
 import { tabListTitle, navTitle } from './TabList';
+import { gotoMusicVideoScreen } from '../../utils';
 
 export default class Video extends Component {
   static navigationOptions = {
@@ -13,20 +14,9 @@ export default class Video extends Component {
     )
   };
 
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps)
-  }
-  componentDidUpdate() {
-    console.log('componentDidUpdate')
-  }
-  componentDidMount() {
-    console.log('componentDidMount')
-  }
-  componentWillUnmount() {
-    console.log('componentWillUnmount')
-  }
-  componentWillMount() {
-    console.log('componentWillMount')
+  _onDefaultPress = () => {
+    const { local } = this.props;
+    gotoMusicVideoScreen(local);
   }
 
   _onSearch() {
@@ -43,6 +33,7 @@ export default class Video extends Component {
             <TextInputButton onPress={this._onSearch.bind(this)} />
           )}
           defaultItem={true}
+          onDefaultPress={() => this._onDefaultPress()}
         />
         <View style={ styles.tabs}>
           <Tabs

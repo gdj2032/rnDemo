@@ -112,7 +112,7 @@ export default class MusicVideo extends Component {
       obj.dis = false;
       obj.total = obj.min * 60 + obj.sec + obj.ms / 100; //总时间
       // console.log(obj);
-      if (obj.txt.length > 0) {
+      if (obj.txt && obj.txt.length > 0) {
         lyrObj.push(obj);
       }
       // console.log(lyrObj);
@@ -223,12 +223,59 @@ export default class MusicVideo extends Component {
       visible: false,
     });
   }
+
+  renderScrollItem() {
+    // 数组
+    var itemAry = [];
+    const { lyrObjs } = this.state;
+    if(lyrObjs.length === 0) return null;
+    for (var i = 0; i < lyrObjs.length; i++) {
+      var item = lyrObjs[i].txt;
+      if (this.state.currentTime.toFixed(2) > lyrObjs[i].total && this.state.currentTime.toFixed(2) < lyrObjs[i + 1 === lyrObjs.length ? i : i + 1].total) {
+        //正在唱的歌词
+        itemAry.push(
+          <View key={i} style={[styles.itemStyle, styles.active]}>
+            <Text style={{ color: "red", textAlign: 'center', fontSize: 18 }}> {item} </Text>
+          </View>
+        );
+        this._scrollView.scrollTo({ x: 0, y: 30 * i, animated: true });
+      } else {
+        //所有歌词
+        itemAry.push(
+          <View key={i} style={styles.itemStyle}>
+            <Text style={{ color: "black", textAlign: 'center', fontSize: 14, }}> {item} </Text>
+          </View>
+        );
+      }
+    }
+
+    return itemAry;
+  }
+
+  _lyricsItem = () => {
+    return (
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <ScrollView
+          ref={(ref) => {
+            this._scrollView = ref;
+          }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.list_hf} />
+          {this.renderScrollItem()}
+          <View style={styles.list_hf} />
+        </ScrollView>
+      </View>
+    )
+  }
+
   render() {
     const { data, muted, paused, volume, lyrObjs, visible, slData } = this.state;
     return (
       <Provider style={contain}>
         <SliderItem volume={volume} onSlider={this._onSlider} />
-        <LyricsItem data={this.state.data} currentTime={this.state.currentTime} lyrObj={lyrObjs} />
+        {/* <LyricsItem data={this.state.data} currentTime={this.state.currentTime} lyrObj={lyrObjs} /> */}
+        {this._lyricsItem()}
         <View style={styles.mus_bottom}>
           <Video
             source={{uri: data.url}}
@@ -348,4 +395,19 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  itemStyle: {
+    height: 30,
+    lineHeight: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: "rgba(255,255,255,0.0)"
+  },
+  list_hf: {
+    height: 200,
+  },
+  active: {
+    backgroundColor: '#dfdfdf'
+  }
 });

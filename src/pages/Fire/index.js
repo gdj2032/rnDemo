@@ -14,6 +14,7 @@ import AddModal from "./AddModal";
 import { reduxStore } from '../../utils/utils';
 import { UpdateSongList } from '../../actions/setting';
 import { createSongList } from '../../utils/realm';
+import { gotoMusicVideoScreen } from '../../utils';
 
 @connect(state => ({
   local: state.local,
@@ -69,6 +70,11 @@ export default class Fire extends Component {
     dispatch(UpdateSongList({list: data}));
   }
 
+  _onDefaultPress = () => {
+    const { local } = this.props;
+    gotoMusicVideoScreen(local);
+  }
+
   render() {
     const { songList, isShowAddModal } = this.state;
     return (
@@ -77,6 +83,7 @@ export default class Fire extends Component {
           LeftItem={() => <Icon name="cloud" size="md" color={themesColor.black} />}
           CenterItem={() => <TextItem1 text={'我的音乐'} />}
           defaultItem={true}
+          onDefaultPress={() => this._onDefaultPress()}
         />
         <ScrollView>
           <MyMusicScroll data={defFireScroll} />

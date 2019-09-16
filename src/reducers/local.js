@@ -51,6 +51,12 @@ const local = combineReducers({
   }, {
     data: [],//{ id: }
   }),
+  singing: createReducer({
+    [types.singing]: (state, payload) => ({ ...state, ...payload }),
+  }, {
+    singingData: allMusic,//正在播放的歌单信息
+    currentSong: allMusic[0], //当前播放的歌曲
+  }),
   loading: createSumReducer(types.loading),
 });
 

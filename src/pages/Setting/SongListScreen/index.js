@@ -20,7 +20,7 @@ import SLFlatList from "./SLFlatList";
 import StickyItem from "./StickyItem";
 import StickyHeader from "../../../components/StickyHeader";
 import { reduxStore, removeArray } from '../../../utils/utils';
-import { UpdateAllMusic, UpdateSongList, UpdateDailyRecommend } from '../../../actions/setting';
+import { UpdateAllMusic, UpdateSongList, UpdateDailyRecommend, UpdateSinging } from '../../../actions/setting';
 import EllipsisModal from "../../../components/EllipsisModal";
 import AddFolderModal from "../../../components/AddFolderModal";
 import MoreSelectModal from "./MoreSelectModal";
@@ -97,8 +97,10 @@ export default class SongListScreen extends Component {
   };
 
   _onNext = (item) => {
+    const { data, slData } = this.state;
     this._onShowSearch(false)
-    this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: this.state.slData});
+    this.props.dispatch(UpdateSinging({ singingData: data, currentSong: item}));
+    this.props.navigation.navigate('MusicVideoScreen', {data: item, slData: slData});//data-当前播放的歌曲 slData-歌曲列表
   };
 
   _SelectedItem = (item) => {

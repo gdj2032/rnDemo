@@ -21,3 +21,5 @@ export const UpdateDailyRecommend = value => dispatch => dispatch(UPDATE('dailyR
 export const UpdateLyrObj = value => dispatch => dispatch(UPDATE('lyrObj', value));
 
 export const UpdateDownload = value => dispatch => dispatch(UPDATE('download', value));
+
+export const UpdateSinging = value => dispatch => dispatch(UPDATE('singing', value));

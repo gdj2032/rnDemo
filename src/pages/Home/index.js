@@ -15,6 +15,7 @@ import NewSongDish from './NewSongDish';
 import { reduxStore, randomArr } from '../../utils/utils';
 import { defHomeNavBtn } from '../../utils/defaultData';
 import { UpdateDailyRecommend } from '../../actions/setting';
+import { gotoMusicVideoScreen } from '../../utils';
 
 const RecommendData = [
   {
@@ -121,6 +122,11 @@ export default class Home extends Component {
     alert('wait')
   }
 
+  _onDefaultPress = () => {
+    const { local } = this.props;
+    gotoMusicVideoScreen(local);
+  }
+
   _onNavPress(ele) {
     if(ele.title === '每日推荐') {
       const { dailyRecommend } = this.props.local;
@@ -138,6 +144,7 @@ export default class Home extends Component {
           LeftItem={() => <Icon name={'audio'} size="md" color={themesColor.black}/>}
           CenterItem={() => <TextInputButton onPress={this._onSearch.bind(this)} />}
           defaultItem={true}
+          onDefaultPress={() => this._onDefaultPress()}
         />
         <PullScrollView
           onPullRelease={this.onPullRelease.bind(this)}
