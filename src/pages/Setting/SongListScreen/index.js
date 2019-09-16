@@ -24,6 +24,7 @@ import { UpdateAllMusic, UpdateSongList, UpdateDailyRecommend, UpdateSinging } f
 import EllipsisModal from "../../../components/EllipsisModal";
 import AddFolderModal from "../../../components/AddFolderModal";
 import MoreSelectModal from "./MoreSelectModal";
+import { gotoMusicVideoScreen, downloadFile } from "../../../utils";
 
 const defTitle = "歌单";
 
@@ -62,7 +63,8 @@ export default class SongListScreen extends Component {
   }
 
   _onDefaultPress = () => {
-    alert("_onDefaultPress");
+    const { local } = this.props;
+    gotoMusicVideoScreen(local);
   };
   _onEllipsisPress = () => {
     alert("_onEllipsisPress");
@@ -180,6 +182,19 @@ export default class SongListScreen extends Component {
     this.setState({ isShowAddFolderModal: val });
   }
 
+  initModal = () => {
+    this.setState({
+      isSelect: false,
+      isSelectAll: false,
+      isShowSearch: false,
+      isShowEllipsisModal: false,
+      ellipsisModalData: null,
+      isShowAddFolderModal: false,
+      isShowMoreSelectModal: false,
+      selected: [],
+    })
+  }
+
   _onAddSongList = (item) => {
     const { ellipsisModalData, selected } = this.state;
     if(ellipsisModalData){
@@ -225,8 +240,7 @@ export default class SongListScreen extends Component {
       dispatch(UpdateSongList({list : list}));
       this._onSelect();
     }
-    this._onShowAddFolderModal(false);
-    this.setState({ ellipsisModalData: null, selected: [] });
+    this.initModal();
   }
 
   _onMoreSelectPlay = () => {
@@ -239,8 +253,14 @@ export default class SongListScreen extends Component {
     console.log(selected);
     this._onShowAddFolderModal(true);
   }
-  _onMoreSelectDownload = () => {
-    alert('_onMoreSelectDownload')
+  _onMoreSelectDownload = async () => {
+    const { selected } = this.state;
+    console.log(selected);
+    selected.forEach((ele) => {
+      downloadFile(ele);
+    })
+    Toast.info('歌曲下载完成', 1);
+    this.initModal();
   }
   _onMoreSelectDelete = () => {
     alert('_onMoreSelectDelete')
@@ -324,7 +344,7 @@ export default class SongListScreen extends Component {
             <StickyItem
               defVip={defVip}
               isSelect={isSelect}
-              onCarryOut={val => this.setState({ isSelect: val })}
+              onCarryOut={val => this.setState({ isSelect: val, isShowMoreSelectModal: false })}
               onSelectAll={val =>
                 this.setState({ selected: val ? slData : [], isSelectAll: val })
               }

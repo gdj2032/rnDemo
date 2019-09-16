@@ -9,6 +9,7 @@ import RowView from '../../../components/RowView';
 import SingleItem from './SingleItem';
 import ProgramItem from './ProgramItem';
 import MVItem from './MVItem';
+import { gotoMusicVideoScreen } from '../../../utils';
 
 const topTab = [
   {
@@ -40,7 +41,8 @@ export default class LocalMusicScreen extends Component {
   goBack = () => this.props.navigation.goBack(null);
 
   _onDefaultPress = () => {
-    alert("_onDefaultPress");
+    const { local } = this.props;
+    gotoMusicVideoScreen(local);
   };
 
   _onSelect = (id) => {
@@ -50,11 +52,11 @@ export default class LocalMusicScreen extends Component {
   selectKey(key) {
     switch (key) {
       case 1:
-        return <SingleItem/>;
+        return <SingleItem />;
       case 2:
-        return <ProgramItem/>;
+        return <ProgramItem />;
       case 3:
-        return <MVItem/>;
+        return <MVItem />;
       default:
         return false;
     }

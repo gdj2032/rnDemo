@@ -49,12 +49,12 @@ const local = combineReducers({
   download: createReducer({
     [types.download]: (state, payload) => ({ ...state, ...payload }),
   }, {
-    data: [],//{ id: }
+    data: [],//{ id:, path, size, }
   }),
   singing: createReducer({
     [types.singing]: (state, payload) => ({ ...state, ...payload }),
   }, {
-    singingData: allMusic,//正在播放的歌单信息
+    singingData: defSongList.list[0],//正在播放的歌单信息
     currentSong: allMusic[0], //当前播放的歌曲
   }),
   loading: createSumReducer(types.loading),

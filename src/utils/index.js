@@ -15,3 +15,10 @@ export {
 export {
   gotoMusicVideoScreen
 } from './navs';
+
+export {
+  downloadFile,
+  getSize,
+  deleteFile,
+  fileDir,
+} from './download';

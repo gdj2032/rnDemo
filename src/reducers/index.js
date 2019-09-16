@@ -15,7 +15,7 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if(state && action){
+  if(state){
     reduxStore.getState = state;
   }
   return appReducer({...state}, {...action});

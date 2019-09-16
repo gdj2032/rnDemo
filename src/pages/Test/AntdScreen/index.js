@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { containers } from '../../../style';
 import { reduxStore } from '../../../utils/utils';
 import { defSongList, defDailyInfo } from '../../../utils/defaultData';
-import { UpdateVideoList, UpdateSongList, UpdateAllMusic, UpdateDailyRecommend } from "../../../actions/setting";
+import { UpdateVideoList, UpdateSongList, UpdateAllMusic, UpdateDailyRecommend, UpdateDownload } from "../../../actions/setting";
 import types from '../../../actions/types';
 import allMusic from '../../../utils/AllMusic';
 import BasicSliderExample from './BasicSliderExample';
@@ -47,6 +47,7 @@ export default class AntdScreen extends Component {
 
     // dispatch(UpdateDailyRecommend({data: data.sort((a, b) => a.id - b.id)}))
     // dispatch(types.loading(1));
+    dispatch(UpdateDownload({data: []}))
   }
 
 
