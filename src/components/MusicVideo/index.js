@@ -408,6 +408,6 @@ const styles = StyleSheet.create({
     height: 200,
   },
   active: {
-    backgroundColor: '#dfdfdf'
+    backgroundColor: '#fafafa'
   }
 });
